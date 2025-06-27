@@ -1,0 +1,279 @@
+:root {
+  --primary-bg: #232332;
+  --secondary-bg: #2c2c3e;
+  --highlight: #7cc0f7;
+  --button-bg: #3887ff;
+  --button-hover: #296fd3;
+  --card-bg: #fff;
+  --text-main: #222;
+  --text-light: #666;
+  --border-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--primary-bg);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #292938;
+  padding: 24px 40px 16px 40px;
+}
+
+.logo {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.nav-links li a.active,
+.nav-links li a:hover {
+  color: var(--highlight);
+  opacity: 1;
+}
+
+.main-content {
+  padding: 32px 40px;
+}
+
+.search-section {
+  display: flex;
+  align-items: center;
+  background: var(--highlight);
+  border-radius: var(--border-radius);
+  padding: 24px 24px 24px 24px;
+  margin-bottom: 32px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: var(--border-radius);
+  padding: 4px 8px;
+  flex: 1 1 320px;
+  max-width: 400px;
+  min-width: 200px;
+  height: 44px;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 8px 12px;
+  flex: 1;
+  background: transparent;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #222;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.add-vehicle-btn {
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.add-vehicle-btn:hover {
+  background: var(--button-hover);
+}
+
+.cards-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+}
+
+.vehicle-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(44,44,62,0.10);
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.15s;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.vehicle-img-link {
+  display: block;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.vehicle-img-link img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background: #eee;
+  transition: filter 0.2s;
+}
+
+.vehicle-img-link:hover img,
+.vehicle-img-link:focus img {
+  filter: brightness(0.92) contrast(1.05);
+}
+
+.card-details {
+  padding: 16px 16px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.car-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.car-desc {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.car-info {
+  display: flex;
+  gap: 18px;
+  margin: 8px 0;
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.car-info svg {
+  vertical-align: middle;
+  margin-right: 4px;
+  color: #666;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.car-price {
+  color: #296fd3;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.see-more-btn {
+  background: #296fd3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.see-more-btn:hover,
+.see-more-btn:focus {
+  background: #3887ff;
+}
+
+/* Responsividade */
+@media (max-width: 1000px) {
+
+  .cards-section {
+    gap: 16px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 10px;
+  }
+  .nav-links {
+    gap: 16px;
+    margin-top: 10px;
+  }
+  .main-content {
+    padding: 16px 4px;
+  }
+  .cards-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .vehicle-card {
+    width: 100%;
+    max-width: 370px;
+  }
+  .search-section {
+    flex-direction: row;
+    gap: 12px;
+    padding: 10px 4px;
+  }
+  .search-bar {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 40px;
+  }
+
+  .add-vehicle-btn {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
+}
