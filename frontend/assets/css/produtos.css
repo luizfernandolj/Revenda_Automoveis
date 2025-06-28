@@ -1,0 +1,227 @@
+:root {
+    --primary-bg: #232332;
+    --secondary-bg: #2c2c3e;
+    --highlight: #7cc0f7;
+    --button-bg: #3887ff;
+    --button-hover: #296fd3;
+    --card-bg: #fff;
+    --text-main: #222;
+    --text-light: #666;
+    --border-radius: 8px;
+  }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: var(--primary-bg);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text-main);
+    min-height: 100vh;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #292938;
+    padding: 24px 40px 16px 40px;
+  }
+
+  .logo {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .navbar-menu {
+    display: flex;
+    flex: 1;
+    list-style: none;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  
+  .nav-links li a.active,
+  .nav-links li a:hover {
+    color: var(--highlight);
+    opacity: 1;
+  }
+
+  .main-content {
+    padding: 32px 40px;
+  }
+
+  .search-section {
+    display: flex;
+    align-items: center;
+    background: var(--highlight);
+    border-radius: var(--border-radius);
+    padding: 24px 24px 24px 24px;
+    margin-bottom: 32px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: 4px 8px;
+    flex: 1 1 320px;
+    max-width: 400px;
+    min-width: 200px;
+    height: 44px;
+  }
+  
+  .search-bar input {
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 8px 12px;
+    flex: 1;
+    background: transparent;
+  }
+  
+  .search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #222;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-product-btn {
+    background: var(--button-bg);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 12px 22px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  
+  .add-product-btn:hover {
+    background: var(--button-hover);
+  }
+
+  .cards-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+  }
+
+  .product-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(44,44,62,0.10);
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.15s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px) scale(1.02);
+  }
+
+  .product-img-link {
+    display: block;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+  }
+
+  .product-img-link img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    background: #eee;
+    transition: filter 0.2s;
+  }
+
+  .card-details {
+    padding: 16px 16px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+  
+  .product-desc {
+    font-size: 0.95rem;
+    color: var(--text-light);
+  }
+  
+  .product-info {
+    display: flex;
+    gap: 18px;
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: var(--text-light);
+  }
+  
+  .product-info svg {
+    vertical-align: middle;
+    margin-right: 4px;
+    color: #666;
+  }
+  
+  .product-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  
+  .product-price {
+    color: #296fd3;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .see-more-btn {
+    background: #296fd3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .see-more-btn:hover,
+  .see-more-btn:focus {
+    background: #3887ff;
+  }
