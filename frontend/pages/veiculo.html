@@ -1,101 +1,235 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Detalhes do Veículo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../assets/css/veiculo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../assets/css/veiculo.css" />
 </head>
 <body>
   <header class="navbar">
-    <div class="navbar-logo">Logo</div>
+    <div class="logo">Logo</div>
     <nav>
-      <ul class="navbar-menu">
-        <li><a href="#" >Veículos</a></li>
-        <li><a href="#">Produtos</a></li>
-        <li><a href="#">Vendas</a></li>
+      <ul class="nav-links">
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas.html"">Vendas</a></li>
         <li><a href="#">Vendedores</a></li>
         <li><a href="#">Clientes</a></li>
         <li><a href="#">Manutenções</a></li>
-        <li><a href="#" class="active">Perfil</a></li>
+        <li><a href="#">Perfil</a></li>
       </ul>
     </nav>
   </header>
   <main class="container">
-    <section class="vehicle-gallery">
-      <img class="main-image" src="../assets/images/fiat_uno.jpg" alt="Fiat Uno Amarelo">
-      <div class="thumbs">
-        <img src="../assets/images/fiat_uno.jpg" alt="thumb1">
-        <img src="../assets/images/fiat_uno.jpg" alt="thumb2">
-        <img src="../assets/images/fiat_uno.jpg" alt="thumb3">
-        <img src="../assets/images/fiat_uno.jpg" alt="thumb4">
+    <section class="vehicle-left">
+      <div class="vehicle-gallery">
+        <img
+          id="mainImage"
+          class="main-image"
+          src="../assets/images/fiat_uno.jpg"
+          alt="Fiat Uno Amarelo"
+          tabindex="0"
+          role="button"
+          aria-label="Abrir imagem em tamanho maior"
+        />
+        <div class="thumbs-carousel" tabindex="0" aria-label="Carrossel de imagens do veículo">
+          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 1" data-full="../assets/images/fiat_uno.jpg" />
+          <img src="../assets/images/pneu.png" alt="Miniatura 2" data-full="../assets/images/pneu.png" />
+          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 3" data-full="../assets/images/fiat_uno.jpg" />
+          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 4" data-full="../assets/images/fiat_uno.jpg" />
+          <img src="../assets/images/pneu.png" alt="Miniatura 2" data-full="../assets/images/pneu.png" />
+          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 4" data-full="../assets/images/fiat_uno.jpg" />
+          <!-- Adicione mais imagens conforme necessário -->
+        </div>
+      </div>
+      <div class="vehicle-info">
+        <h1>FIAT UNO 2010</h1>
+        <div class="subtitle">1.0 sv manual · Amarelo</div>
+        <div class="details-meta">
+          <span class="meta-item">
+            <svg
+              width="20"
+              height="20"
+              fill="none"
+              stroke="#bfc3d1"
+              stroke-width="2"
+              style="vertical-align: middle"
+            >
+              <rect x="2" y="5" width="12" height="7" rx="2" />
+              <circle cx="5" cy="13" r="1" />
+              <circle cx="11" cy="13" r="1" />
+            </svg>
+            2010/2011
+          </span>
+          <span class="meta-item">
+            <svg
+              width="20"
+              height="20"
+              fill="none"
+              stroke="#bfc3d1"
+              stroke-width="2"
+              style="vertical-align: middle"
+            >
+              <path d="M4 13h8M8 3v10" />
+            </svg>
+            100000 km
+          </span>
+        </div>
+        <div class="last-revision">
+          Última revisão: <strong>11/03/2015</strong>
+        </div>
+        <div class="warranty">
+          Garantia válida
+        </div>
       </div>
     </section>
-    <section class="vehicle-details">
-      <div class="details-header">
-        <div>
-          <h1>FIAT UNO 2010</h1>
-          <div class="subtitle">1.0 sv manual<br>Amarelo</div>
-        </div>
-        <div class="warranty">Garantia<br><span>válida</span></div>
-      </div>
-      <div class="details-meta">
-        <span class="meta-item">
-          <svg width="18" height="18" fill="none" stroke="#bfc3d1" stroke-width="2" style="vertical-align:middle"><rect x="2" y="5" width="12" height="7" rx="2"/><circle cx="5" cy="13" r="1"/><circle cx="11" cy="13" r="1"/></svg>
-          2010/2011
-        </span>
-        <span class="meta-item">
-          <svg width="18" height="18" fill="none" stroke="#bfc3d1" stroke-width="2" style="vertical-align:middle"><path d="M4 13h8M8 3v10"/></svg>
-          100000 km
-        </span>
-      </div>
-      <div class="maint-section">
+    <section class="maint-section">
+      <div class="maint-header">
         <h2>Manutenções</h2>
-        <div class="maint-table-wrapper">
-          <table class="maint-table">
-            <thead>
-              <tr>
-                <th>Data</th>
-                <th>Custo</th>
-                <th>Tipo manutenção</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>11/03/2015</td>
-                <td>R$ 200,00</td>
-                <td>troca de óleo</td>
-              </tr>
-              <tr>
-                <td>11/03/2015</td>
-                <td>R$ 200,00</td>
-                <td>troca de óleo</td>
-              </tr>
-              <tr>
-                <td>11/03/2015</td>
-                <td>R$ 200,00</td>
-                <td>troca de óleo</td>
-              </tr>
-              <tr>
-                <td>11/03/2015</td>
-                <td>R$ 200,00</td>
-                <td>troca de óleo</td>
-              </tr>
-              <tr>
-                <td>11/03/2015</td>
-                <td>R$ 200,00</td>
-                <td>troca de óleo</td>
-              </tr>
-              <tr>
-                <td>11/03/2015</td>
-                <td>R$ 200,00</td>
-                <td>troca de óleo</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <button class="add-vehicle-revision-btn">Adicionar Revisão</button>
+      </div>
+      
+      <div class="maint-table-wrapper">
+        <table class="maint-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Custo</th>
+              <th>Tipo manutenção</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>11/03/2015</td>
+              <td>R$ 200,00</td>
+              <td>troca de óleo</td>
+              <td>
+                <button class="btn-details">Ver detalhes</button>
+              </td>
+            </tr>
+            <tr>
+              <td>11/03/2015</td>
+              <td>R$ 200,00</td>
+              <td>troca de óleo</td>
+              <td>
+                <button class="btn-details">Ver detalhes</button>
+              </td>
+            </tr>
+            <tr>
+              <td>11/03/2015</td>
+              <td>R$ 200,00</td>
+              <td>troca de óleo</td>
+              <td>
+                <button class="btn-details">Ver detalhes</button>
+              </td>
+            </tr>
+            <tr>
+              <td>11/03/2015</td>
+              <td>R$ 200,00</td>
+              <td>troca de óleo</td>
+              <td>
+                <button class="btn-details">Ver detalhes</button>
+              </td>
+            </tr>
+            <tr>
+              <td>11/03/2015</td>
+              <td>R$ 200,00</td>
+              <td>troca de óleo</td>
+              <td>
+                <button class="btn-details">Ver detalhes</button>
+              </td>
+            </tr>
+            <tr>
+              <td>11/03/2015</td>
+              <td>R$ 200,00</td>
+              <td>troca de óleo</td>
+              <td>
+                <button class="btn-details">Ver detalhes</button>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
       </div>
     </section>
   </main>
+
+  <!-- Modal para imagem ampliada -->
+  <div id="imageModal" class="modal" aria-hidden="true" role="dialog" aria-label="Imagem ampliada do veículo">
+    <span class="close" role="button" tabindex="0" aria-label="Fechar">&times;</span>
+    <img class="modal-content" id="modalImage" alt="Imagem ampliada do veículo" />
+  </div>
+
+  <script>
+  const mainImage = document.getElementById('mainImage');
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  const closeBtn = modal.querySelector('.close');
+  const thumbs = document.querySelectorAll('.thumbs-carousel img');
+
+  // Troca imagem principal ao clicar na miniatura
+  thumbs.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      mainImage.src = thumb.dataset.full;
+      mainImage.alt = thumb.alt;
+      thumbs.forEach(t => t.classList.remove('selected'));
+      thumb.classList.add('selected');
+    });
+
+    // Abrir modal ao clicar na miniatura
+    thumb.addEventListener('dblclick', () => {
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden', 'false');
+      modalImg.src = thumb.dataset.full;
+      modalImg.alt = thumb.alt;
+      closeBtn.focus();
+    });
+  });
+
+  // Seleção inicial
+  if (thumbs.length > 0) thumbs[0].classList.add('selected');
+
+  // Modal para imagem principal
+  mainImage.addEventListener('click', () => {
+    modal.style.display = 'block';
+    modal.setAttribute('aria-hidden', 'false');
+    modalImg.src = mainImage.src;
+    modalImg.alt = mainImage.alt;
+    closeBtn.focus();
+  });
+
+  mainImage.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden', 'false');
+      modalImg.src = mainImage.src;
+      modalImg.alt = mainImage.alt;
+      closeBtn.focus();
+    }
+  });
+
+  // Fechar modal
+  function closeModal() {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    mainImage.focus();
+  }
+  closeBtn.addEventListener('click', closeModal);
+  closeBtn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      closeModal();
+    }
+  });
+  modal.addEventListener('click', e => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
+  });
+</script>
+
 </body>
 </html>

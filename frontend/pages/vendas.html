@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Vendas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/vendas.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas.html" class="active">Vendas</a></li>
+        <li><a href="vendedores.html">Vendedores</a></li>
+        <li><a href="#">Clientes</a></li>
+        <li><a href="#">Manutenções</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Modal Overlay -->
+  <div id="modal-venda-overlay" class="modal-overlay" style="display: none;">
+    <div class="modal-window">
+      <button class="close-modal" onclick="closeVendaModal()">×</button>
+      <h2 id="modal-venda-title">Registrar Venda</h2>
+      <hr class="modal-divider">
+      <form id="venda-form" class="venda-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="venda-data">Data</label>
+            <input type="date" id="venda-data" name="data">
+          </div>
+          <div class="form-group">
+            <label for="venda-tipo">Tipo</label>
+            <select id="venda-tipo" name="tipo">
+              <option>Veículo</option>
+              <option>Produto</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="venda-funcionario">Funcionário</label>
+            <input type="text" id="venda-funcionario" name="funcionario" placeholder="Nome do funcionário">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="venda-veiculo">Veículo/Produto</label>
+            <input type="text" id="venda-veiculo" name="veiculo" placeholder="Nome do veículo ou produto">
+          </div>
+          <div class="form-group">
+            <label for="venda-valor">Valor (R$)</label>
+            <input type="number" id="venda-valor" name="valor" placeholder="Ex: 50000">
+          </div>
+          <div class="form-group">
+            <label for="venda-status">Status</label>
+            <select id="venda-status" name="status">
+              <option>Efetivada</option>
+              <option>Pendente</option>
+              <option>Cancelada</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:2;">
+            <label for="venda-observacoes">Observações</label>
+            <textarea id="venda-observacoes" name="observacoes" rows="2" placeholder="Observações adicionais..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Salvar</button>
+      </form>
+      <!-- Detalhes da venda (aparece só no modo de detalhes) -->
+      <div id="venda-detalhes" style="display:none;">
+        <p><strong>Data:</strong> <span id="detalhe-data"></span></p>
+        <p><strong>Tipo:</strong> <span id="detalhe-tipo"></span></p>
+        <p><strong>Funcionário:</strong> <span id="detalhe-funcionario"></span></p>
+        <p><strong>Veículo/Produto:</strong> <span id="detalhe-veiculo"></span></p>
+        <p><strong>Valor:</strong> <span id="detalhe-valor"></span></p>
+        <p><strong>Status:</strong> <span id="detalhe-status"></span></p>
+        <p><strong>Observações:</strong> <span id="detalhe-observacoes"></span></p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <main class="main-content">
+    <!-- ESTATÍSTICA -->
+    <section id="estatistica-section" class="vendas-section">
+      <h1 class="titulo">Estatística de Vendas</h1>
+      <div class="estatistica-content">
+        <div class="estatistica-info">
+          <div class="dashboard-cards">
+            <div class="card">
+              <div class="card-title">Vendas Totais</div>
+              <div class="card-value">50</div>
+            </div>
+            <div class="card">
+              <div class="card-title">Receita Total</div>
+              <div class="card-value">R$ 200.000,00</div>
+            </div>
+            <div class="card">
+              <div class="card-title">Ticket Médio</div>
+              <div class="card-value">R$ 4.000,00</div>
+            </div>
+          </div>
+
+          <div class="dashboard-graficos">
+            <div class="grafico-barra">
+              <h3>Vendas Mensais</h3>
+              <canvas id="grafico-exemplo" width="350" height="220"></canvas>
+            </div>
+            <div class="grafico-pizza">
+              <h3>Distribuição por Categoria</h3>
+              <canvas id="grafico-pizza" width="350" height="220"></canvas>
+            </div>
+          </div>
+
+          <div class="estatistica-aviso">Apenas exemplo de dashboard, dados fictícios</div>
+        </div>
+
+        <aside class="painel-lateral">
+          <div class="painel-tabs">
+            <span class="painel-tab" onclick="showSection('tabela')">Tabela</span>
+            <span class="painel-tab active" onclick="showSection('estatistica')">Estatistica</span>
+          </div>
+          <hr>
+          <div class="painel-filtros">
+            <div class="filtros-title">Filtros</div>
+            <label class="painel-label">Selecione as datas</label>
+            <div class="painel-datas">
+              <input type="date" class="painel-input">
+              <input type="date" class="painel-input">
+            </div>
+            <div class="painel-checkboxes">
+              <label class="custom-checkbox"><input type="checkbox" checked><span></span>Veículos</label>
+              <label class="custom-checkbox"><input type="checkbox"><span></span>Produtos</label>
+            </div>
+            <input type="text" class="painel-input" placeholder="Veículos">
+            <input type="text" class="painel-input" placeholder="Funcionarios">
+            <button class="painel-btn" type="button" onclick="abrirRegistrarVenda()">Adicionar Venda</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- TABELA -->
+    <section id="tabela-section" class="vendas-section" style="display:none;">
+      <h1 class="titulo">Tabela de Vendas</h1>
+      <div class="tabela-content">
+        <div class="tabela-vendas-wrapper">
+          <table class="tabela-vendas">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Funcionario</th>
+                <th>Valor</th>
+                <th class="tabela-acoes-header">
+                  <span class="tabela-acao-label editar">editar</span>
+                  <span class="tabela-acao-label remover">remover</span>
+                </th>
+                <th class="tabela-acao-header">
+                  <span class="tabela-acao-label detalhes">detalhes</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Exemplo de linhas -->
+              <tr>
+                <td>11/03/2015</td>
+                <td>Veículos</td>
+                <td>João da Silva</td>
+                <td>R$ 50.000,00</td>
+                <td>
+                  <button class="tabela-acao editar" title="Editar">✎</button>
+                  <button class="tabela-acao remover" title="Remover">✖</button>
+                </td>
+                <td>
+                  <button class="tabela-acao detalhes" title="Ver Detalhes" onclick="abrirDetalhesVenda(this)">ℹ️</button>
+                </td>
+              </tr>
+              <tr>
+                <td>11/03/2015</td>
+                <td>Veículos</td>
+                <td>João da Silva</td>
+                <td>R$ 50.000,00</td>
+                <td>
+                  <button class="tabela-acao editar" title="Editar">✎</button>
+                  <button class="tabela-acao remover" title="Remover">✖</button>
+                </td>
+                <td>
+                  <button class="tabela-acao detalhes" title="Ver Detalhes" onclick="abrirDetalhesVenda(this)">ℹ️</button>
+                </td>
+              </tr>
+              <tr>
+                <td>11/03/2015</td>
+                <td>Produtos</td>
+                <td>João da Silva</td>
+                <td>R$ 50.000,00</td>
+                <td>
+                  <button class="tabela-acao editar" title="Editar">✎</button>
+                  <button class="tabela-acao remover" title="Remover">✖</button>
+                </td>
+                <td>
+                  <button class="tabela-acao detalhes" title="Ver Detalhes" onclick="abrirDetalhesVenda(this)">ℹ️</button>
+                </td>
+              </tr>
+              <!-- ... outras linhas ... -->
+            </tbody>
+          </table>
+        </div>
+        <aside class="painel-lateral">
+          <div class="painel-tabs">
+            <span class="painel-tab active" onclick="showSection('tabela')">Tabela</span>
+            <span class="painel-tab" onclick="showSection('estatistica')">Estatistica</span>
+          </div>
+          <hr>
+          <div class="painel-filtros">
+            <div class="filtros-title">Filtros</div>
+            <label class="painel-label">Selecione as datas</label>
+            <div class="painel-datas">
+              <input type="date" class="painel-input">
+              <input type="date" class="painel-input">
+            </div>
+            <div class="painel-checkboxes">
+              <label class="custom-checkbox"><input type="checkbox" checked><span></span>Veículos</label>
+              <label class="custom-checkbox"><input type="checkbox"><span></span>Produtos</label>
+            </div>
+            <input type="text" class="painel-input" placeholder="Veículos">
+            <input type="text" class="painel-input" placeholder="Funcionarios">
+            <button class="painel-btn" type="button" onclick="abrirRegistrarVenda()">Adicionar Venda</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    function showSection(section) {
+      document.getElementById('estatistica-section').style.display = section === 'estatistica' ? 'block' : 'none';
+      document.getElementById('tabela-section').style.display = section === 'tabela' ? 'block' : 'none';
+      // Tabs do painel lateral
+      document.querySelectorAll('.painel-tabs').forEach(function(tabs){
+        tabs.querySelectorAll('.painel-tab').forEach(function(tab){
+          tab.classList.remove('active');
+        });
+        if(section === 'estatistica') {
+          tabs.querySelectorAll('.painel-tab')[1].classList.add('active');
+        } else {
+          tabs.querySelectorAll('.painel-tab')[0].classList.add('active');
+        }
+      });
+    }
+    // Gráfico de exemplo
+    window.onload = function() {
+      const ctx = document.getElementById('grafico-exemplo').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Janeiro', 'Fevereiro', 'Março'],
+          datasets: [
+            {
+              label: 'Entradas',
+              data: [30, 20, 40],
+              backgroundColor: '#3b82f6'
+            },
+            {
+              label: 'Saídas',
+              data: [25, 18, 32],
+              backgroundColor: '#444'
+            }
+          ]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: '#fff' } },
+            y: { ticks: { color: '#fff' } }
+          }
+        }
+      });
+    };
+
+
+    function abrirRegistrarVenda() {
+      document.getElementById('modal-venda-title').innerText = 'Registrar Venda';
+      document.getElementById('venda-form').style.display = 'block';
+      document.getElementById('venda-detalhes').style.display = 'none';
+      document.getElementById('modal-venda-overlay').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function abrirDetalhesVenda(btn) {
+      // Exemplo: Pegando dados da linha da tabela (ajuste conforme sua estrutura real)
+      const tr = btn.closest('tr');
+      const tds = tr.querySelectorAll('td');
+      document.getElementById('modal-venda-title').innerText = 'Detalhes da Venda';
+      document.getElementById('venda-form').style.display = 'none';
+      document.getElementById('venda-detalhes').style.display = 'block';
+      document.getElementById('detalhe-data').innerText = tds[0].innerText;
+      document.getElementById('detalhe-tipo').innerText = tds[1].innerText;
+      document.getElementById('detalhe-funcionario').innerText = tds[2].innerText;
+      document.getElementById('detalhe-valor').innerText = tds[3].innerText;
+      document.getElementById('detalhe-veiculo').innerText = tds[1].innerText; // Ajuste se tiver coluna separada
+      document.getElementById('detalhe-status').innerText = "Efetivada"; // Exemplo fixo
+      document.getElementById('detalhe-observacoes').innerText = "Observações da venda..."; // Exemplo fixo
+      document.getElementById('modal-venda-overlay').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVendaModal() {
+      document.getElementById('modal-venda-overlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    // Fechar ao clicar fora da janela
+    document.getElementById('modal-venda-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeVendaModal();
+    });
+  </script>
+</body>
+</html>

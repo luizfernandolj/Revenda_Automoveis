@@ -1,0 +1,559 @@
+:root {
+  --primary-bg: #232332;
+  --secondary-bg: #2c2c3e;
+  --highlight: #7cc0f7;
+  --button-bg: #3887ff;
+  --button-hover: #296fd3;
+  --card-bg: #fff;
+  --text-main: #222;
+  --text-light: #666;
+  --border-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--primary-bg);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #292938;
+  padding: 24px 40px 16px 40px;
+}
+
+.logo {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.nav-links li a.active,
+.nav-links li a:hover {
+  color: var(--highlight);
+  opacity: 1;
+}
+
+.main-content {
+  margin-top: 90px;
+  padding: 0 0 0 0;
+}
+
+.vendas-section {
+  width: 100%;
+  min-height: 80vh;
+  padding: 0;
+}
+
+.titulo {
+  font-size: 2.3rem;
+  font-weight: 600;
+  margin: 0 0 34px 60px;
+}
+
+
+.estatistica-content,
+.tabela-content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 40px;
+  padding: 0 20px;
+  box-sizing: border-box;  /* Garante que padding não some à largura */
+}
+
+
+
+.estatistica-label {
+  font-size: 1.35rem;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+.estatistica-grafico {
+  background: #181828;
+  border-radius: 12px;
+  padding: 15px 18px;
+  margin-bottom: 10px;
+  min-width: 350px;
+  min-height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.estatistica-aviso {
+  color: #e11d48;
+  font-size: 1.2rem;
+  margin-top: 22px;
+  font-weight: 600;
+}
+
+.painel-lateral {
+  width: 25%; /* largura fixa */
+  flex-shrink: 0;
+  background: #32314a;
+  border-radius: 18px;
+  padding: 26px 32px 32px 32px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.09);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.painel-tabs {
+  display: flex;
+  gap: 16px;
+  font-size: 1.35rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  justify-content: space-around;
+}
+
+.painel-tab {
+  color: #b0b6d1;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0 4px;
+}
+
+.painel-tab.active {
+  color: #3b82f6;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #55556d;
+  margin: 6px 0 18px 0;
+}
+
+.filtros-title {
+  font-size: 1.13rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.painel-label {
+  font-size: 1rem;
+  color: #b0b6d1;
+  margin-bottom: 4px;
+}
+
+.painel-datas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.painel-input[type="date"], .painel-input[type="text"] {
+  background: #d7dbe4;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  color: #232332;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.painel-checkboxes {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+
+.custom-checkbox {
+  position: relative;
+  padding-left: 28px;
+  font-size: 1.1rem;
+  color: #b0b6d1;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.custom-checkbox span {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: 18px;
+  width: 18px;
+  background: none;
+  border: 2px solid #3b82f6;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + span {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.custom-checkbox span:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + span:after {
+  display: block;
+}
+
+.custom-checkbox span:after {
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  content: "";
+  position: absolute;
+}
+
+.painel-btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  width: 100%;
+  font-size: 1.08rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.2s;
+}
+
+.painel-btn:hover {
+  background: #2563eb;
+}
+
+
+.estatistica-info,
+.tabela-vendas-wrapper {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  /* Remove qualquer largura fixa que possa limitar o crescimento */
+}
+
+.tabela-vendas {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 1.13rem;
+  color: #232335;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tabela-vendas th, .tabela-vendas td {
+  padding: 16px 18px;
+  text-align: left;
+}
+
+.tabela-vendas th {
+  background: #d2d6ec;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-bottom: 2px solid #b0b6d1;
+}
+
+.tabela-vendas tr {
+  background: #e6e7f7;
+}
+
+.tabela-vendas tr:nth-child(even) {
+  background: #f8f9ff;
+}
+
+.tabela-acoes-header {
+  text-align: right;
+  min-width: 110px;
+}
+
+.tabela-acao-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 16px;
+  color: #888;
+}
+
+.tabela-acao-label.editar {
+  color: #fbbf24;
+}
+
+.tabela-acao-label.remover {
+  color: #ef4444;
+}
+
+.tabela-acao {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin-right: 8px;
+  cursor: pointer;
+  color: #fbbf24;
+  border-radius: 4px;
+  transition: background 0.15s;
+  padding: 2px 6px;
+}
+
+.tabela-acao.remover {
+  color: #ef4444;
+}
+
+.tabela-acao:hover {
+  background: #ddd;
+}
+
+
+.dashboard-cards {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.card {
+  background: #32314a;
+  border-radius: 12px;
+  padding: 20px 28px;
+  min-width: 180px;
+  flex: 1 1 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #fff;
+  font-weight: 600;
+  cursor: default;
+  transition: background 0.3s;
+}
+
+.card:hover {
+  background: #3b3950;
+}
+
+.card-title {
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.card-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.dashboard-graficos {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.dashboard-graficos {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.grafico-barra, .grafico-pizza {
+  background: #181828;
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.09);
+  min-width: 320px;
+  flex: 1 1 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grafico-barra h3, .grafico-pizza h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #3b82f6;
+}
+
+@media (max-width: 1000px) {
+  .dashboard-cards,
+  .dashboard-graficos {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .card,
+  .grafico-barra,
+  .grafico-pizza {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .estatistica-content,
+  .tabela-content {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 18px;
+  }
+  .painel-lateral {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .estatistica-info,
+  .tabela-vendas-wrapper {
+    width: 100%;
+  }
+}
+
+
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(44, 44, 54, 0.75);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-window {
+  background: #232332;
+  border-radius: 14px;
+  padding: 36px 32px 28px 32px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  min-width: 350px;
+  max-width: 98vw;
+  color: #fff;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.close-modal:hover {
+  opacity: 1;
+}
+
+.modal-divider {
+  border: none;
+  border-top: 2px solid #fff2;
+  margin: 10px 0 24px 0;
+}
+
+.venda-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  gap: 28px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 120px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: #d7dbe4;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  color: #232332;
+  margin-bottom: 2px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 38px;
+  max-height: 90px;
+}
+
+.submit-btn {
+  margin-top: 12px;
+  background: #2979ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  width: 180px;
+  font-size: 1.15rem;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: #1565c0;
+}

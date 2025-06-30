@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Vendedores</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/vendedores.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas.html">Vendas</a></li>
+        <li><a href="vendedores.html" class="active">Vendedores</a></li>
+        <li><a href="#">Clientes</a></li>
+        <li><a href="#">Manutenções</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main-content">
+    <section class="vendedores-section">
+      <div class="vendedores-container">
+        <div class="vendedores-searchbar">
+          <input type="text" placeholder="Pesquisa">
+          <span class="search-icon">&#128269;</span>
+        </div>
+        <div class="vendedores-table-wrapper">
+          <table class="vendedores-table">
+            <thead>
+              <tr>
+                <th>Nome do vendedor</th>
+                <th>Meta mensal de vendas</th>
+                <th>Valor atingido em vendas</th>
+                <th class="acoes-header">
+                  <button class="btn-add" title="Adicionar vendedor">+</button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>João da Silva</td>
+                <td>R$ 50.000</td>
+                <td>R$ 55.000</td>
+                <td>
+                  <button class="btn-detalhes" title="Ver detalhes">🔍</button>
+                  <button class="btn-remove" title="Remover vendedor">✖</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Mariana Souza</td>
+                <td>R$ 30.000</td>
+                <td>R$ 40.000</td>
+                <td>
+                  <button class="btn-detalhes" title="Ver detalhes">🔍</button>
+                  <button class="btn-remove" title="Remover vendedor">✖</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Cléber Almeida</td>
+                <td>R$ 30.000</td>
+                <td>R$ 20.000</td>
+                <td>
+                  <button class="btn-detalhes" title="Ver detalhes">🔍</button>
+                  <button class="btn-remove" title="Remover vendedor">✖</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+<script>
+    document.querySelectorAll('.vendedores-table tbody tr').forEach(tr => {
+    const metaText = tr.children[1].innerText.replace(/[R$\s,.]/g, '');
+    const valorText = tr.children[2].innerText.replace(/[R$\s,.]/g, '');
+    const meta = parseFloat(metaText);
+    const valor = parseFloat(valorText);
+    if (!isNaN(meta) && !isNaN(valor) && valor < meta) {
+        tr.classList.add('below-target');
+    }
+    });
+</script>
+
+
+</body>
+</html>
