@@ -73,6 +73,7 @@ body {
   font-size: 2.3rem;
   font-weight: 600;
   margin: 0 0 34px 60px;
+  color: #fff;
 }
 
 
@@ -277,9 +278,10 @@ hr {
   border-collapse: separate;
   border-spacing: 0;
   font-size: 1.13rem;
-  color: #232335;
+  color: #f1f1f1;
   border-radius: 16px;
   overflow: hidden;
+  background: #2c2c3e;
 }
 
 .tabela-vendas th, .tabela-vendas td {
@@ -288,18 +290,18 @@ hr {
 }
 
 .tabela-vendas th {
-  background: #d2d6ec;
+  background: #3b3f57;
   font-size: 1.15rem;
   font-weight: 700;
-  border-bottom: 2px solid #b0b6d1;
+  border-bottom: 2px solid #555;
 }
 
 .tabela-vendas tr {
-  background: #e6e7f7;
+  background: #32314a;
 }
 
 .tabela-vendas tr:nth-child(even) {
-  background: #f8f9ff;
+  background: #383850;
 }
 
 .tabela-acoes-header {
@@ -311,7 +313,7 @@ hr {
   font-size: 1rem;
   font-weight: 600;
   margin-right: 16px;
-  color: #888;
+  color: #aaa;
 }
 
 .tabela-acao-label.editar {

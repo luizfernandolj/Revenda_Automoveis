@@ -101,12 +101,18 @@ body {
   width: 100%;
   padding: 14px 44px 14px 18px; /* espaço à direita para o ícone */
   border-radius: 8px;
-  border: none;
+  border: 2px solid transparent; /* sem destaque padrão */
   font-size: 1.18rem;
-  background: #fff;
-  color: #222;
+  background: #444558; /* fundo escuro para a barra de pesquisa */
+  color: #f1f1f1; /* cor de texto clara */
   outline: none;
   box-sizing: border-box;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.cliente-searchbar input[type="text"]:focus {
+  border-color: var(--highlight); /* destaque ao clicar */
+  box-shadow: 0 0 0 2px rgba(124, 192, 247, 0.3);
 }
 
 .search-icon {
@@ -114,21 +120,20 @@ body {
   right: 18px; /* Agora fica dentro do input */
   top: 50%;
   transform: translateY(-50%);
-  color: #555;
+  color: #ccc;
   font-size: 1.3rem;
   pointer-events: none;
 }
 
 /* Estilo para linhas abaixo da meta de vendas */
 .clientecliente-table tbody tr.below-target {
-  background-color: #f8d7da; /* vermelho claro */
-  color: #721c24; /* texto vermelho escuro para contraste */
+  background-color: #4a1c1c; /* tom de vermelho escuro */
+  color: #fff;
 }
 
 .clientecliente-table tbody tr.below-target td {
-  border-color: #f5c6cb; /* borda avermelhada clara */
+  border-color: #5a2222;
 }
-
 
 .clientecliente-table-wrapper {
   background: transparent;
@@ -141,19 +146,20 @@ body {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  background: #cfd2d6;
+  background: #2c2c3e; /* fundo escuro para a tabela */
   border-radius: 14px;
   overflow: hidden;
   table-layout: fixed;
 }
 
 .cliente-table thead th {
-  background: #e9ebec;
+  background: #3b3f57; /* cabeçalho em tom escuro */
+  color: #f1f1f1;
   font-size: 1.15rem;
   font-weight: 600;
   padding: 22px 0;
   text-align: center;
-  border-bottom: 2px solid #bfc2c6;
+  border-bottom: 2px solid #555;
 }
 
 .cliente-table th,
@@ -163,15 +169,16 @@ body {
   padding: 32px 0;
   font-size: 1.13rem;
   word-break: break-word;
+  color: #f1f1f1;
 }
 
 .cliente-table tbody tr {
-  border-top: 2px solid #bfc2c6;
+  border-top: 2px solid #555;
 }
 
 .cliente-table th:not(:last-child),
 .cliente-table td:not(:last-child) {
-  border-right: 2px solid #a7aab0;
+  border-right: 2px solid #444;
 }
 
 .cliente-table th.acoes-header {
