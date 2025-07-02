@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página do Vendedor</title>
+    <link rel="stylesheet" href="../assets/css/vendedor.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Logo</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="veiculos.html">Veículos</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="vendas.html">Vendas</a></li>
+                <li><a href="vendedores.html">Vendedores</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="#">Manutenções</a></li>
+                <li><a href="#">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="vendedor-section">
+            <h2 class="titulo">Perfil do Cliente</h2>
+            <div class="vendedor-card">
+                <div class="vendedor-avatar">JP</div>
+                <div class="vendedor-dados">
+                    <div class="vendedor-nome">Jose Pereira</div>
+                    <div class="vendedor-info-list">
+                        <span>ID: <strong>12345</strong></span>
+                        <span>Email: <strong>jose.pereira@email.com</strong></span>
+                        <span>Telefone: <strong>(11) 99999-8888</strong></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="vendas-section">
+            <div class="vendas-header">
+                <h2 class="titulo">Compras Relacionadas</h2>
+                <form class="filtro-vendas">
+                    <input type="text" placeholder="Buscar compras..." />
+                    <select>
+                        <option value="">Status</option>
+                        <option value="concluida">Concluída</option>
+                        <option value="pendente">Pendente</option>
+                    </select>
+                    <button type="submit">Filtrar</button>
+                </form>
+            </div>
+            <div class="vendas-cards-scroll">
+                <div class="venda-card">
+                    <div class="venda-header">
+                        <span class="venda-id">#001</span>
+                        <span class="venda-status correto">Concluída</span>
+                    </div>
+                    <div class="venda-info">
+                        <div><strong>Data:</strong> 05/06/2025</div>
+                        <div><strong>Valor:</strong> R$ 2.500,00</div>
+                    </div>
+                    <button class="btn-detalhes">Ver detalhes</button>
+                </div>
+                <div class="venda-card">
+                    <div class="venda-header">
+                        <span class="venda-id">#002</span>
+                        <span class="venda-status aviso">Pendente</span>
+                    </div>
+                    <div class="venda-info">
+                        <div><strong>Data:</strong> 12/06/2025</div>
+                        <div><strong>Valor:</strong> R$ 1.800,00</div>
+                    </div>
+                    <button class="btn-detalhes">Ver detalhes</button>
+                </div>
+                <!-- Adicione mais vendas conforme necessário -->
+            </div>
+        </section>
+    </main>
+</body>
+</html>
