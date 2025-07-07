@@ -58,20 +58,18 @@ body {
   opacity: 1;
 }
 
-/* Layout principal */
 .container {
   display: flex;
   flex-direction: row;
   gap: 56px;
   padding: 48px 0 0 0;
   max-width: 1500px;
-  margin: 0 auto; /* Centraliza fundo */
+  margin: 0 auto;
   min-height: calc(100vh - 70px);
   align-items: flex-start;
   justify-content: center;
 }
 
-/* Lado esquerdo: foto e info */
 .vehicle-left {
   flex: 1.2;
   display: flex;
@@ -145,26 +143,47 @@ body {
   box-shadow: 0 0 8px #3887ff;
 }
 
-
-/* Informações do veículo */
 .vehicle-info {
   width: 100%;
   margin-top: 28px;
   padding: 0 4px;
 }
 
+.vehicle-info-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
 .vehicle-info h1 {
-  font-size: 2.7rem;
+  font-size: 2.1rem;
   font-weight: 700;
-  margin-bottom: 10px;
   color: #fff;
   letter-spacing: 1px;
-  text-align: left;
+  margin-bottom: 0;
+}
+
+.btn-edit-vehicle {
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 2px;
+  transition: background 0.18s;
+  white-space: nowrap;
+}
+.btn-edit-vehicle:hover {
+  background: var(--button-hover);
 }
 
 .subtitle {
   color: #bfc3d1;
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   margin-bottom: 16px;
   text-align: left;
 }
@@ -180,10 +199,35 @@ body {
 
 .meta-item {
   color: #bfc3d1;
-  font-size: 1.22rem;
+  font-size: 1.08rem;
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.last-revision {
+  margin-top: 16px;
+  color: #bfc3d1;
+  font-size: 1.09rem;
+}
+
+.warranty {
+  color: #3887ff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: #232332;
+  border-radius: 8px;
+  padding: 6px 18px;
+  margin-top: 10px;
+  display: inline-block;
+}
+.warranty-valid {
+  color: #3887ff;
+  background: #e0eaff;
+}
+.warranty-expirada {
+  color: #b91c1c;
+  background: #fee2e2;
 }
 
 /* Manutenções - lado direito */
@@ -202,16 +246,41 @@ body {
   justify-content: flex-start;
 }
 
+.maint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
 .maint-section h2 {
   font-size: 1.4rem;
   color: #fff;
-  margin-bottom: 16px;
-  width: 100%;
+  margin-bottom: 0;
+  width: auto;
   text-align: left;
 }
 
+.btn-add-maint {
+  background: var(--button-bg);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 10px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+  margin-left: 18px;
+  white-space: nowrap;
+}
+.btn-add-maint:hover {
+  background: var(--button-hover);
+}
+
 .maint-table-wrapper {
-  background: #cfd3f8;
+  background: #232332; /* Escuro, menos destaque */
   border-radius: 12px;
   padding: 0;
   overflow-x: auto;
@@ -234,21 +303,43 @@ body {
 }
 
 .maint-table th {
-  color: #34344a;
+  color: #7cc0f7;
   font-size: 1.12rem;
   font-weight: 700;
-  background: transparent;
+  background: #181825;
+  border-bottom: 2px solid #3887ff;
 }
 
 .maint-table td {
-  color: #232334;
+  color: #e0eaff;
   font-size: 1.09rem;
-  border-top: 1px solid #e5e7fa;
+  border-top: 1px solid #2c2c3e;
   vertical-align: middle;
+  background: transparent;
 }
 
 .maint-table tr:first-child td {
   border-top: none;
+}
+
+.btn-details {
+  background: #3887ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(56, 135, 255, 0.08);
+  display: inline-block;
+}
+.btn-details:hover,
+.btn-details:focus {
+  background: #296fd3;
+  color: #fff;
+  outline: none;
 }
 
 /* Modal de imagem ampliada */
@@ -292,50 +383,71 @@ body {
   outline: none;
 }
 
-.last-revision {
-  margin-top: 16px;
-  color: #bfc3d1;
-  font-size: 1.15rem;
+/* Modal padrão do sistema */
+.modal-bg {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(44, 44, 62, 0.45);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
-
-.warranty {
-  color: #f7b32b;
-  font-size: 1.15rem;
-  font-weight: 700;
-  background: #2e2e44;
-  border-radius: 8px;
-  padding: 0px;
-  margin-top: 10px;
-  display: inline-block;
+.modal-bg .modal {
+  display: block;
+  position: relative;
+  background: var(--card-bg);
+  color: #232332;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px 0 rgba(44,44,62,0.18);
+  padding: 32px 30px 22px 30px;
+  min-width: 320px;
+  max-width: 420px;
+  margin: auto;
 }
-
-.add-vehicle-revision-btn {
-  background: var(--button-bg);
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: #e11d48;
+  font-size: 2.1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+.btn-success {
+  background: #3887ff;
   color: #fff;
   border: none;
-  border-radius: var(--border-radius);
-  padding: 12px 22px;
+  border-radius: 6px;
+  padding: 9px 24px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
-  margin-bottom: 16px;
-  width: 30%;
+  transition: background 0.18s;
 }
-
-.add-vehicle-revision-btn:hover {
-  background: var(--button-hover);
+.btn-success:hover {
+  background: #296fd3;
 }
-
-
-.maint-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-
 
 /* Responsivo */
 @media (max-width: 1600px) {
@@ -414,25 +526,10 @@ body {
   .maint-table {
     min-width: 400px;
   }
-}
-
-.btn-details {
-  background: #3887ff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 18px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 8px rgba(56, 135, 255, 0.08);
-  display: inline-block;
-}
-
-.btn-details:hover,
-.btn-details:focus {
-  background: #296fd3;
-  color: #fff;
-  outline: none;
+  .modal-bg .modal {
+    min-width: unset;
+    width: 96vw;
+    max-width: 98vw;
+    padding: 20px 6vw 16px 6vw;
+  }
 }

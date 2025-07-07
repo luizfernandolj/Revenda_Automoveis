@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Página do Vendedor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/vendedor.css">
 </head>
 <body>
@@ -12,9 +13,9 @@
             <ul class="nav-links">
                 <li><a href="veiculos.html">Veículos</a></li>
                 <li><a href="produtos.html">Produtos</a></li>
-                <li><a href="vendas.html">Vendas</a></li>
-                <li><a href="vendedores.html">Vendedores</a></li>
-                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="vendas_v2.html">Vendas</a></li>
+                <li><a href="vendedores_v2.html" class="active">Vendedores</a></li>
+                <li><a href="clientes_v2.html">Clientes</a></li>
                 <li><a href="manutencoes.html">Manutenções</a></li>
                 <li><a href="#">Perfil</a></li>
             </ul>
@@ -33,43 +34,47 @@
                         <span>Email: <strong>joao.silva@email.com</strong></span>
                         <span>Telefone: <strong>(11) 99999-8888</strong></span>
                     </div>
+                    <button class="btn-editar" onclick="abrirEditarVendedor()">Editar Vendedor</button>
                 </div>
             </div>
         </section>
 
+        <!-- ... (restante do HTML igual) ... -->
         <section class="metas-section">
             <div class="metas-header">
                 <h2 class="titulo">Metas Mensais</h2>
                 <form class="filtro-metas">
-                    <select>
+                    <select class="select-mes">
                         <option value="">Filtrar por mês</option>
                         <option value="junho">Junho 2025</option>
                         <option value="maio">Maio 2025</option>
                         <option value="abril">Abril 2025</option>
                     </select>
                 </form>
+                <button class="btn-adicionar-meta" onclick="abrirNovaMeta()" type="button">+ Nova Meta</button>
             </div>
-            <div class="metas-cards-scroll">
-                <div class="meta-card">
-                    <div class="meta-info">
-                        <span class="meta-mes">Junho 2025</span>
-                        <span class="meta-valor">Meta: R$ 10.000,00</span>
-                        <span class="meta-realizado">Realizado: R$ 8.300,00</span>
-                        <span class="meta-status erro">Não cumprida</span>
-                    </div>
-                    <div class="meta-bar">
-                        <div class="meta-bar-inner-correto" style="width: 83%;"></div>
-                    </div>
+            <div class="meta-atual-box">
+                <span class="meta-atual-label">Meta Atual</span>
+                <span class="meta-atual-mes">Junho 2025</span>
+                <span class="meta-atual-valor">Meta: <strong>R$ 10.000,00</strong></span>
+                <span class="meta-atual-realizado">Realizado: <strong>R$ 8.300,00</strong></span>
+                <span class="meta-atual-status erro">Não cumprida</span>
+                <div class="meta-bar meta-bar-atual">
+                    <div class="meta-bar-inner-azul" style="width: 83%;"></div>
                 </div>
+            </div>
+            <div class="metas-historico-title">Metas Anteriores</div>
+            <div class="metas-cards-scroll">
                 <div class="meta-card">
                     <div class="meta-info">
                         <span class="meta-mes">Maio 2025</span>
                         <span class="meta-valor">Meta: R$ 10.000,00</span>
                         <span class="meta-realizado">Realizado: R$ 12.500,00</span>
                         <span class="meta-status correto">Cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2025-05', 10000, 12500, true)" title="Editar meta">✎</button>
                     </div>
                     <div class="meta-bar">
-                        <div class="meta-bar-inner-correto" style="width: 100%;"></div>
+                        <div class="meta-bar-inner-azul" style="width: 100%;"></div>
                     </div>
                 </div>
                 <div class="meta-card">
@@ -78,9 +83,82 @@
                         <span class="meta-valor">Meta: R$ 10.000,00</span>
                         <span class="meta-realizado">Realizado: R$ 9.900,00</span>
                         <span class="meta-status erro">Não cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2025-04', 10000, 9900, false)" title="Editar meta">✎</button>
                     </div>
                     <div class="meta-bar">
-                        <div class="meta-bar-inner-correto" style="width: 99%;"></div>
+                        <div class="meta-bar-inner-azul" style="width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-info">
+                        <span class="meta-mes">Março 2025</span>
+                        <span class="meta-valor">Meta: R$ 10.000,00</span>
+                        <span class="meta-realizado">Realizado: R$ 11.000,00</span>
+                        <span class="meta-status correto">Cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2025-03', 10000, 11000, true)" title="Editar meta">✎</button>
+                    </div>
+                    <div class="meta-bar">
+                        <div class="meta-bar-inner-azul" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-info">
+                        <span class="meta-mes">Fevereiro 2025</span>
+                        <span class="meta-valor">Meta: R$ 10.000,00</span>
+                        <span class="meta-realizado">Realizado: R$ 8.500,00</span>
+                        <span class="meta-status erro">Não cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2025-02', 10000, 8500, false)" title="Editar meta">✎</button>
+                    </div>
+                    <div class="meta-bar">
+                        <div class="meta-bar-inner-azul" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-info">
+                        <span class="meta-mes">Janeiro 2025</span>
+                        <span class="meta-valor">Meta: R$ 10.000,00</span>
+                        <span class="meta-realizado">Realizado: R$ 10.500,00</span>
+                        <span class="meta-status correto">Cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2025-01', 10000, 10500, true)" title="Editar meta">✎</button>
+                    </div>
+                    <div class="meta-bar">
+                        <div class="meta-bar-inner-azul" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-info">
+                        <span class="meta-mes">Dezembro 2024</span>
+                        <span class="meta-valor">Meta: R$ 10.000,00</span>
+                        <span class="meta-realizado">Realizado: R$ 9.500,00</span>
+                        <span class="meta-status erro">Não cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2024-12', 10000, 9500, false)" title="Editar meta">✎</button>
+                    </div>
+                    <div class="meta-bar">
+                        <div class="meta-bar-inner-azul" style="width: 95%;"></div>
+                    </div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-info">
+                        <span class="meta-mes">Novembro 2024</span>
+                        <span class="meta-valor">Meta: R$ 10.000,00</span>
+                        <span class="meta-realizado">Realizado: R$ 10.000,00</span>
+                        <span class="meta-status correto">Cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2024-11', 10000, 10000, true)" title="Editar meta">✎</button>
+                    </div>
+                    <div class="meta-bar">
+                        <div class="meta-bar-inner-azul" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="meta-card">
+                    <div class="meta-info">
+                        <span class="meta-mes">Outubro 2024</span>
+                        <span class="meta-valor">Meta: R$ 10.000,00</span>
+                        <span class="meta-realizado">Realizado: R$ 9.000,00</span>
+                        <span class="meta-status erro">Não cumprida</span>
+                        <button class="btn-editar-meta" onclick="abrirEditarMeta('2024-10', 10000, 9000, false)" title="Editar meta">✎</button>
+                    </div>
+                    <div class="meta-bar">
+                        <div class="meta-bar-inner-azul" style="width: 90%;"></div>
                     </div>
                 </div>
             </div>
@@ -118,15 +196,166 @@
                         <span class="venda-status aviso">Pendente</span>
                     </div>
                     <div class="venda-info">
-                        <div><strong>Data:</strong> 12/06/2025</div>
+                        <div><strong>Data:</strong> 14/06/2025</div>
                         <div><strong>Cliente:</strong> Carlos Souza</div>
-                        <div><strong>Valor:</strong> R$ 1.800,00</div>
+                        <div><strong>Valor:</strong> R$ 2.000,00</div>
                     </div>
                     <button class="btn-detalhes">Ver detalhes</button>
                 </div>
-                <!-- Adicione mais vendas conforme necessário -->
+                <div class="venda-card">
+                    <div class="venda-header">
+                        <span class="venda-id">#003</span>
+                        <span class="venda-status aviso">Pendente</span>
+                    </div>
+                    <div class="venda-info">
+                        <div><strong>Data:</strong> 20/06/2025</div>
+                        <div><strong>Cliente:</strong> Ana Paula</div>
+                        <div><strong>Valor:</strong> R$ 2.200,00</div>
+                    </div>
+                    <button class="btn-detalhes">Ver detalhes</button>
+                </div>
+                <div class="venda-card">
+                    <div class="venda-header">
+                        <span class="venda-id">#004</span>
+                        <span class="venda-status aviso">Pendente</span>
+                    </div>
+                    <div class="venda-info">
+                        <div><strong>Data:</strong> 15/06/2025</div>
+                        <div><strong>Cliente:</strong> Luiz Santos</div>
+                        <div><strong>Valor:</strong> R$ 1.500,00</div>
+                    </div>
+                    <button class="btn-detalhes">Ver detalhes</button>
+                </div>
+                <div class="venda-card">
+                    <div class="venda-header">
+                        <span class="venda-id">#005</span>
+                        <span class="venda-status correto">Concluída</span>
+                    </div>
+                    <div class="venda-info">
+                        <div><strong>Data:</strong> 18/06/2025</div>
+                        <div><strong>Cliente:</strong> Carlos Alberto</div>
+                        <div><strong>Valor:</strong> R$ 3.000,00</div>
+                    </div>
+                    <button class="btn-detalhes">Ver detalhes</button>
+                </div>
+                <div class="venda-card">
+                    <div class="venda-header">
+                        <span class="venda-id">#006</span>
+                        <span class="venda-status aviso">Pendente</span>
+                    </div>
+                    <div class="venda-info">
+                        <div><strong>Data:</strong> 22/06/2025</div>
+                        <div><strong>Cliente:</strong> Fernanda Lima</div>
+                        <div><strong>Valor:</strong> R$ 1.900,00</div>
+                    </div>
+                    <button class="btn-detalhes">Ver detalhes</button>
+                </div>
             </div>
         </section>
     </main>
+
+    <!-- Modal Editar Vendedor -->
+    <div class="modal-bg" id="modalEditarVendedor">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Editar Vendedor</h2>
+                <button class="modal-close" onclick="fecharModal('modalEditarVendedor')">&times;</button>
+            </div>
+            <form class="add-form">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" value="João da Silva" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" value="joao.silva@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <input type="tel" value="(11) 99999-8888" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Nova Meta -->
+    <div class="modal-bg" id="modalNovaMeta">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Nova Meta</h2>
+                <button class="modal-close" onclick="fecharModal('modalNovaMeta')">&times;</button>
+            </div>
+            <form class="add-form">
+                <div class="form-group">
+                    <label>Mês</label>
+                    <input type="month" required>
+                </div>
+                <div class="form-group">
+                    <label>Meta (R$)</label>
+                    <input type="number" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Valor Realizado (R$)</label>
+                    <input type="number" min="0" step="0.01" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Adicionar Meta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Editar Meta -->
+    <div class="modal-bg" id="modalEditarMeta">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Editar Meta</h2>
+                <button class="modal-close" onclick="fecharModal('modalEditarMeta')">&times;</button>
+            </div>
+            <form class="add-form">
+                <div class="form-group">
+                    <label>Mês</label>
+                    <input type="month" id="editMetaMes" required>
+                </div>
+                <div class="form-group">
+                    <label>Meta (R$)</label>
+                    <input type="number" id="editMetaValor" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Valor Realizado (R$)</label>
+                    <input type="number" id="editMetaRealizado" min="0" step="0.01" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">Salvar Meta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    function abrirEditarVendedor() {
+        document.getElementById('modalEditarVendedor').style.display = 'flex';
+    }
+    function abrirNovaMeta() {
+        document.getElementById('modalNovaMeta').style.display = 'flex';
+    }
+    function abrirEditarMeta(mes, meta, realizado, cumprida) {
+        document.getElementById('modalEditarMeta').style.display = 'flex';
+        document.getElementById('editMetaMes').value = mes || '';
+        document.getElementById('editMetaValor').value = meta || '';
+        document.getElementById('editMetaRealizado').value = realizado || '';
+    }
+    function fecharModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+    document.querySelectorAll('.modal-bg').forEach(function(modal){
+        modal.addEventListener('click', function(e){
+            if (e.target === this) this.style.display = 'none';
+        });
+    });
+    </script>
 </body>
 </html>

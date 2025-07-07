@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes da Manutenção</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/manutencao.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas_v2.html">Vendas</a></li>
+        <li><a href="vendedores_v2.html">Vendedores</a></li>
+        <li><a href="clientes_v2.html">Clientes</a></li>
+        <li><a href="manutencoes.html" class="active">Manutenções</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="manutencao-detalhe-section">
+      <h1>Detalhes da Manutenção #1</h1>
+      <div class="manutencao-card">
+        <div class="manutencao-info">
+          <div class="info-col">
+            <h3>Cliente</h3>
+            <p><strong>Nome:</strong> João da Silva</p>
+            <p><strong>Email:</strong> joao@email.com</p>
+            <p><strong>Telefone:</strong> (11) 99999-8888</p>
+          </div>
+          <div class="info-col">
+            <h3>Vendedor</h3>
+            <p><strong>Nome:</strong> Ana Paula</p>
+            <p><strong>Email:</strong> ana@loja.com</p>
+            <p><strong>Telefone:</strong> (11) 98888-7777</p>
+          </div>
+          <div class="info-col">
+            <h3>Veículo</h3>
+            <p><strong>Modelo:</strong> Fiat Uno 1.0 8V MANUAL</p>
+            <p><strong>Placa:</strong> ABC-1234</p>
+            <p><strong>Km:</strong> 45.000</p>
+            <p><strong>Garantia:</strong>
+              <span class="garantia-status garantia-valida">Válida</span>
+            </p>
+          </div>
+        </div>
+        <div class="manutencao-produtos">
+          <h3>Produtos Utilizados</h3>
+          <table class="produtos-table">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Óleo 5W30</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>Filtro de óleo</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Pastilha de freio</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="manutencao-acoes">
+          <button class="btn btn-edit" onclick="abrirEditarManutencao()">Editar</button>
+          <button class="btn btn-receipt" onclick="gerarRecibo()">Gerar Recibo</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal editar manutenção (exemplo simplificado) -->
+  <div class="modal-bg" id="editManutencaoModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Editar Manutenção</h2>
+        <button class="modal-close" onclick="fecharModal('editManutencaoModal')">&times;</button>
+      </div>
+      <form class="add-form">
+        <div class="form-group">
+          <label>Cliente</label>
+          <input type="text" value="João da Silva" required>
+        </div>
+        <div class="form-group">
+          <label>Veículo</label>
+          <input type="text" value="Fiat Uno 1.0 8V MANUAL" required>
+        </div>
+        <div class="form-group">
+          <label>Km</label>
+          <input type="number" value="45000" required>
+        </div>
+        <div class="form-group">
+          <label>Garantia</label>
+          <select required>
+            <option value="valida" selected>Válida</option>
+            <option value="expirada">Expirada</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function abrirEditarManutencao() {
+      document.getElementById('editManutencaoModal').style.display = 'flex';
+    }
+    function fecharModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    function gerarRecibo() {
+      alert('Recibo gerado! (implemente aqui a lógica de geração/download do recibo)');
+    }
+    document.querySelectorAll('.modal-bg').forEach(function(modal){
+      modal.addEventListener('click', function(e){
+        if (e.target === this) this.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>

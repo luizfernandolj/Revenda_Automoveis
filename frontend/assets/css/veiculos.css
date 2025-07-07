@@ -1,12 +1,12 @@
 :root {
   --primary-bg: #232332;
   --secondary-bg: #2c2c3e;
-  --highlight: #7cc0f7;
+  --highlight: #343453;
   --button-bg: #3887ff;
   --button-hover: #296fd3;
-  --card-bg: #fff;
-  --text-main: #222;
-  --text-light: #666;
+  --card-bg: #343453;
+  --text-main: #ffffff;
+  --text-light: #ffffff;
   --border-radius: 8px;
 }
 
@@ -143,6 +143,37 @@ body {
 .vehicle-card:hover {
   transform: translateY(-4px) scale(1.02);
 }
+
+
+.remove-card-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #e11d48;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(44,44,62,0.10);
+  transition: background 0.18s, color 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.93;
+}
+.remove-card-btn:hover {
+  background: #b91c1c;
+  color: #fff;
+  opacity: 1;
+}
+.vehicle-card {
+  position: relative; /* Necessário para posicionar o botão no card */
+}
+
 
 .vehicle-img-link {
   display: block;

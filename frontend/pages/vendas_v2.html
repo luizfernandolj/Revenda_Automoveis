@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Vendas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/vendas_v2.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas_v2.html" class="active">Vendas</a></li>
+        <li><a href="vendedores_v2.html">Vendedores</a></li>
+        <li><a href="clientes_v2.html">Clientes</a></li>
+        <li><a href="manutencoes.html">Manutenções</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <main class="main-content">
+      <!-- TABELA DE VENDAS -->
+      <section id="tabela-section" class="maintenance-table-section">
+        <h1>Vendas Registradas</h1>
+        <table class="maintenance-table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Data</th>
+              <th>Funcionário</th>
+              <th>Cliente</th>
+              <th>Valor</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>11/03/2025</td>
+              <td>João da Silva</td>
+              <td>Rafael</td>
+              <td>R$ 50.000,00</td>
+              <td>Efetivada</td>
+              <td>
+                <button class="btn-remove" title="Remover venda">&#128465;</button>
+                <a class="btn-details" href="venda.html">Ver detalhes</a>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>12/03/2025</td>
+              <td>Maria Souza</td>
+              <td>Maria do Carmo</td>
+              <td>R$ 2.500,00</td>
+              <td>Pendente</td>
+              <td>
+                <button class="btn-remove" title="Remover venda">&#128465;</button>
+                <a class="btn-details" href="venda.html">Ver detalhes</a>
+              </td>
+            </tr>
+            <!-- Outras linhas aqui -->
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ESTATÍSTICA DE VENDAS -->
+      <section id="estatistica-section" style="display: none;">
+        <h1>Estatística de Vendas</h1>
+        <div class="dashboard-cards">
+          <div class="card">
+            <div class="card-title">Vendas Totais</div>
+            <div class="card-value">50</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Receita Total</div>
+            <div class="card-value">R$ 200.000,00</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Ticket Médio</div>
+            <div class="card-value">R$ 4.000,00</div>
+          </div>
+        </div>
+        <div class="dashboard-graficos">
+          <div class="grafico-barra">
+            <h3>Vendas Mensais</h3>
+            <canvas id="grafico-exemplo" width="350" height="220"></canvas>
+          </div>
+          <div class="grafico-pizza">
+            <h3>Distribuição por Categoria</h3>
+            <canvas id="grafico-pizza" width="350" height="220"></canvas>
+          </div>
+        </div>
+        <div class="estatistica-aviso">Apenas exemplo de dashboard, dados fictícios</div>
+      </section>
+    </main>
+
+    <aside class="sidebar">
+      <div class="sidebar-tabs">
+        <button class="tab-btn active" onclick="showTab('tabela')">Tabela</button>
+        <button class="tab-btn" onclick="showTab('estatistica')">Estatística</button>
+      </div>
+      <h2>Filtrar</h2>
+      <form class="filter-form">
+        <label>
+          Funcionário
+          <input type="text" placeholder="Nome do funcionário" name="funcionario">
+        </label>
+        <label>
+          Status
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="efetivada">Efetivada</option>
+            <option value="pendente">Pendente</option>
+            <option value="cancelada">Cancelada</option>
+          </select>
+        </label>
+        <label>
+          Data entre
+          <div style="display: flex; gap: 8px;">
+            <input type="date" name="dataInicio" style="width: 48%;">
+            <input type="date" name="dataFim" style="width: 48%;">
+          </div>
+        </label>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+      </form>
+      <hr>
+      <button id="openAddModal" class="btn btn-highlight">+ Nova Venda</button>
+    </aside>
+  </div>
+
+  <!-- Modal para adicionar nova venda -->
+  <div class="modal-bg" id="addModalBg">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Nova Venda</h2>
+        <button id="closeAddModal" class="modal-close">&times;</button>
+      </div>
+      <form class="add-form" id="novaVendaForm">
+        <div class="form-group">
+          <label for="vendaData">Data</label>
+          <input type="date" id="vendaData" name="data" required>
+        </div>
+        <div class="form-group">
+          <label for="vendaTipo">Tipo</label>
+          <select id="vendaTipo" name="tipo" required>
+            <option value="veiculo">Veículo</option>
+            <option value="produto">Produto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="vendaFuncionario">Funcionário</label>
+          <input type="text" id="vendaFuncionario" name="funcionario" required>
+        </div>
+        <div class="form-group">
+          <label for="vendaCliente">Cliente</label>
+          <input type="text" id="vendaCliente" name="cliente" required>
+        </div>
+
+        <!-- Lista de Itens -->
+        <div class="form-group">
+          <label>Itens da Venda</label>
+          <div id="itens-lista">
+            <div class="item-row">
+              <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required>
+              <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required>
+              <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="adicionarItem()">+ Adicionar Item</button>
+        </div>
+
+        <div class="form-group">
+          <label for="vendaStatus">Status</label>
+          <select id="vendaStatus" name="status" required>
+            <option value="efetivada">Efetivada</option>
+            <option value="pendente">Pendente</option>
+            <option value="cancelada">Cancelada</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success" id="add-btn">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Modal open/close
+    document.getElementById('openAddModal').addEventListener('click', function() {
+      document.getElementById('addModalBg').style.display = 'flex';
+    });
+    document.getElementById('closeAddModal').addEventListener('click', function() {
+      document.getElementById('addModalBg').style.display = 'none';
+    });
+    document.getElementById('addModalBg').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Abas
+    function showTab(tab) {
+      document.getElementById('tabela-section').style.display = tab === 'tabela' ? 'block' : 'none';
+      document.getElementById('estatistica-section').style.display = tab === 'estatistica' ? 'block' : 'none';
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelector('.tab-btn' + (tab === 'tabela' ? ':first-child' : ':last-child')).classList.add('active');
+      if(tab === 'estatistica') renderCharts();
+    }
+
+    // Gráficos
+    let chartsRendered = false;
+    function renderCharts() {
+      if (chartsRendered) return;
+      chartsRendered = true;
+
+      const ctxBar = document.getElementById('grafico-exemplo').getContext('2d');
+      new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: ['Janeiro', 'Fevereiro', 'Março'],
+          datasets: [
+            { label: 'Entradas', data: [30, 20, 40], backgroundColor: '#3b82f6' },
+            { label: 'Saídas', data: [25, 18, 32], backgroundColor: '#444' }
+          ]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: '#fff' } },
+            y: { ticks: { color: '#fff' } }
+          }
+        }
+      });
+
+      const ctxPie = document.getElementById('grafico-pizza').getContext('2d');
+      new Chart(ctxPie, {
+        type: 'doughnut',
+        data: {
+          labels: ['Veículos', 'Produtos'],
+          datasets: [{
+            data: [70, 30],
+            backgroundColor: ['#3b82f6', '#7cc0f7']
+          }]
+        },
+        options: {
+          plugins: { legend: { labels: { color: '#fff' } } }
+        }
+      });
+    }
+
+    // Inicialização
+    window.onload = function() { showTab('tabela'); };
+  </script>
+</body>
+</html>

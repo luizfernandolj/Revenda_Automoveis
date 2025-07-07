@@ -13,9 +13,9 @@
       <ul class="nav-links">
         <li><a href="veiculos.html">Veículos</a></li>
         <li><a href="produtos.html">Produtos</a></li>
-        <li><a href="vendas.html"">Vendas</a></li>
+        <li><a href="vendas_v2.html">Vendas</a></li>
         <li><a href="#">Vendedores</a></li>
-        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="clientes_v2.html">Clientes</a></li>
         <li><a href="manutencoes.html">Manutenções</a></li>
         <li><a href="#">Perfil</a></li>
       </ul>
@@ -38,24 +38,17 @@
           <img src="../assets/images/pneu.png" alt="Miniatura 2" data-full="../assets/images/pneu.png" />
           <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 3" data-full="../assets/images/fiat_uno.jpg" />
           <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 4" data-full="../assets/images/fiat_uno.jpg" />
-          <img src="../assets/images/pneu.png" alt="Miniatura 2" data-full="../assets/images/pneu.png" />
-          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 4" data-full="../assets/images/fiat_uno.jpg" />
-          <!-- Adicione mais imagens conforme necessário -->
         </div>
       </div>
       <div class="vehicle-info">
-        <h1>FIAT UNO 2010</h1>
+        <div class="vehicle-info-header">
+          <h1>FIAT UNO 2010</h1>
+          <button class="btn-edit-vehicle" onclick="abrirEditarVeiculo()">Editar veículo</button>
+        </div>
         <div class="subtitle">1.0 sv manual · Amarelo</div>
         <div class="details-meta">
           <span class="meta-item">
-            <svg
-              width="20"
-              height="20"
-              fill="none"
-              stroke="#bfc3d1"
-              stroke-width="2"
-              style="vertical-align: middle"
-            >
+            <svg width="20" height="20" fill="none" stroke="#bfc3d1" stroke-width="2" style="vertical-align: middle">
               <rect x="2" y="5" width="12" height="7" rx="2" />
               <circle cx="5" cy="13" r="1" />
               <circle cx="11" cy="13" r="1" />
@@ -63,14 +56,7 @@
             2010/2011
           </span>
           <span class="meta-item">
-            <svg
-              width="20"
-              height="20"
-              fill="none"
-              stroke="#bfc3d1"
-              stroke-width="2"
-              style="vertical-align: middle"
-            >
+            <svg width="20" height="20" fill="none" stroke="#bfc3d1" stroke-width="2" style="vertical-align: middle">
               <path d="M4 13h8M8 3v10" />
             </svg>
             100000 km
@@ -79,7 +65,7 @@
         <div class="last-revision">
           Última revisão: <strong>11/03/2015</strong>
         </div>
-        <div class="warranty">
+        <div class="warranty warranty-valid">
           Garantia válida
         </div>
       </div>
@@ -87,9 +73,8 @@
     <section class="maint-section">
       <div class="maint-header">
         <h2>Manutenções</h2>
-        <button class="add-vehicle-revision-btn">Adicionar Revisão</button>
+        <button class="btn-add-maint" onclick="abrirNovaManutencao()">+ Nova Manutenção</button>
       </div>
-      
       <div class="maint-table-wrapper">
         <table class="maint-table">
           <thead>
@@ -97,6 +82,7 @@
               <th>Data</th>
               <th>Custo</th>
               <th>Tipo manutenção</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -109,47 +95,22 @@
               </td>
             </tr>
             <tr>
-              <td>11/03/2015</td>
-              <td>R$ 200,00</td>
-              <td>troca de óleo</td>
+              <td>12/07/2016</td>
+              <td>R$ 300,00</td>
+              <td>revisão completa</td>
               <td>
                 <button class="btn-details">Ver detalhes</button>
               </td>
             </tr>
             <tr>
-              <td>11/03/2015</td>
-              <td>R$ 200,00</td>
-              <td>troca de óleo</td>
-              <td>
-                <button class="btn-details">Ver detalhes</button>
-              </td>
-            </tr>
-            <tr>
-              <td>11/03/2015</td>
-              <td>R$ 200,00</td>
-              <td>troca de óleo</td>
-              <td>
-                <button class="btn-details">Ver detalhes</button>
-              </td>
-            </tr>
-            <tr>
-              <td>11/03/2015</td>
-              <td>R$ 200,00</td>
-              <td>troca de óleo</td>
-              <td>
-                <button class="btn-details">Ver detalhes</button>
-              </td>
-            </tr>
-            <tr>
-              <td>11/03/2015</td>
-              <td>R$ 200,00</td>
-              <td>troca de óleo</td>
+              <td>18/09/2017</td>
+              <td>R$ 150,00</td>
+              <td>troca de filtro</td>
               <td>
                 <button class="btn-details">Ver detalhes</button>
               </td>
             </tr>
           </tbody>
-
         </table>
       </div>
     </section>
@@ -161,14 +122,79 @@
     <img class="modal-content" id="modalImage" alt="Imagem ampliada do veículo" />
   </div>
 
+  <!-- Modal Editar Veículo -->
+  <div class="modal-bg" id="modalEditarVeiculo">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Editar Veículo</h2>
+        <button class="modal-close" onclick="fecharModal('modalEditarVeiculo')">&times;</button>
+      </div>
+      <form class="add-form">
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" value="FIAT UNO 2010" required>
+        </div>
+        <div class="form-group">
+          <label>Cor</label>
+          <input type="text" value="Amarelo" required>
+        </div>
+        <div class="form-group">
+          <label>Placa</label>
+          <input type="text" value="ABC-1234" required>
+        </div>
+        <div class="form-group">
+          <label>Quilometragem</label>
+          <input type="number" value="100000" required>
+        </div>
+        <div class="form-group">
+          <label>Garantia</label>
+          <select>
+            <option value="valida" selected>Válida</option>
+            <option value="expirada">Expirada</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Nova Manutenção -->
+  <div class="modal-bg" id="modalNovaManutencao">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Nova Manutenção</h2>
+        <button class="modal-close" onclick="fecharModal('modalNovaManutencao')">&times;</button>
+      </div>
+      <form class="add-form">
+        <div class="form-group">
+          <label>Data</label>
+          <input type="date" required>
+        </div>
+        <div class="form-group">
+          <label>Custo</label>
+          <input type="number" required>
+        </div>
+        <div class="form-group">
+          <label>Tipo manutenção</label>
+          <input type="text" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
+  // Galeria de imagens
   const mainImage = document.getElementById('mainImage');
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('modalImage');
   const closeBtn = modal.querySelector('.close');
   const thumbs = document.querySelectorAll('.thumbs-carousel img');
 
-  // Troca imagem principal ao clicar na miniatura
   thumbs.forEach(thumb => {
     thumb.addEventListener('click', () => {
       mainImage.src = thumb.dataset.full;
@@ -176,8 +202,6 @@
       thumbs.forEach(t => t.classList.remove('selected'));
       thumb.classList.add('selected');
     });
-
-    // Abrir modal ao clicar na miniatura
     thumb.addEventListener('dblclick', () => {
       modal.style.display = 'block';
       modal.setAttribute('aria-hidden', 'false');
@@ -187,10 +211,8 @@
     });
   });
 
-  // Seleção inicial
   if (thumbs.length > 0) thumbs[0].classList.add('selected');
 
-  // Modal para imagem principal
   mainImage.addEventListener('click', () => {
     modal.style.display = 'block';
     modal.setAttribute('aria-hidden', 'false');
@@ -210,7 +232,6 @@
     }
   });
 
-  // Fechar modal
   function closeModal() {
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
@@ -229,7 +250,22 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
   });
-</script>
 
+  // Modais de edição/adicionar manutenção
+  function abrirEditarVeiculo() {
+    document.getElementById('modalEditarVeiculo').style.display = 'flex';
+  }
+  function abrirNovaManutencao() {
+    document.getElementById('modalNovaManutencao').style.display = 'flex';
+  }
+  function fecharModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+  document.querySelectorAll('.modal-bg').forEach(function(modal){
+    modal.addEventListener('click', function(e){
+      if (e.target === this) this.style.display = 'none';
+    });
+  });
+  </script>
 </body>
 </html>

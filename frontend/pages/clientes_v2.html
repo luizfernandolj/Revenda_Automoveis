@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Clientes</title>
+  <link rel="stylesheet" href="../assets/css/clientes_v2.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="veiculos.html" >Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas_v2.html">Vendas</a></li>
+        <li><a href="vendedores_v2.html">Vendedores</a></li>
+        <li><a href="clientes_v2.html" class="active">Clientes</a></li>
+        <li><a href="manutencoes.html">Manutenções</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <main class="main-content">
+      <h1>Clientes Cadastrados</h1>
+      <section class="maintenance-table-section">
+        <table class="maintenance-table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Cliente</th>
+              <th>Total de Compras</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>João da Silva</td>
+              <td>3</td>
+              <td>
+                <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                <a class="btn-details" title="Ver detalhes" href="cliente.html" >Ver detalhes</a>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Maria do Carmo</td>
+              <td>5</td>
+              <td>
+                <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                <a class="btn-details" title="Ver detalhes" href="cliente.html" >Ver detalhes</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <!-- Sidebar fixa à direita -->
+    <aside class="sidebar">
+      <h2>Filtrar</h2>
+      <form class="filter-form">
+        <label>
+          Cliente
+          <input type="text" placeholder="Nome do cliente" name="cliente">
+        </label>
+        <label>
+          Vendas entre
+          <div class="vendas-range" style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+            <input type="number" placeholder="Mínimo" name="minVendas" style="width: 41%;">
+            <span>e</span>
+            <input type="number" placeholder="Máximo" name="maxVendas" style="width: 41%;">
+          </div>
+        </label>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+      </form>
+      <hr>
+      <button id="openAddModal" class="btn btn-highlight">+ Novo Cliente</button>
+    </aside>
+    </aside>
+  </div>
+
+  <!-- Modal para adicionar novo cliente -->
+  <div class="modal-bg" id="addModalBg">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Novo Cliente</h2>
+        <button id="closeAddModal" class="modal-close">&times;</button>
+      </div>
+      <form class="add-form">
+        <div class="form-group">
+          <label for="clientName">Nome</label>
+          <input type="text" id="clientName" name="nome" required>
+        </div>
+        <div class="form-group">
+          <label for="clientEmail">Email</label>
+          <input type="email" id="clientEmail" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="clientPhone">Telefone</label>
+          <input type="tel" id="clientPhone" name="telefone" required>
+        </div>
+        <div class="form-group">
+          <label for="clientAddress">Endereço</label>
+          <input type="text" id="clientAddress" name="endereco" required>
+        </div>
+        <div class="form-group">
+          <label for="clientCep">CEP</label>
+          <input type="text" id="clientCep" name="cep" required pattern="\d{5}-\d{3}" placeholder="00000-000">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+<script>
+    // Modal open/close using addEventListener for better practice
+    document.getElementById('openAddModal').addEventListener('click', function() {
+        document.getElementById('addModalBg').style.display = 'flex';
+    });
+    document.getElementById('closeAddModal').addEventListener('click', function() {
+        document.getElementById('addModalBg').style.display = 'none';
+    });
+    document.getElementById('addModalBg').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    });
+</script>
+<script>
+    function filterDropdown(selectId, searchValue) {
+        var select = document.getElementById(selectId);
+        if (!select) return;
+        var filter = searchValue.toLowerCase();
+        Array.from(select.options).forEach(function(option) {
+            if (option.text.toLowerCase().includes(filter)) {
+                option.style.display = "";
+            } else {
+                option.style.display = "none";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+:root {
+  --primary-bg: #232332;
+  --secondary-bg: #2c2c3e;
+  --highlight: #7cc0f7;
+  --button-bg: #3887ff;
+  --button-hover: #296fd3;
+  --card-bg: #fff;
+  --text-main: #222;
+  --text-light: #666;
+  --border-radius: 8px;
+}
+
+body {
+  background: var(--primary-bg);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--secondary-bg);
+  padding: 24px 40px 16px 40px;
+}
+
+.logo {
+  font-size: 2rem;
+  color: var(--highlight);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  opacity: 0.8;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.nav-links li a.active,
+.nav-links li a:hover {
+  color: var(--highlight);
+  opacity: 1;
+}
+
+.main-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 20px;
+}
+
+h1 {
+  color: #fff;
+  font-size: 2.1rem;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.manutencao-card {
+  background: #2c2c3e;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px 0 rgba(44,44,62,0.11);
+  padding: 28px 34px;
+  color: #fff;
+  margin-bottom: 34px;
+}
+
+.manutencao-info {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.info-col {
+  min-width: 200px;
+  flex: 1 1 0;
+}
+.info-col h3 {
+  font-size: 1.17rem;
+  color: #7cc0f7;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+.info-col p {
+  font-size: 1.08rem;
+  color: #e0eaff;
+  margin: 2px 0;
+}
+.garantia-status {
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 2px 14px;
+  font-size: 1rem;
+  margin-left: 8px;
+}
+.garantia-valida {
+  background: #3887ff;
+  color: #fff;
+}
+.garantia-expirada {
+  background: #b91c1c;
+  color: #fff;
+}
+
+.manutencao-produtos {
+  margin-bottom: 24px;
+}
+.manutencao-produtos h3 {
+  color: #7cc0f7;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+.produtos-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #232332;
+  border-radius: 8px;
+  overflow: hidden;
+  color: #fff;
+}
+.produtos-table th, .produtos-table td {
+  padding: 10px 16px;
+  text-align: left;
+}
+.produtos-table th {
+  background: #232332;
+  color: #7cc0f7;
+  font-weight: 600;
+}
+.produtos-table tr {
+  border-bottom: 1px solid #34344a;
+}
+
+.manutencao-acoes {
+  margin-top: 18px;
+  display: flex;
+  gap: 16px;
+}
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 9px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.btn-edit {
+  background: var(--button-bg);
+  color: #fff;
+}
+.btn-edit:hover {
+  background: var(--button-hover);
+}
+.btn-receipt {
+  background: #3887ff;
+  color: #fff;
+}
+.btn-receipt:hover {
+  background: #296fd3;
+  color: #fff;
+}
+.btn-success {
+  background: var(--button-bg);
+  color: #fff;
+}
+.btn-success:hover {
+  background: var(--button-hover);
+}
+
+/* MODAL */
+.modal-bg {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(44, 44, 62, 0.45);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px 0 rgba(44,44,62,0.18);
+  padding: 32px 30px 22px 30px;
+  min-width: 320px;
+  max-width: 98vw;
+  color: #232332;
+  position: relative;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: #e11d48;
+  font-size: 2.1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+.btn-success {
+  background: #3887ff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.btn-success:hover {
+  background: #296fd3;
+}
+
+@media (max-width: 700px) {
+  .main-content {
+    padding: 12px 1vw;
+  }
+  .manutencao-card {
+    padding: 14px 4vw;
+  }
+  .modal {
+    min-width: unset;
+    width: 96vw;
+    padding: 20px 6vw 16px 6vw;
+  }
+  .manutencao-info {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

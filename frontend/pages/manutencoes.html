@@ -12,89 +12,56 @@
       <ul class="nav-links">
         <li><a href="veiculos.html" >Veículos</a></li>
         <li><a href="produtos.html">Produtos</a></li>
-        <li><a href="vendas.html">Vendas</a></li>
-        <li><a href="vendedores.html">Vendedores</a></li>
-        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="vendas_v2.html">Vendas</a></li>
+        <li><a href="vendedores_v2.html">Vendedores</a></li>
+        <li><a href="clientes_v2.html">Clientes</a></li>
         <li><a href="#" class="active">Manutenções</a></li>
         <li><a href="#">Perfil</a></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container">
+  <div class="container">'
     <main class="main-content">
-      <h1>Manutenções de Veículos</h1>
-      <section class="cards-section">
-
-        <!-- Card exemplo -->
-        <div class="maintenance-card">
-            <button class="btn-remove" title="Remover manutenção">&#128465;</button>
-            <div class="card-content">
-                <div class="card-header">
-                <span class="maintenance-date">02/07/2025</span>
-                </div>
-                <div class="client-name">João da Silva</div>
-                <div class="car-model">Fiat Uno 1.0 8V MANUAL</div>
-                <div class="car-info">
-                <span class="badge badge-silver">Prata</span>
-                <span class="badge badge-year">2011</span>
-                <span class="badge badge-plate">ABC1D23</span>
-                </div>
-                <div class="maintenance-info">
-                <span><strong>Km:</strong> 100.000</span>
-                </div>
-                <!-- Demonstração da garantia -->
-                <div class="warranty-badge warranty-valid">Garantia: Válida</div>
-                <!-- Para expirada, use: <div class="warranty-badge warranty-expired">Garantia: Expirada</div> -->
-                <div class="products">
-                <strong>Produtos:</strong>
-                <ul>
-                    <li>Óleo 5W30</li>
-                    <li>Filtro de óleo</li>
-                    <li>Pastilha de freio</li>
-                </ul>
-                </div>
-                <div class="card-actions">
-                <button class="btn-details">Ver detalhes</button>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="maintenance-card">
-            <button class="btn-remove" title="Remover manutenção">&#128465;</button>
-            <div class="card-content">
-                <div class="card-header">
-                <span class="maintenance-date">02/07/2025</span>
-                </div>
-                <div class="client-name">João da Silva</div>
-                <div class="car-model">Fiat Uno 1.0 8V MANUAL</div>
-                <div class="car-info">
-                <span class="badge badge-silver">Prata</span>
-                <span class="badge badge-year">2011</span>
-                <span class="badge badge-plate">ABC1D23</span>
-                </div>
-                <div class="maintenance-info">
-                <span><strong>Km:</strong> 100.000</span>
-                </div>
-                <!-- Demonstração da garantia -->
-                <div class="warranty-badge warranty-valid">Garantia: Válida</div>
-                <!-- Para expirada, use: <div class="warranty-badge warranty-expired">Garantia: Expirada</div> -->
-                <div class="products">
-                <strong>Produtos:</strong>
-                <ul>
-                    <li>Óleo 5W30</li>
-                    <li>Filtro de óleo</li>
-                    <li>Pastilha de freio</li>
-                </ul>
-                </div>
-                <div class="card-actions">
-                <button class="btn-details">Ver detalhes</button>
-                </div>
-            </div>
-        </div>
-
-      </section>
+      <h1>Manutenções de Veículos</h1>'
+        <section class="maintenance-table-section">
+            <table class="maintenance-table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Data</th>
+                    <th>Cliente</th>
+                    <th>Veículo</th>
+                    <th>Garantia</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>02/07/2025</td>
+                    <td>João da Silva</td>
+                    <td>Fiat Uno 1.0 8V MANUAL</td>
+                    <td class="garantia-valida">Válida</td>
+                    <td>
+                    <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                    <a class="btn-details" href="manutencao.html">Ver detalhes</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>02/07/2025</td>
+                    <td>João da Silva</td>
+                    <td>Fiat Uno 1.0 8V MANUAL</td>
+                    <td class="garantia-expirada">Expirada</td>
+                    <td>
+                    <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                    <a class="btn-details" href="manutencao.html">Ver detalhes</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
     </main>
 
     <!-- Sidebar fixa à direita -->

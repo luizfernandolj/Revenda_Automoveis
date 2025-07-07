@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalhes da Venda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/venda.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="veiculos.html">Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas_v2.html" class="active">Vendas</a></li>
+        <li><a href="vendedores_v2.html">Vendedores</a></li>
+        <li><a href="clientes_v2.html">Clientes</a></li>
+        <li><a href="manutencoes.html">Manutenções</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <main class="main-content">
+      <section class="venda-detalhe-section">
+        <h1>Detalhes da Venda</h1>
+        <div class="venda-detalhe-card">
+          <div class="venda-info">
+            <p>
+              <strong>Id da Venda:</strong> <span id="detalhe-id">1</span>
+            <p>
+              <strong>Data:</strong> <span id="detalhe-data">11/03/2025</span>
+            </p>
+            <p>
+              <strong>Funcionário:</strong>
+              <a href="vendedores_v2.html?id=1" class="link-destaque">João da Silva</a>
+            </p>
+            <p>
+              <strong>Cliente:</strong>
+              <a href="clientes_v2.html?id=2" class="link-destaque">Rafael</a>
+            </p>
+            <p>
+              <strong>Status:</strong> <span id="detalhe-status">Efetivada</span>
+            </p>
+          </div>
+          <div class="venda-itens">
+            <h3>Itens da Venda</h3>
+            <table class="itens-table">
+              <thead>
+                <tr>
+                  <th>Descrição</th>
+                  <th>Valor (R$)</th>
+                  <th>Tipo</th>
+                </tr>
+              </thead>
+              <tbody id="itens-tbody">
+                <tr>
+                  <td>
+                    <a href="veiculo.html" class="link-destaque">Fiat Uno</a>
+                  </td>
+                  <td>50.000,00</td>
+                  <td>Veículo</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="produto.html" class="link-destaque">Seguro</a>
+                  </td>
+                  <td>1.200,00</td>
+                  <td>Produto</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="venda-total">
+              <strong>Total:</strong> <span id="detalhe-total">R$ 51.200,00</span>
+            </div>
+          </div>
+          <div class="venda-acoes">
+            <button class="btn btn-edit" onclick="abrirEditarVenda()">Editar</button>
+            <button class="btn btn-receipt" onclick="gerarRecibo()">Gerar Recibo</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal de edição -->
+  <div class="modal-bg" id="editModalBg">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Editar Venda</h2>
+        <button id="closeEditModal" class="modal-close">&times;</button>
+      </div>
+      <form class="add-form" id="editVendaForm">
+        <div class="form-group">
+          <label for="editData">Data</label>
+          <input type="date" id="editData" name="data" required value="2025-03-11">
+        </div>
+        <div class="form-group">
+          <label for="editFuncionario">Funcionário</label>
+          <input type="text" id="editFuncionario" name="funcionario" required value="João da Silva">
+        </div>
+        <div class="form-group">
+          <label for="editCliente">Cliente</label>
+          <input type="text" id="editCliente" name="cliente" required value="Rafael">
+        </div>
+        <div class="form-group">
+          <label for="editStatus">Status</label>
+          <select id="editStatus" name="status" required>
+            <option value="efetivada" selected>Efetivada</option>
+            <option value="pendente">Pendente</option>
+            <option value="cancelada">Cancelada</option>
+          </select>
+        </div>
+        <!-- Itens da venda -->
+        <div class="form-group">
+          <label>Itens da Venda</label>
+          <div id="edit-itens-lista">
+            <div class="item-row">
+              <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required value="Fiat Uno">
+              <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required value="50000">
+              <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
+            </div>
+            <div class="item-row">
+              <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required value="Seguro">
+              <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required value="1200">
+              <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="adicionarItemEdit()">+ Adicionar Item</button>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de detalhes do item -->
+  <div class="modal-bg" id="itemModalBg" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="itemModalTitle">Detalhe do Item</h2>
+        <button id="closeItemModal" class="modal-close">&times;</button>
+      </div>
+      <div id="itemModalBody">
+        <!-- Conteúdo dinâmico do item -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal editar venda
+    function abrirEditarVenda() {
+      document.getElementById('editModalBg').style.display = 'flex';
+    }
+    document.getElementById('closeEditModal').addEventListener('click', function() {
+      document.getElementById('editModalBg').style.display = 'none';
+    });
+    document.getElementById('editModalBg').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Adicionar/remover itens no modal de edição
+    function adicionarItemEdit() {
+      const itemRow = document.createElement('div');
+      itemRow.className = 'item-row';
+      itemRow.innerHTML = `
+        <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required>
+        <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required>
+        <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
+      `;
+      document.getElementById('edit-itens-lista').appendChild(itemRow);
+    }
+    function removerItem(btn) {
+      const row = btn.closest('.item-row');
+      if (document.querySelectorAll('#edit-itens-lista .item-row').length > 1) {
+        row.remove();
+      }
+    }
+
+    // Modal de detalhes do item
+    function verDetalheItem(nome) {
+      document.getElementById('itemModalTitle').innerText = 'Detalhe do Item: ' + nome;
+      document.getElementById('itemModalBody').innerHTML = `
+        <p><strong>Descrição:</strong> ${nome}</p>
+        <p><em>Mais informações sobre o item podem ser exibidas aqui.</em></p>
+      `;
+      document.getElementById('itemModalBg').style.display = 'flex';
+    }
+    document.getElementById('closeItemModal').addEventListener('click', function() {
+      document.getElementById('itemModalBg').style.display = 'none';
+    });
+    document.getElementById('itemModalBg').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Gerar recibo (exemplo)
+    function gerarRecibo() {
+      alert('Recibo gerado! (implemente aqui a lógica de geração/download do recibo)');
+    }
+  </script>
+</body>
+</html>

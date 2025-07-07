@@ -75,7 +75,7 @@ h1 {
   font-weight: 700;
 }
 
-/* --------- TABELA DE MANUTENÇÕES --------- */
+/* --------- TABELA DE VENDEDORES --------- */
 .maintenance-table-section {
   width: 100%;
   overflow-x: auto;
@@ -100,7 +100,6 @@ h1 {
   text-align: left;
 }
 
-
 .maintenance-table th {
   background: #232332;
   color: #7cc0f7;
@@ -120,17 +119,6 @@ h1 {
 .maintenance-table td {
   vertical-align: middle;
 }
-
-.maintenance-table td.garantia-valida {
-  color: #43e07c;
-  font-weight: 500;
-}
-
-.maintenance-table td.garantia-expirada {
-  color: #ff6b6b;
-  font-weight: 500;
-}
-
 
 .maintenance-table .btn-remove {
   background: none;
@@ -164,6 +152,17 @@ h1 {
 
 .maintenance-table .btn-details:hover {
   background: var(--button-hover);
+}
+
+/* Destaque para meta atingida/não atingida */
+.maintenance-table td.meta-atingida {
+  color: #43e07c;
+  font-weight: 600;
+}
+
+.maintenance-table td.meta-nao-atingida {
+  color: #e11d48;
+  font-weight: 600;
 }
 
 /* --------- SIDEBAR --------- */
@@ -215,6 +214,141 @@ select {
   margin-top: 3px;
 }
 
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e0eaff;
+  user-select: none;
+  position: relative;
+  padding-left: 36px; /* Ajuste fino para alinhar texto e caixa */
+  height: 32px;
+  line-height: 32px;  /* Garante centralização vertical do texto */
+}
+
+.custom-checkbox .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 28px;
+  width: 28px;
+  background-color: #2c2c3e;
+  border-radius: 8px;
+  border: 2px solid #3887ff;
+  box-sizing: border-box;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-checkbox .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 8px;
+  top: 4px;
+  width: 8px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark {
+  background-color: #3887ff;
+  border-color: #296fd3;
+}
+
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark::after {
+  display: block;
+}
+
+.custom-checkbox:hover .checkmark {
+  border-color: #7cc0f7;
+}
+
+.custom-checkbox input[type="checkbox"]:focus ~ .checkmark {
+  box-shadow: 0 0 0 3px rgba(56, 135, 255, 0.5);
+}
+.checkbox-row {
+  display: flex;
+  gap: 32px; /* Espaço entre os checkboxes */
+  margin-top: 6px;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e0eaff;
+  user-select: none;
+  position: relative;
+  padding-left: 40px;
+  height: 32px;
+}
+
+/* Esconde o checkbox padrão */
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Caixa customizada */
+.custom-checkbox .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 28px;
+  width: 28px;
+  background-color: #2c2c3e;
+  border-radius: 8px;
+  border: 2px solid #3887ff;
+  box-sizing: border-box;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Marca de seleção */
+.custom-checkbox .checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 8px;
+  top: 4px;
+  width: 8px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* Quando marcado */
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark {
+  background-color: #3887ff;
+  border-color: #296fd3;
+}
+
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark::after {
+  display: block;
+}
+
+.custom-checkbox:hover .checkmark {
+  border-color: #7cc0f7;
+}
+
+.custom-checkbox input[type="checkbox"]:focus ~ .checkmark {
+  box-shadow: 0 0 0 3px rgba(56, 135, 255, 0.5);
+}
+
+
 .btn {
   border: none;
   border-radius: 6px;
@@ -263,8 +397,8 @@ hr {
   margin: 28px 0 18px 0;
 }
 
-/* --------- MODAL --------- */
-.modal-bg {
+/* --------- MODAL DE NOVO VENDEDOR --------- */
+#addModalBg {
   display: none;
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
@@ -274,25 +408,32 @@ hr {
   z-index: 1000;
 }
 
-.modal {
-  background: var(--card-bg);
+#addModalBg .modal {
+  background: rgb(58, 58, 78);
   border-radius: 14px;
   box-shadow: 0 10px 40px 0 rgba(44,44,62,0.18);
   padding: 32px 30px 22px 30px;
-  min-width: 320px;
+  min-width: 340px;
   max-width: 98vw;
-  color: #7cc0f7;
+  color: #fff;
   position: relative;
 }
 
-.modal-header {
+#addModalBg .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
 }
 
-.modal-close {
+#addModalBg .modal-header h2 {
+  font-size: 1.3rem;
+  color: #7cc0f7;
+  margin: 0;
+  font-weight: 700;
+}
+
+#addModalBg .modal-close {
   background: none;
   border: none;
   color: #e11d48;
@@ -301,56 +442,26 @@ hr {
   line-height: 1;
 }
 
-.add-form {
+#addModalBg .add-form {
   display: flex;
   flex-direction: column;
-  gap: 13px;
+  gap: 15px;
 }
 
-.add-form label {
-  font-size: 0.97rem;
-  color: var(--text-light);
+#addModalBg .form-group {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 5px;
 }
 
-.modal.wide-modal {
-  width: 740px;
-  max-width: 98vw;
-  min-width: 340px;
-  padding: 36px 38px 26px 38px;
-  background: rgb(58, 58, 78);
+#addModalBg label {
+  font-size: 1rem;
   color: #7cc0f7;
 }
 
-.grid-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px 32px;
-  align-items: end;
-}
-
-.grid-form .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.grid-form .form-actions {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 14px;
-}
-
-.grid-form label {
-  font-size: 1.01rem;
-  color: #7cc0f7;
-}
-
-.grid-form select,
-.grid-form input[type="number"] {
+#addModalBg input[type="text"],
+#addModalBg input[type="email"],
+#addModalBg input[type="tel"] {
   background: #f3f8fa;
   color: #222;
   border: 1.5px solid #3887ff;
@@ -360,111 +471,39 @@ hr {
   transition: border 0.2s;
 }
 
-.grid-form select:focus,
-.grid-form input[type="number"]:focus {
+#addModalBg input[type="text"]:focus,
+#addModalBg input[type="email"]:focus,
+#addModalBg input[type="tel"]:focus {
   border: 1.5px solid #296fd3;
   outline: none;
 }
 
-/* Select múltiplo já está estilizado, mas pode reforçar: */
-.grid-form select[multiple], .grid-form select[size] {
-  height: 110px;
-  min-width: 100px;
-  background: #f3f8fa;
-  color: #222;
-  border: 1.5px solid #3887ff;
+#addModalBg .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+#addModalBg .btn-success {
+  background: #3887ff;
+  color: #fff;
+  border: none;
   border-radius: 6px;
+  padding: 9px 24px;
   font-size: 1rem;
-}
-
-/* Radios maiores */
-.large-radio input[type="radio"] {
-  width: 22px;
-  height: 22px;
-  accent-color: #3887ff;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.large-radio label {
-  font-size: 1.08rem;
-  color: var(--text-light);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-right: 18px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.18s;
 }
 
-.radio-group {
-  display: flex;
-  gap: 24px;
-  margin-top: 6px;
-}
-
-/* --------- RESPONSIVIDADE --------- */
-@media (max-width: 900px) {
-  .modal.wide-modal {
-    width: 98vw;
-    padding: 18px 6vw 16px 6vw;
-  }
-  .grid-form {
-    grid-template-columns: 1fr;
-    gap: 13px 0;
-  }
+#addModalBg .btn-success:hover {
+  background: #296fd3;
 }
 
 @media (max-width: 700px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 10px;
-  }
-  .nav-links {
-    gap: 16px;
-    margin-top: 10px;
-  }
-  .sidebar {
-    padding: 12px 3vw;
-    font-size: 0.97rem;
-  }
-  .main-content {
-    padding: 12px 1vw;
-  }
-  .maintenance-table-section {
-    padding: 0 1vw;
-  }
-  .maintenance-table th,
-  .maintenance-table td {
-    padding: 10px 8px;
-    font-size: 0.97rem;
-  }
-  .modal {
+  #addModalBg .modal {
     min-width: unset;
     width: 96vw;
     padding: 20px 6vw 16px 6vw;
   }
-}
-
-/* --------- BADGES DE GARANTIA (caso queira usar em detalhes) --------- */
-.warranty-badge {
-  display: inline-block;
-  margin: 10px 0 0 0;
-  padding: 5px 16px;
-  border-radius: 16px;
-  font-weight: bold;
-  font-size: 1rem;
-  letter-spacing: 0.3px;
-}
-
-.warranty-valid {
-  background: #d1fae5;
-  color: #059669;
-  border: 1.5px solid #059669;
-}
-
-.warranty-expired {
-  background: #fee2e2;
-  color: #b91c1c;
-  border: 1.5px solid #b91c1c;
 }
