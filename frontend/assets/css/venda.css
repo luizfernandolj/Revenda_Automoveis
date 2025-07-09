@@ -4,9 +4,9 @@
   --highlight: #7cc0f7;
   --button-bg: #3887ff;
   --button-hover: #296fd3;
-  --card-bg: #fff;
+  --card-bg: #3a3a4e;
   --text-main: #222;
-  --text-light: #666;
+  --text-light: #7cc0f7;
   --border-radius: 8px;
 }
 
@@ -228,10 +228,14 @@ h1 {
   border-radius: 14px;
   box-shadow: 0 10px 40px 0 rgba(44,44,62,0.18);
   padding: 32px 30px 22px 30px;
-  min-width: 340px;
-  max-width: 98vw;
-  color: var(--text-main);
+  max-width: 600px;
+  width: 100%;
+  color: #7cc0f7;
   position: relative;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-height: 80vh;     /* Limita a altura em relação à viewport */
+  overflow-y: auto;     /* Permite rolagem vertical quando necessário */
 }
 
 .modal-header {
@@ -239,6 +243,29 @@ h1 {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
+}
+
+.modal.wide-modal {
+  width: 600px;
+  max-width: 98vw;
+  min-width: 340px;
+  padding: 36px 38px 26px 38px;
+  background: rgb(58, 58, 78);
+  color: #7cc0f7;
+}
+
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  background: #fff;
+  color: var(--text-main);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 1rem;
+  margin-top: 3px;
 }
 
 .modal-close {

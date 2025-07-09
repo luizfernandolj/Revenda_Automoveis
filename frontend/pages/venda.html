@@ -87,15 +87,15 @@
 
   <!-- Modal de edição -->
   <div class="modal-bg" id="editModalBg">
-    <div class="modal">
+    <div class="modal wide-modal">
       <div class="modal-header">
         <h2>Editar Venda</h2>
         <button id="closeEditModal" class="modal-close">&times;</button>
       </div>
       <form class="add-form" id="editVendaForm">
         <div class="form-group">
-          <label for="editData">Data</label>
-          <input type="date" id="editData" name="data" required value="2025-03-11">
+          <label for="editAno">Ano</label>
+          <input type="number" id="editAno" name="ano" required value="2025" min="1900" max="2100">
         </div>
         <div class="form-group">
           <label for="editFuncionario">Funcionário</label>

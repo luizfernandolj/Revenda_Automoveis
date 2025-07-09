@@ -4,9 +4,9 @@
   --highlight: #7cc0f7;
   --button-bg: #3887ff;
   --button-hover: #296fd3;
-  --card-bg: #fff;
+  --card-bg: #3a3a4e;
   --text-main: #222;
-  --text-light: #666;
+  --text-light: #7cc0f7;
   --border-radius: 8px;
 }
 
@@ -376,6 +376,23 @@ body {
 }
 
 
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="tel"],
+input[type="month"],
+select {
+  background: #fff;
+  color: var(--text-main);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 1rem;
+  margin-top: 3px;
+}
+
+
 .venda-card {
   min-width: 260px;
   background: #232332;
@@ -444,13 +461,13 @@ body {
     z-index: 1000;
 }
 .modal {
-    background: #fff;
+    background: var(--card-bg);
     border-radius: 14px;
     box-shadow: 0 10px 40px 0 rgba(44,44,62,0.18);
     padding: 32px 30px 22px 30px;
     min-width: 320px;
     max-width: 98vw;
-    color: #232332;
+    color: var(--text-light);
     position: relative;
 }
 .modal-header {
@@ -460,12 +477,12 @@ body {
     margin-bottom: 18px;
 }
 .modal-close {
-    background: none;
-    border: none;
-    color: #e11d48;
-    font-size: 2.1rem;
-    cursor: pointer;
-    line-height: 1;
+  background: none;
+  border: none;
+  color: #e11d48;
+  font-size: 2.1rem;
+  cursor: pointer;
+  line-height: 1;
 }
 .add-form {
     display: flex;

@@ -130,76 +130,139 @@
         <button type="submit" class="btn btn-primary">Filtrar</button>
       </form>
       <hr>
-      <button id="openAddModal" class="btn btn-highlight">+ Nova Venda</button>
+      <button id="openAddModal" class="btn btn-highlight" onclick="abrirEditarVenda()">+ Nova Venda</button>
     </aside>
   </div>
 
   <!-- Modal para adicionar nova venda -->
-  <div class="modal-bg" id="addModalBg">
-    <div class="modal">
+  <div class="modal-bg" id="editModalBg">
+    <div class="modal wide-modal">
       <div class="modal-header">
-        <h2>Nova Venda</h2>
-        <button id="closeAddModal" class="modal-close">&times;</button>
+        <h2>Editar Venda</h2>
+        <button id="closeEditModal" class="modal-close">&times;</button>
       </div>
-      <form class="add-form" id="novaVendaForm">
+      <form class="add-form" id="editVendaForm">
         <div class="form-group">
-          <label for="vendaData">Data</label>
-          <input type="date" id="vendaData" name="data" required>
+          <label for="editAno">Ano</label>
+          <input type="number" id="editAno" name="ano" required value="2025" min="1900" max="2100">
         </div>
         <div class="form-group">
-          <label for="vendaTipo">Tipo</label>
-          <select id="vendaTipo" name="tipo" required>
-            <option value="veiculo">Veículo</option>
-            <option value="produto">Produto</option>
-          </select>
+          <label for="editFuncionario">Funcionário</label>
+          <input type="text" id="editFuncionario" name="funcionario" required value="João da Silva">
         </div>
         <div class="form-group">
-          <label for="vendaFuncionario">Funcionário</label>
-          <input type="text" id="vendaFuncionario" name="funcionario" required>
+          <label for="editCliente">Cliente</label>
+          <input type="text" id="editCliente" name="cliente" required value="Rafael">
         </div>
         <div class="form-group">
-          <label for="vendaCliente">Cliente</label>
-          <input type="text" id="vendaCliente" name="cliente" required>
-        </div>
-
-        <!-- Lista de Itens -->
-        <div class="form-group">
-          <label>Itens da Venda</label>
-          <div id="itens-lista">
-            <div class="item-row">
-              <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required>
-              <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required>
-              <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
-            </div>
-          </div>
-          <button type="button" class="btn btn-secondary" onclick="adicionarItem()">+ Adicionar Item</button>
-        </div>
-
-        <div class="form-group">
-          <label for="vendaStatus">Status</label>
-          <select id="vendaStatus" name="status" required>
-            <option value="efetivada">Efetivada</option>
+          <label for="editStatus">Status</label>
+          <select id="editStatus" name="status" required>
+            <option value="efetivada" selected>Efetivada</option>
             <option value="pendente">Pendente</option>
             <option value="cancelada">Cancelada</option>
           </select>
         </div>
+        <!-- Itens da venda -->
+        <div class="form-group">
+          <label>Itens da Venda</label>
+          <div id="edit-itens-lista">
+            <div class="item-row">
+              <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required value="Fiat Uno">
+              <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required value="50000">
+              <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
+            </div>
+            <div class="item-row">
+              <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required value="Seguro">
+              <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required value="1200">
+              <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="adicionarItemEdit()">+ Adicionar Item</button>
+        </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-success" id="add-btn">Adicionar</button>
+          <button type="submit" class="btn btn-success">Salvar Alterações</button>
         </div>
       </form>
     </div>
   </div>
 
+  <!-- Modal de detalhes do item -->
+  <div class="modal-bg" id="itemModalBg" style="display:none;">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="itemModalTitle">Detalhe do Item</h2>
+        <button id="closeItemModal" class="modal-close">&times;</button>
+      </div>
+      <div id="itemModalBody">
+        <!-- Conteúdo dinâmico do item -->
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Modal open/close
+    // Modal editar venda
+    function abrirEditarVenda() {
+      document.getElementById('editModalBg').style.display = 'flex';
+    }
+    document.getElementById('closeEditModal').addEventListener('click', function() {
+      document.getElementById('editModalBg').style.display = 'none';
+    });
+    document.getElementById('editModalBg').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Adicionar/remover itens no modal de edição
+    function adicionarItemEdit() {
+      const itemRow = document.createElement('div');
+      itemRow.className = 'item-row';
+      itemRow.innerHTML = `
+        <input type="text" name="itemDescricao[]" placeholder="Descrição do item" required>
+        <input type="number" name="itemValor[]" placeholder="Valor (R$)" min="0" step="0.01" required>
+        <button type="button" class="btn-remove-item" onclick="removerItem(this)" title="Remover item">&#128465;</button>
+      `;
+      document.getElementById('edit-itens-lista').appendChild(itemRow);
+    }
+    function removerItem(btn) {
+      const row = btn.closest('.item-row');
+      if (document.querySelectorAll('#edit-itens-lista .item-row').length > 1) {
+        row.remove();
+      }
+    }
+
+    // Modal de detalhes do item
+    function verDetalheItem(nome) {
+      document.getElementById('itemModalTitle').innerText = 'Detalhe do Item: ' + nome;
+      document.getElementById('itemModalBody').innerHTML = `
+        <p><strong>Descrição:</strong> ${nome}</p>
+        <p><em>Mais informações sobre o item podem ser exibidas aqui.</em></p>
+      `;
+      document.getElementById('itemModalBg').style.display = 'flex';
+    }
+    document.getElementById('closeItemModal').addEventListener('click', function() {
+      document.getElementById('itemModalBg').style.display = 'none';
+    });
+    document.getElementById('itemModalBg').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Gerar recibo (exemplo)
+    function gerarRecibo() {
+      alert('Recibo gerado! (implemente aqui a lógica de geração/download do recibo)');
+    }
+
+    // Modal open/close using editModalBg
     document.getElementById('openAddModal').addEventListener('click', function() {
-      document.getElementById('addModalBg').style.display = 'flex';
+      document.getElementById('editModalBg').style.display = 'flex';
     });
-    document.getElementById('closeAddModal').addEventListener('click', function() {
-      document.getElementById('addModalBg').style.display = 'none';
+    document.getElementById('closeEditModal').addEventListener('click', function() {
+      document.getElementById('editModalBg').style.display = 'none';
     });
-    document.getElementById('addModalBg').addEventListener('click', function(e) {
+    document.getElementById('editModalBg').addEventListener('click', function(e) {
       if (e.target === this) {
         this.style.display = 'none';
       }

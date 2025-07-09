@@ -255,31 +255,40 @@
     </main>
 
     <!-- Modal Editar Vendedor -->
-    <div class="modal-bg" id="modalEditarVendedor">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Editar Vendedor</h2>
-                <button class="modal-close" onclick="fecharModal('modalEditarVendedor')">&times;</button>
-            </div>
-            <form class="add-form">
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input type="text" value="João da Silva" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" value="joao.silva@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Telefone</label>
-                    <input type="tel" value="(11) 99999-8888" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                </div>
-            </form>
+     
+  <div class="modal-bg" id="addModalBg">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Editar Vendedor</h2>
+        <button id="closeAddModal" class="modal-close" onclick="fecharModal('addModalBg')">&times;</button>
+      </div>
+      <form class="add-form">
+        <div class="form-group">
+          <label for="sellerName">Nome</label>
+          <input type="text" id="sellerName" name="nome" required>
         </div>
+        <div class="form-group">
+          <label for="sellerEmail">Email</label>
+          <input type="email" id="sellerEmail" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="sellerPhone">Telefone</label>
+          <input type="tel" id="sellerPhone" name="telefone" required>
+        </div>
+        <div class="form-group">
+          <label for="sellerAddress">Endereço</label>
+          <input type="text" id="sellerAddress" name="endereco" required>
+        </div>
+        <div class="form-group">
+          <label for="sellerCep">CEP</label>
+          <input type="text" id="sellerCep" name="cep" required pattern="\d{5}-\d{3}" placeholder="00000-000">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Adicionar</button>
+        </div>
+      </form>
     </div>
+  </div>
 
     <!-- Modal Nova Meta -->
     <div class="modal-bg" id="modalNovaMeta">
@@ -337,7 +346,7 @@
 
     <script>
     function abrirEditarVendedor() {
-        document.getElementById('modalEditarVendedor').style.display = 'flex';
+        document.getElementById('addModalBg').style.display = 'flex';
     }
     function abrirNovaMeta() {
         document.getElementById('modalNovaMeta').style.display = 'flex';

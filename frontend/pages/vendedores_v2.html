@@ -105,7 +105,7 @@
     <div class="modal">
       <div class="modal-header">
         <h2>Novo Vendedor</h2>
-        <button id="closeAddModal" class="modal-close">&times;</button>
+        <button id="closeEditModal" class="modal-close">&times;</button>
       </div>
       <form class="add-form">
         <div class="form-group">
@@ -148,6 +148,10 @@
         if (e.target === this) {
             this.style.display = 'none';
         }
+    });
+
+    document.getElementById('closeEditModal').addEventListener('click', function() {
+        document.getElementById('editModalBg').style.display = 'none';
     });
 </script>
 </body>
