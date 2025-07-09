@@ -179,11 +179,11 @@ h1 {
 }
 
 .btn-receipt {
-  background: #43e07c;
-  color: #232332;
+  background: var(--button-bg);
+  color: #fff;
 }
 .btn-receipt:hover {
-  background: #2bb15c;
+  background: var(--button-hover);
   color: #fff;
 }
 

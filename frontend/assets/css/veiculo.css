@@ -109,38 +109,68 @@ body {
   outline: none;
 }
 
-.thumbs-carousel {
+.carousel-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.carousel-btn {
+  background: #232332;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: background 0.18s, opacity 0.18s;
+}
+.carousel-btn:hover:enabled {
+  background: #343453;
+  opacity: 1;
+}
+.carousel-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.carousel-images {
   display: flex;
   gap: 10px;
-  width: 100%;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  flex: 1;
+  justify-content: center;
 }
 
-.thumbs-carousel img {
-  flex: 0 0 auto;
-  width: 120px;
-  height: 70px;
+.vehicle-details-img {
+  width: 500px;
+  height: 320px;
+  border-radius: 16px;
+  border: 2.5px solid #44445c;
+  background: #181828;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
   object-fit: cover;
-  border-radius: 6px;
-  background: #222;
+}
+
+.carousel-thumb {
+  width: 100px;
+  height: 54px;
+  object-fit: cover;
+  border-radius: 8px;
   border: 2px solid transparent;
+  background: #181828;
   cursor: pointer;
-  transition: border 0.2s, transform 0.3s;
+  opacity: 0.7;
+  transition: border 0.2s, opacity 0.2s;
 }
-
-.thumbs-carousel img:hover,
-.thumbs-carousel img:focus {
-  border: 2px solid #7dbbff;
-  transform: scale(1.05);
-  outline: none;
-}
-
-.thumbs-carousel img.selected {
-  border-color: #3887ff;
-  box-shadow: 0 0 8px #3887ff;
+.carousel-thumb.active,
+.carousel-thumb:hover {
+  border: 2px solid #2979ff;
+  opacity: 1;
 }
 
 .vehicle-info {
@@ -343,74 +373,38 @@ body {
 }
 
 /* Modal de imagem ampliada */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  padding-top: 60px;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 50vh;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.85);
-}
-
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(56, 135, 255, 0.7);
-}
-
-.close {
-  position: fixed;
-  top: 20px;
-  right: 40px;
-  color: #fff;
-  font-size: 48px;
-  font-weight: bold;
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.3s;
-}
-
-.close:hover,
-.close:focus {
-  color: #7dbbff;
-  outline: none;
-}
-
-/* Modal padrão do sistema */
 .modal-bg {
   display: none;
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(44, 44, 62, 0.45);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(44, 44, 62, 0.65);
+  display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px; /* Garante que em telas pequenas haja margem */
+  box-sizing: border-box;
   z-index: 1000;
 }
-.modal-bg .modal {
-  display: block;
-  position: relative;
+
+.modal {
   background: var(--card-bg);
-  color: #232332;
   border-radius: 14px;
   box-shadow: 0 10px 40px 0 rgba(44,44,62,0.18);
   padding: 32px 30px 22px 30px;
-  min-width: 320px;
-  max-width: 420px;
-  margin: auto;
+  max-width: 600px;
+  width: 100%;
+  color: #7cc0f7;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-height: 80vh;     /* Limita a altura em relação à viewport */
+  overflow-y: auto;     /* Permite rolagem vertical quando necessário */
 }
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
+
+
 .modal-close {
   background: none;
   border: none;
@@ -419,34 +413,253 @@ body {
   cursor: pointer;
   line-height: 1;
 }
-.add-form {
+
+.modal-header {
   display: flex;
-  flex-direction: column;
-  gap: 13px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
 }
+
+.modal.wide-modal {
+  width: 600px;
+  max-width: 98vw;
+  min-width: 340px;
+  padding: 36px 38px 26px 38px;
+  background: rgb(58, 58, 78);
+  color: #7cc0f7;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 500px) {
+  .modal {
+    padding: 20px;
+  }
+}
+
+
+.btn-img-holder {
+  background: #fff;
+  color: var(--text-main);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  background: #2979ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  width: 180px;
+  font-size: 1.15rem;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.2s;
+}
+.submit-btn:hover {
+  background: #1565c0;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  background: #fff;
+  color: var(--text-main);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 1rem;
+  margin-top: 3px;
+}
+
+.add-form label,
+.grid-form label {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid-form {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.grid-form .form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: px;
+}
+
+
 .form-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 14px;
-}
-.btn-success {
-  background: #3887ff;
-  color: #fff;
-  border: none;
+
+
+
+.grid-form select,
+.grid-form input[type="number"] {
+  background: #f3f8fa;
+  color: #222;
+  border: 1.5px solid #3887ff;
   border-radius: 6px;
-  padding: 9px 24px;
+  padding: 7px 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+.grid-form select:focus,
+.grid-form input[type="number"]:focus {
+  border: 1.5px solid #296fd3;
+  outline: none;
+}
+
+
+/* Botões */
+.btn {
+  padding: 8px 20px;
+  border-radius: 6px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.18s;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-success {
+  background: #3887ff;
+  color: #fff;
 }
 .btn-success:hover {
   background: #296fd3;
+}
+
+.btn-secondary {
+  background: var(--button-bg);
+  color: #fff;
+  margin-top: 6px;
+}
+.btn-secondary:hover {
+  background: #3887ff;
+  color: #fff;
+}
+
+.btn-danger {
+  background: #e11d48;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: background 0.2s;
+}
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+/* Entradas dinâmicas de produto/serviço */
+.produto-entry, .servico-entry {
+  margin-bottom: 6px;
+}
+
+.produto-entry > div,
+.servico-entry > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Totais */
+.form-group span {
+  font-size: 1.4em;
+  color: #337ab7;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .modal.wide-modal {
+    width: 98vw;
+    padding: 18px 6vw 16px 6vw;
+  }
+  .grid-form {
+    grid-template-columns: 1fr;
+    gap: 13px 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .modal {
+    min-width: unset;
+    width: 96vw;
+    padding: 20px 6vw 16px 6vw;
+  }
+  .modal.wide-modal {
+    width: 98vw;
+    padding: 16px 3vw 12px 3vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal {
+    padding: 20px;
+  }
+}
+
+/* --------- RESPONSIVIDADE --------- */
+@media (max-width: 900px) {
+  .modal.wide-modal {
+    width: 98vw;
+    padding: 18px 6vw 16px 6vw;
+  }
+  .grid-form {
+    grid-template-columns: 1fr;
+    gap: 13px 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 10px;
+  }
+  .nav-links {
+    gap: 16px;
+    margin-top: 10px;
+  }
+  .sidebar {
+    padding: 12px 3vw;
+    font-size: 0.97rem;
+  }
+  .main-content {
+    padding: 12px 1vw;
+  }
+  .maintenance-table-section {
+    padding: 0 1vw;
+  }
+  .maintenance-table th,
+  .maintenance-table td {
+    padding: 10px 8px;
+    font-size: 0.97rem;
+  }
+  .modal {
+    min-width: unset;
+    width: 96vw;
+    padding: 20px 6vw 16px 6vw;
+  }
 }
 
 /* Responsivo */

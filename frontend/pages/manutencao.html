@@ -5,24 +5,6 @@
   <title>Ordem de Serviço de Manutenção</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/manutencao.css">
-  <!-- Novo estilo: adicione este código no seu CSS caso não queira que fique no HTML -->
-  <style>
-    .table-totals {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    .table-totals td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      font-weight: bold;
-    }
-    .totals-info {
-      text-align: right;
-      margin-top: 20px;
-      font-size: 1.1em;
-    }
-  </style>
 </head>
 <body>
   <header class="navbar">
@@ -141,102 +123,164 @@
         </div>
 
         <div class="manutencao-acoes">
-          <button class="btn btn-edit" onclick="abrirEditarManutencao()">Editar</button>
+          <button class="btn btn-edit" id="openEditModal">Editar</button>
           <button class="btn btn-receipt">Gerar Recibo</button>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Modal editar manutenção atualizado -->
-  <div class="modal-bg" id="editManutencaoModal">
-    <div class="modal">
+  <div class="modal-bg" id="editModalBg" style="display: none;">
+    <div class="modal wide-modal">
       <div class="modal-header">
         <h2>Editar Ordem de Serviço</h2>
-        <button class="modal-close" onclick="fecharModal('editManutencaoModal')">&times;</button>
+        <button id="closeEditModal" class="modal-close">&times;</button>
       </div>
-      <form class="add-form">
-        <!-- Informações do Cliente -->
-        <fieldset>
-          <legend>Cliente</legend>
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text" value="João da Silva" required>
+      <form class="add-form grid-form">
+        <div class="form-group">
+          <label for="editClienteSelect">Cliente</label>
+          <select id="editClienteSelect" name="cliente" required>
+            <option value="">Selecione</option>
+            <option value="1">1 (João da Silva)</option>
+            <option value="2">2 (Maria Souza)</option>
+            <option value="3">3 (Carlos Lima)</option>
+            <option value="4">4 (Ana Paula)</option>
+            <option value="5">5 (Rafael Mendes)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editCarroSelect">Veículo</label>
+          <select id="editCarroSelect" name="carro" required>
+            <option value="">Selecione</option>
+            <option value="1">1 (Fiat Uno 1.0 8V)</option>
+            <option value="2">2 (Chevrolet Onix 1.4)</option>
+            <option value="3">3 (Volkswagen Gol 1.6)</option>
+            <option value="4">4 (Toyota Corolla 2.0)</option>
+            <option value="5">5 (Renault Kwid 1.0)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Km</label>
+          <input type="number" name="km" id="editKm" required>
+        </div>
+        <div class="form-group">
+          <label>Produtos</label>
+          <div id="editProdutosContainer">
+            <!-- Entradas de produtos serão inseridas aqui -->
           </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" value="joao@email.com" required>
+          <button type="button" id="addEditProduto" class="btn btn-secondary">Adicionar Produto</button>
+        </div>
+        <div class="form-group">
+          <label>Serviços</label>
+          <div id="editServicosContainer">
+            <!-- Entradas de serviços serão inseridas aqui -->
           </div>
-          <div class="form-group">
-            <label>Telefone</label>
-            <input type="tel" value="(11) 99999-8888" required>
-          </div>
-        </fieldset>
-        
-        <!-- Informações do Vendedor -->
-        <fieldset>
-          <legend>Vendedor</legend>
-          <div class="form-group">
-            <label>Nome</label>
-            <input type="text" value="Ana Paula" required>
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" value="ana@loja.com" required>
-          </div>
-          <div class="form-group">
-            <label>Telefone</label>
-            <input type="tel" value="(11) 98888-7777" required>
-          </div>
-        </fieldset>
-
-        <!-- Informações do Veículo -->
-        <fieldset>
-          <legend>Veículo</legend>
-          <div class="form-group">
-            <label>Modelo</label>
-            <input type="text" value="Fiat Uno 1.0 8V MANUAL" required>
-          </div>
-          <div class="form-group">
-            <label>Placa</label>
-            <input type="text" value="ABC-1234" required>
-          </div>
-          <div class="form-group">
-            <label>Kilometragem</label>
-            <input type="number" value="45000" required>
-          </div>
-          <div class="form-group">
-            <label>Garantia</label>
-            <select required>
-              <option value="valida" selected>Válida</option>
-              <option value="expirada">Expirada</option>
-            </select>
-          </div>
-        </fieldset>
-        
+          <button type="button" id="addEditServico" class="btn btn-secondary">Adicionar Serviço</button>
+        </div>
+        <div class="form-group">
+          <span id="editTotalProdutos" style="font-size: 1.4em; color: #337ab7;">Total Produtos: 0</span>
+        </div>
+        <div class="form-group">
+          <span id="editTotalServicos" style="font-size: 1.4em; color: #337ab7;">Total Serviços: 0</span>
+        </div>
+        <div class="form-group">
+          <span id="editTotalGeral" style="font-size: 1.4em; color: #337ab7;">Total Geral: R$ 0,00</span>
+        </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="submit" class="btn btn-success" id="edit-btn">Salvar</button>
         </div>
       </form>
     </div>
   </div>
 
 
+
   <script>
-    function abrirEditarManutencao() {
-      document.getElementById('editManutencaoModal').style.display = 'flex';
+  // Abrir e fechar o modal
+  document.getElementById('openEditModal').addEventListener('click', function() {
+    document.getElementById('editModalBg').style.display = 'flex';
+  });
+  document.getElementById('closeEditModal').addEventListener('click', function() {
+    document.getElementById('editModalBg').style.display = 'none';
+  });
+  document.getElementById('editModalBg').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
     }
-    function fecharModal(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-    function gerarRecibo() {
-      alert('Recibo gerado! (implemente aqui a lógica de geração/download do recibo)');
-    }
-    document.querySelectorAll('.modal-bg').forEach(function(modal){
-      modal.addEventListener('click', function(e){
-        if (e.target === this) this.style.display = 'none';
-      });
+  });
+
+  // Adiciona novo campo para Produto
+  document.getElementById('addEditProduto').addEventListener('click', function() {
+    var container = document.getElementById('editProdutosContainer');
+    var entry = document.createElement('div');
+    entry.className = 'produto-entry';
+    entry.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <select name="produtos[]" style="width: 100%;">
+          <option value="">Selecione Produto</option>
+          <option value="1">1 (Óleo 5W30)</option>
+          <option value="2">2 (Filtro de óleo)</option>
+          <option value="3">3 (Pastilha de freio)</option>
+          <option value="4">4 (Filtro de ar)</option>
+          <option value="5">5 (Velas de ignição)</option>
+        </select>
+        <input type="number" name="valor_produto[]" placeholder="Valor cobrado" step="0.01">
+        <button type="button" class="btn btn-danger remove-produto">&times;</button>
+      </div>
+    `;
+    container.appendChild(entry);
+    entry.querySelector('.remove-produto').onclick = function() {
+      entry.remove();
+      atualizarTotaisEdit();
+    };
+  });
+
+  // Adiciona novo campo para Serviço
+  document.getElementById('addEditServico').addEventListener('click', function() {
+    var container = document.getElementById('editServicosContainer');
+    var entry = document.createElement('div');
+    entry.className = 'servico-entry';
+    entry.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <select name="servicos[]" style="width: 100%;">
+          <option value="">Selecione Serviço</option>
+          <option value="1">1 (Troca de óleo)</option>
+          <option value="2">2 (Alinhamento e Balanceamento)</option>
+          <option value="3">3 (Revisão de freios)</option>
+        </select>
+        <input type="number" name="valor_servico[]" placeholder="Valor cobrado" step="0.01">
+        <button type="button" class="btn btn-danger remove-servico">&times;</button>
+      </div>
+    `;
+    container.appendChild(entry);
+    entry.querySelector('.remove-servico').onclick = function() {
+      entry.remove();
+      atualizarTotaisEdit();
+    };
+  });
+
+  // Atualiza os totais ao editar valores
+  function atualizarTotaisEdit() {
+    let totalProdutos = 0;
+    document.querySelectorAll('#editProdutosContainer input[name="valor_produto[]"]').forEach(function(input) {
+      totalProdutos += parseFloat(input.value) || 0;
     });
+    let totalServicos = 0;
+    document.querySelectorAll('#editServicosContainer input[name="valor_servico[]"]').forEach(function(input) {
+      totalServicos += parseFloat(input.value) || 0;
+    });
+    document.getElementById('editTotalProdutos').textContent = 'Total Produtos: R$ ' + totalProdutos.toFixed(2);
+    document.getElementById('editTotalServicos').textContent = 'Total Serviços: R$ ' + totalServicos.toFixed(2);
+    document.getElementById('editTotalGeral').textContent = 'Total Geral: R$ ' + (totalProdutos + totalServicos).toFixed(2);
+  }
+
+  // Dispara atualização ao digitar nos campos
+  document.addEventListener('input', function(e) {
+    if (e.target.closest('#editProdutosContainer') || e.target.closest('#editServicosContainer')) {
+      atualizarTotaisEdit();
+    }
+  });
+
   </script>
 </body>
 </html>

@@ -24,20 +24,16 @@
   <main class="container">
     <section class="vehicle-left">
       <div class="vehicle-gallery">
-        <img
-          id="mainImage"
-          class="main-image"
-          src="../assets/images/fiat_uno.jpg"
-          alt="Fiat Uno Amarelo"
-          tabindex="0"
-          role="button"
-          aria-label="Abrir imagem em tamanho maior"
-        />
-        <div class="thumbs-carousel" tabindex="0" aria-label="Carrossel de imagens do veículo">
-          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 1" data-full="../assets/images/fiat_uno.jpg" />
-          <img src="../assets/images/pneu.png" alt="Miniatura 2" data-full="../assets/images/pneu.png" />
-          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 3" data-full="../assets/images/fiat_uno.jpg" />
-          <img src="../assets/images/fiat_uno.jpg" alt="Miniatura 4" data-full="../assets/images/fiat_uno.jpg" />
+        <img src="../assets/images/fiat_uno.jpg" alt="Fiat Uno" class="vehicle-details-img" id="mainVehicleImg">
+        <div class="carousel-container">
+          <button class="carousel-btn" id="carouselPrev" disabled>&#8592;</button>
+          <div class="carousel-images" id="carouselImages">
+            <img src="../assets/images/fiat_uno.jpg" alt="Pneu 1" class="carousel-thumb active" onclick="setMainImage(this)">
+            <img src="../assets/images/pneu.png" alt="Pneu 1" class="carousel-thumb" onclick="setMainImage(this)">
+            <img src="../assets/images/fiat_uno.jpg" alt="Pneu 1" class="carousel-thumb" onclick="setMainImage(this)">
+            <img src="../assets/images/fiat_uno.jpg" alt="Pneu 1" class="carousel-thumb" onclick="setMainImage(this)">
+          </div>
+          <button class="carousel-btn" id="carouselNext" disabled>&#8594;</button>
         </div>
       </div>
       <div class="vehicle-info">
@@ -73,7 +69,7 @@
     <section class="maint-section">
       <div class="maint-header">
         <h2>Manutenções</h2>
-        <button class="btn-add-maint" onclick="abrirNovaManutencao()">+ Nova Manutenção</button>
+        <button id="openAddModal" class="btn btn-success">+ Nova Manutenção</button>
       </div>
       <div class="maint-table-wrapper">
         <table class="maint-table">
@@ -123,65 +119,172 @@
   </div>
 
   <!-- Modal Editar Veículo -->
-  <div class="modal-bg" id="modalEditarVeiculo">
-    <div class="modal">
+  <div class="modal-bg" id="modalEditarVeiculo" style="display: none;">
+    <div class="modal wide-modal">
       <div class="modal-header">
         <h2>Editar Veículo</h2>
         <button class="modal-close" onclick="fecharModal('modalEditarVeiculo')">&times;</button>
       </div>
-      <form class="add-form">
+      <form class="add-form grid-form">
         <div class="form-group">
           <label>Nome</label>
-          <input type="text" value="FIAT UNO 2010" required>
+          <input type="text" name="Nome" id="addNome" required>
         </div>
         <div class="form-group">
-          <label>Cor</label>
-          <input type="text" value="Amarelo" required>
+          <label for="addCorSelect">Cor</label>
+          <select id="addCorSelect" name="cor" required>
+            <option value="">Selecione</option>
+            <option value="Amarelo">Amarelo</option>
+            <option value="Prata">Prata</option>
+            <option value="Azul">Azul</option>
+            <option value="Branco">Branco</option>
+            <option value="Preto">Preto</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Placa</label>
-          <input type="text" value="ABC-1234" required>
+          <input type="text" name="placa" value="ABC-1234" required>
+        </div>
+        <div class="form-group">
+          <label for="addMarcaSelect">Marca</label>
+          <select id="addMarcaSelect" name="marca" required>
+            <option value="">Selecione</option>
+            <option value="Fiat">Fiat</option>
+            <option value="Ford">Ford</option>
+            <option value="BMW">BMW</option>
+            <option value="Mercedes">Mercedes</option>
+            <option value="Volkswagen">Volkswagen</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="addModeloSelect">Modelo</label>
+          <select id="addModeloSelect" name="modelo" required>
+            <option value="">Selecione</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="Sedan">Sedan</option>
+            <option value="SUV">SUV</option>
+            <option value="Conversível">Conversível</option>
+            <option value="Picape">Picape</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ano de Fabricação</label>
+          <input type="number" name="ano_fabricacao" value="2010" required>
         </div>
         <div class="form-group">
           <label>Quilometragem</label>
-          <input type="number" value="100000" required>
+          <input type="number" name="quilometragem" value="100000" required>
+        </div>
+        <div class="form-group">
+          <label>Imagem Principal</label>
+          <input type="file" name="imagem_principal" accept="image/*" required>
+        </div>
+        <div class="form-group">
+          <label>Pequenas Imagens</label>
+          <div id="pequenasImagensContainer">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <input type="file" name="pequenas_imagens[]" accept="image/*">
+              <button type="button" class="btn btn-danger remove-pequena-imagem">&times;</button>
+            </div>
+          </div>
+          <button type="button" id="addPequenaImagem" class="btn btn-secondary">Adicionar Imagem Pequena</button>
         </div>
         <div class="form-group">
           <label>Garantia</label>
-          <select>
+          <select name="garantia" required>
             <option value="valida" selected>Válida</option>
             <option value="expirada">Expirada</option>
           </select>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-success">Salvar</button>
+          <button type="submit" class="submit-btn">Salvar</button>
         </div>
       </form>
+
+      <script>
+        document.getElementById('addPequenaImagem').addEventListener('click', function() {
+          var container = document.getElementById('pequenasImagensContainer');
+          var div = document.createElement('div');
+          div.style.display = 'flex';
+          div.style.alignItems = 'center';
+          div.style.gap = '10px';
+          div.style.marginBottom = '6px';
+          div.innerHTML = '<input type="url" name="pequenas_imagens[]" placeholder="URL da imagem pequena"> <button type="button" class="btn btn-danger remove-pequena-imagem">&times;</button>';
+          container.appendChild(div);
+          div.querySelector('.remove-pequena-imagem').addEventListener('click', function() {
+            div.remove();
+          });
+        });
+
+        document.querySelectorAll('.remove-pequena-imagem').forEach(function(button) {
+          button.addEventListener('click', function() {
+            button.parentElement.remove();
+          });
+        });
+      </script>
     </div>
   </div>
 
   <!-- Modal Nova Manutenção -->
-  <div class="modal-bg" id="modalNovaManutencao">
-    <div class="modal">
+  <!-- Modal de Adicionar Ordem de Serviço -->
+  <div class="modal-bg" id="addModalBg" style="display: none;">
+    <div class="modal wide-modal">
       <div class="modal-header">
-        <h2>Nova Manutenção</h2>
-        <button class="modal-close" onclick="fecharModal('modalNovaManutencao')">&times;</button>
+        <h2>Nova Ordem de Serviço</h2>
+        <button id="closeAddModal" class="modal-close">&times;</button>
       </div>
-      <form class="add-form">
+      <form class="add-form grid-form">
         <div class="form-group">
-          <label>Data</label>
-          <input type="date" required>
+          <label for="addClienteSelect">Cliente</label>
+          <select id="addClienteSelect" name="cliente" required>
+            <option value="">Selecione</option>
+            <option value="1">1 (João da Silva)</option>
+            <option value="2">2 (Maria Souza)</option>
+            <option value="3">3 (Carlos Lima)</option>
+            <option value="4">4 (Ana Paula)</option>
+            <option value="5">5 (Rafael Mendes)</option>
+          </select>
         </div>
         <div class="form-group">
-          <label>Custo</label>
-          <input type="number" required>
+          <label for="addCarroSelect">Veículo</label>
+          <select id="addCarroSelect" name="carro" required>
+            <option value="">Selecione</option>
+            <option value="1">1 (Fiat Uno 1.0 8V)</option>
+            <option value="2">2 (Chevrolet Onix 1.4)</option>
+            <option value="3">3 (Volkswagen Gol 1.6)</option>
+            <option value="4">4 (Toyota Corolla 2.0)</option>
+            <option value="5">5 (Renault Kwid 1.0)</option>
+          </select>
         </div>
         <div class="form-group">
-          <label>Tipo manutenção</label>
-          <input type="text" required>
+          <label>Km</label>
+          <input type="number" name="km" id="addKm" required>
+        </div>
+        <div class="form-group">
+          <label>Produtos</label>
+          <div id="addProdutosContainer">
+            <!-- Entradas de produtos serão inseridas aqui -->
+          </div>
+          <button type="button" id="addProduto" class="btn btn-secondary">Adicionar Produto</button>
+        </div>
+        <div class="form-group">
+          <label>Serviços</label>
+          <div id="addServicosContainer">
+            <!-- Entradas de serviços serão inseridas aqui -->
+          </div>
+          <button type="button" id="addServico" class="btn btn-secondary">Adicionar Serviço</button>
+        </div>
+        <div class="form-group">
+          <span id="addTotalProdutos" style="font-size: 1.4em; color: #337ab7;">Total Produtos: R$ 0,00</span>
+        </div>
+        <div class="form-group">
+          <span id="addTotalServicos" style="font-size: 1.4em; color: #337ab7;">Total Serviços: R$ 0,00</span>
+        </div>
+        <div class="form-group">
+          <span id="addTotalGeral" style="font-size: 1.4em; color: #337ab7;">Total Geral: R$ 0,00</span>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-success">Adicionar</button>
+          <button type="submit" class="btn btn-success" id="add-btn">Adicionar</button>
         </div>
       </form>
     </div>
@@ -189,48 +292,18 @@
 
   <script>
   // Galeria de imagens
-  const mainImage = document.getElementById('mainImage');
   const modal = document.getElementById('imageModal');
   const modalImg = document.getElementById('modalImage');
   const closeBtn = modal.querySelector('.close');
-  const thumbs = document.querySelectorAll('.thumbs-carousel img');
 
-  thumbs.forEach(thumb => {
-    thumb.addEventListener('click', () => {
-      mainImage.src = thumb.dataset.full;
-      mainImage.alt = thumb.alt;
-      thumbs.forEach(t => t.classList.remove('selected'));
-      thumb.classList.add('selected');
-    });
-    thumb.addEventListener('dblclick', () => {
-      modal.style.display = 'block';
-      modal.setAttribute('aria-hidden', 'false');
-      modalImg.src = thumb.dataset.full;
-      modalImg.alt = thumb.alt;
-      closeBtn.focus();
-    });
-  });
 
-  if (thumbs.length > 0) thumbs[0].classList.add('selected');
-
-  mainImage.addEventListener('click', () => {
-    modal.style.display = 'block';
-    modal.setAttribute('aria-hidden', 'false');
-    modalImg.src = mainImage.src;
-    modalImg.alt = mainImage.alt;
-    closeBtn.focus();
-  });
-
-  mainImage.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      modal.style.display = 'block';
-      modal.setAttribute('aria-hidden', 'false');
-      modalImg.src = mainImage.src;
-      modalImg.alt = mainImage.alt;
-      closeBtn.focus();
+  function setMainImage(imgElem) {
+      document.getElementById('mainVehicleImg').src = imgElem.src;
+      const thumbs = document.querySelectorAll('.carousel-thumb');
+      thumbs.forEach(t => t.classList.remove('active'));
+      imgElem.classList.add('active');
     }
-  });
+
 
   function closeModal() {
     modal.style.display = 'none';
@@ -265,6 +338,93 @@
     modal.addEventListener('click', function(e){
       if (e.target === this) this.style.display = 'none';
     });
+  });
+
+
+
+  // Abrir e fechar o modal
+  document.getElementById('openAddModal').addEventListener('click', function() {
+    document.getElementById('addModalBg').style.display = 'flex';
+  });
+  document.getElementById('closeAddModal').addEventListener('click', function() {
+    document.getElementById('addModalBg').style.display = 'none';
+  });
+  document.getElementById('addModalBg').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
+
+  // Adiciona novo campo para Produto
+  document.getElementById('addProduto').addEventListener('click', function() {
+    var container = document.getElementById('addProdutosContainer');
+    var entry = document.createElement('div');
+    entry.className = 'produto-entry';
+    entry.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <select name="produtos[]" style="width: 100%;>
+          <option value="">Selecione Produto</option>
+          <option value="1">1 (Óleo 5W30)</option>
+          <option value="2">2 (Filtro de óleo)</option>
+          <option value="3">3 (Pastilha de freio)</option>
+          <option value="4">4 (Filtro de ar)</option>
+          <option value="5">5 (Velas de ignição)</option>
+        </select>
+        <input type="number" name="valor_produto[]" placeholder="Valor cobrado" step="0.01">
+        <button type="button" class="btn btn-danger remove-produto">&times;</button>
+      </div>
+    `;
+    container.appendChild(entry);
+    entry.querySelector('.remove-produto').onclick = function() {
+      entry.remove();
+      atualizarTotaisAdd();
+    };
+  });
+
+  // Adiciona novo campo para Serviço
+  document.getElementById('addServico').addEventListener('click', function() {
+    var container = document.getElementById('addServicosContainer');
+    var entry = document.createElement('div');
+    entry.className = 'servico-entry';
+    entry.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <select name="servicos[]" style="width: 100%;>
+          <option value="">Selecione Serviço</option>
+          <option value="1">1 (Troca de óleo)</option>
+          <option value="2">2 (Alinhamento e Balanceamento)</option>
+          <option value="3">3 (Revisão de freios)</option>
+        </select>
+        <input type="number" name="valor_servico[]" placeholder="Valor cobrado" step="0.01">
+        <button type="button" class="btn btn-danger remove-servico">&times;</button>
+      </div>
+    `;
+    container.appendChild(entry);
+    entry.querySelector('.remove-servico').onclick = function() {
+      entry.remove();
+      atualizarTotaisAdd();
+    };
+  });
+
+  // Atualiza os totais ao editar valores
+  function atualizarTotaisAdd() {
+    let totalProdutos = 0;
+    document.querySelectorAll('#addProdutosContainer input[name="valor_produto[]"]').forEach(function(input) {
+      totalProdutos += parseFloat(input.value) || 0;
+    });
+    let totalServicos = 0;
+    document.querySelectorAll('#addServicosContainer input[name="valor_servico[]"]').forEach(function(input) {
+      totalServicos += parseFloat(input.value) || 0;
+    });
+    document.getElementById('addTotalProdutos').textContent = 'Total Produtos: R$ ' + totalProdutos.toFixed(2);
+    document.getElementById('addTotalServicos').textContent = 'Total Serviços: R$ ' + totalServicos.toFixed(2);
+    document.getElementById('addTotalGeral').textContent = 'Total Geral: R$ ' + (totalProdutos + totalServicos).toFixed(2);
+  }
+
+  // Dispara atualização ao digitar nos campos
+  document.addEventListener('input', function(e) {
+    if (e.target.closest('#addProdutosContainer') || e.target.closest('#addServicosContainer')) {
+      atualizarTotaisAdd();
+    }
   });
   </script>
 </body>

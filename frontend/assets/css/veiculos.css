@@ -54,7 +54,7 @@ body {
 
 .nav-links li a.active,
 .nav-links li a:hover {
-  color: var(--highlight);
+  color: #7cc0f7;
   opacity: 1;
 }
 
