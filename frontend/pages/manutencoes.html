@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Manutenções</title>
+  <title>Ordem de Serviços de Manutenções</title>
   <link rel="stylesheet" href="../assets/css/manutencoes.css">
 </head>
 <body>
@@ -23,7 +23,7 @@
 
   <div class="container">'
     <main class="main-content">
-      <h1>Manutenções de Veículos</h1>'
+      <h1>Ordem de Serviço de Manutenções</h1>'
         <section class="maintenance-table-section">
             <table class="maintenance-table">
                 <thead>
@@ -84,103 +84,152 @@
         <button type="submit" class="btn btn-primary">Filtrar</button>
       </form>
       <hr>
-      <button id="openAddModal" class="btn btn-highlight">+ Nova Manutenção</button>
+      <button id="openAddModal" class="btn btn-highlight">+ Nova Ordem de Serviço</button>
     </aside>
   </div>
 
   <!-- Modal para adicionar nova manutenção -->
-  <div class="modal-bg" id="addModalBg">
-    <div class="modal wide-modal">
-        <div class="modal-header">
-        <h2>Nova Manutenção</h2>
-        <button id="closeAddModal" class="modal-close">&times;</button>
-        </div>
-        <form class="add-form grid-form">
-        <div class="form-group">
-            <label for="clienteSelect">Cliente</label>
-            <select id="clienteSelect" name="cliente" required>
-            <option value="">Selecione</option>
-            <option value="1">1 (João da Silva)</option>
-            <option value="2">2 (Maria Souza)</option>
-            <option value="3">3 (Carlos Lima)</option>
-            <option value="4">4 (Ana Paula)</option>
-            <option value="5">5 (Rafael Mendes)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="carroSelect">Veículo</label>
-            <select id="carroSelect" name="carro" required>
-            <option value="">Selecione</option>
-            <option value="1">1 (Fiat Uno 1.0 8V)</option>
-            <option value="2">2 (Chevrolet Onix 1.4)</option>
-            <option value="3">3 (Volkswagen Gol 1.6)</option>
-            <option value="4">4 (Toyota Corolla 2.0)</option>
-            <option value="5">5 (Renault Kwid 1.0)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Km</label>
-            <input type="number" name="km" required>
-        </div>
-        <div class="form-group">
-            <label>Produtos</label>
-            <select name="produtos" required multiple size="6">
-            <option value="1">1 (Óleo 5W30)</option>
-            <option value="2">2 (Filtro de óleo)</option>
-            <option value="3">3 (Pastilha de freio)</option>
-            <option value="4">4 (Filtro de ar)</option>
-            <option value="5">5 (Velas de ignição)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Garantia</label>
-            <div class="radio-group large-radio">
-            <label>
-                <input type="radio" name="garantia" value="valida" required>
-                Válida
-            </label>
-            <label>
-                <input type="radio" name="garantia" value="expirada">
-                Expirada
-            </label>
-            </div>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-success">Adicionar</button>
-        </div>
-        </form>
+<div class="modal-bg" id="addModalBg" style="display: none;">
+  <div class="modal wide-modal">
+    <div class="modal-header">
+      <h2>Nova Ordem de Serviço</h2>
+      <button id="closeAddModal" class="modal-close">&times;</button>
     </div>
+    <form class="add-form grid-form">
+      <div class="form-group">
+        <label for="clienteSelect">Cliente</label>
+        <select id="clienteSelect" name="cliente" required>
+          <option value="">Selecione</option>
+          <option value="1">1 (João da Silva)</option>
+          <option value="2">2 (Maria Souza)</option>
+          <option value="3">3 (Carlos Lima)</option>
+          <option value="4">4 (Ana Paula)</option>
+          <option value="5">5 (Rafael Mendes)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="carroSelect">Veículo</label>
+        <select id="carroSelect" name="carro" required>
+          <option value="">Selecione</option>
+          <option value="1">1 (Fiat Uno 1.0 8V)</option>
+          <option value="2">2 (Chevrolet Onix 1.4)</option>
+          <option value="3">3 (Volkswagen Gol 1.6)</option>
+          <option value="4">4 (Toyota Corolla 2.0)</option>
+          <option value="5">5 (Renault Kwid 1.0)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Km</label>
+        <input type="number" name="km" required>
+      </div>
+      <div class="form-group">
+        <label>Produtos</label>
+        <div id="produtosContainer">
+          <div class="produto-entry">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <select name="produtos[]">
+                <option value="">Selecione Produto</option>
+                <option value="1">1 (Óleo 5W30)</option>
+                <option value="2">2 (Filtro de óleo)</option>
+                <option value="3">3 (Pastilha de freio)</option>
+                <option value="4">4 (Filtro de ar)</option>
+                <option value="5">5 (Velas de ignição)</option>
+              </select>
+              <input type="number" name="valor_produto[]" placeholder="Valor cobrado" step="0.01">
+            </div>
+          </div>
+        </div>
+        <button type="button" id="addProduto" class="btn btn-secondary">Adicionar Produto</button>
+      </div>
+      <div class="form-group">
+        <label>Serviços</label>
+        <div id="servicosContainer">
+          <div class="servico-entry">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <select name="servicos[]">
+                <option value="">Selecione Serviço</option>
+                <option value="1">1 (Troca de óleo)</option>
+                <option value="2">2 (Alinhamento e Balanceamento)</option>
+                <option value="3">3 (Revisão de freios)</option>
+              </select>
+              <input type="number" name="valor_servico[]" placeholder="Valor cobrado" step="0.01">
+            </div>
+          </div>
+        </div>
+        <button type="button" id="addServico" class="btn btn-secondary">Adicionar Serviço</button>
+      </div>
+      <div class="form-group">
+        <span style="font-size: 1.4em; color: #337ab7;">Total Produtos: 5</span>
+      </div>
+      <div class="form-group">
+        <span style="font-size: 1.4em; color: #337ab7;">Total Serviços: 10</span>
+      </div>
+      <div class="form-group">
+        <span style="font-size: 1.4em; color: #337ab7;">Total Geral: R$ 0,00</span>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success">Adicionar</button>
+      </div>
+    </form>
   </div>
-
+</div>
 
 <script>
-    // Modal open/close using addEventListener for better practice
-    document.getElementById('openAddModal').addEventListener('click', function() {
-        document.getElementById('addModalBg').style.display = 'flex';
-    });
-    document.getElementById('closeAddModal').addEventListener('click', function() {
-        document.getElementById('addModalBg').style.display = 'none';
-    });
-    document.getElementById('addModalBg').addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.style.display = 'none';
-        }
-    });
-</script>
-<script>
-    function filterDropdown(selectId, searchValue) {
-        var select = document.getElementById(selectId);
-        if (!select) return;
-        var filter = searchValue.toLowerCase();
-        Array.from(select.options).forEach(function(option) {
-            if (option.text.toLowerCase().includes(filter)) {
-                option.style.display = "";
-            } else {
-                option.style.display = "none";
-            }
-        });
+  // Abre e fecha o modal
+  document.getElementById('openAddModal').addEventListener('click', function() {
+    document.getElementById('addModalBg').style.display = 'flex';
+  });
+  document.getElementById('closeAddModal').addEventListener('click', function() {
+    document.getElementById('addModalBg').style.display = 'none';
+  });
+  document.getElementById('addModalBg').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
     }
+  });
+
+  // Adiciona novo campo para Produto
+  document.getElementById('addProduto').addEventListener('click', function() {
+    var container = document.getElementById('produtosContainer');
+    var entry = document.createElement('div');
+    entry.className = 'produto-entry';
+    entry.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <select name="produtos[]">
+          <option value="">Selecione Produto</option>
+          <option value="1">1 (Óleo 5W30)</option>
+          <option value="2">2 (Filtro de óleo)</option>
+          <option value="3">3 (Pastilha de freio)</option>
+          <option value="4">4 (Filtro de ar)</option>
+          <option value="5">5 (Velas de ignição)</option>
+        </select>
+        <input type="number" name="valor_produto[]" placeholder="Valor cobrado" step="0.01">
+      </div>
+    `;
+    container.appendChild(entry);
+  });
+
+  // Adiciona novo campo para Serviço
+  document.getElementById('addServico').addEventListener('click', function() {
+    var container = document.getElementById('servicosContainer');
+    var entry = document.createElement('div');
+    entry.className = 'servico-entry';
+    entry.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <select name="servicos[]">
+          <option value="">Selecione Serviço</option>
+          <option value="1">1 (Troca de óleo)</option>
+          <option value="2">2 (Alinhamento e Balanceamento)</option>
+          <option value="3">3 (Revisão de freios)</option>
+        </select>
+        <input type="number" name="valor_servico[]" placeholder="Valor cobrado" step="0.01">
+      </div>
+    `;
+    container.appendChild(entry);
+  });
 </script>
 
-</body>
+
+
+  </body>
 </html>

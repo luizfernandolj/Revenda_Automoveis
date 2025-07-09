@@ -2,9 +2,27 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Detalhes da Manutenção</title>
+  <title>Ordem de Serviço de Manutenção</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../assets/css/manutencao.css">
+  <!-- Novo estilo: adicione este código no seu CSS caso não queira que fique no HTML -->
+  <style>
+    .table-totals {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .table-totals td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      font-weight: bold;
+    }
+    .totals-info {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+  </style>
 </head>
 <body>
   <header class="navbar">
@@ -24,7 +42,7 @@
 
   <main class="main-content">
     <section class="manutencao-detalhe-section">
-      <h1>Detalhes da Manutenção #1</h1>
+      <h1>Detalhes da Ordem de Serviço de Manutenção</h1>
       <div class="manutencao-card">
         <div class="manutencao-info">
           <div class="info-col">
@@ -49,72 +67,160 @@
             </p>
           </div>
         </div>
+        
+        <!-- Tabela de Produtos Utilizados -->
         <div class="manutencao-produtos">
           <h3>Produtos Utilizados</h3>
           <table class="produtos-table">
             <thead>
               <tr>
-                <th>Produto</th>
+                <th>Código</th>
+                <th>Nome</th>
                 <th>Quantidade</th>
+                <th>Valor do Item</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody>
               <tr>
+                <td>P001</td>
                 <td>Óleo 5W30</td>
                 <td>4</td>
+                <td>R$20,00</td>
+                <td>R$80,00</td>
               </tr>
               <tr>
+                <td>P002</td>
                 <td>Filtro de óleo</td>
                 <td>1</td>
+                <td>R$15,00</td>
+                <td>R$15,00</td>
               </tr>
               <tr>
+                <td>P003</td>
                 <td>Pastilha de freio</td>
                 <td>2</td>
+                <td>R$30,00</td>
+                <td>R$60,00</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <!-- Tabela de Serviços Utilizados -->
+        <div class="manutencao-servicos">
+          <h3>Serviços Utilizados</h3>
+          <table class="produtos-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Tipo do Serviço</th>
+                <th>Valor Cobrado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>S001</td>
+                <td>Troca de óleo</td>
+                <td>R$50,00</td>
+              </tr>
+              <tr>
+                <td>S002</td>
+                <td>Revisão Geral</td>
+                <td>R$100,00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Informações Totais -->
+        <div class="totals-info">
+          <p>Total de Produtos: R$155,00</p>
+          <p>Total de Serviços: R$150,00</p>
+          <p>Total da Ordem de Serviço: R$305,00</p>
+        </div>
+
         <div class="manutencao-acoes">
           <button class="btn btn-edit" onclick="abrirEditarManutencao()">Editar</button>
-          <button class="btn btn-receipt" onclick="gerarRecibo()">Gerar Recibo</button>
+          <button class="btn btn-receipt">Gerar Recibo</button>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Modal editar manutenção (exemplo simplificado) -->
+  <!-- Modal editar manutenção atualizado -->
   <div class="modal-bg" id="editManutencaoModal">
     <div class="modal">
       <div class="modal-header">
-        <h2>Editar Manutenção</h2>
+        <h2>Editar Ordem de Serviço</h2>
         <button class="modal-close" onclick="fecharModal('editManutencaoModal')">&times;</button>
       </div>
       <form class="add-form">
-        <div class="form-group">
-          <label>Cliente</label>
-          <input type="text" value="João da Silva" required>
-        </div>
-        <div class="form-group">
-          <label>Veículo</label>
-          <input type="text" value="Fiat Uno 1.0 8V MANUAL" required>
-        </div>
-        <div class="form-group">
-          <label>Km</label>
-          <input type="number" value="45000" required>
-        </div>
-        <div class="form-group">
-          <label>Garantia</label>
-          <select required>
-            <option value="valida" selected>Válida</option>
-            <option value="expirada">Expirada</option>
-          </select>
-        </div>
+        <!-- Informações do Cliente -->
+        <fieldset>
+          <legend>Cliente</legend>
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text" value="João da Silva" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" value="joao@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Telefone</label>
+            <input type="tel" value="(11) 99999-8888" required>
+          </div>
+        </fieldset>
+        
+        <!-- Informações do Vendedor -->
+        <fieldset>
+          <legend>Vendedor</legend>
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text" value="Ana Paula" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" value="ana@loja.com" required>
+          </div>
+          <div class="form-group">
+            <label>Telefone</label>
+            <input type="tel" value="(11) 98888-7777" required>
+          </div>
+        </fieldset>
+
+        <!-- Informações do Veículo -->
+        <fieldset>
+          <legend>Veículo</legend>
+          <div class="form-group">
+            <label>Modelo</label>
+            <input type="text" value="Fiat Uno 1.0 8V MANUAL" required>
+          </div>
+          <div class="form-group">
+            <label>Placa</label>
+            <input type="text" value="ABC-1234" required>
+          </div>
+          <div class="form-group">
+            <label>Kilometragem</label>
+            <input type="number" value="45000" required>
+          </div>
+          <div class="form-group">
+            <label>Garantia</label>
+            <select required>
+              <option value="valida" selected>Válida</option>
+              <option value="expirada">Expirada</option>
+            </select>
+          </div>
+        </fieldset>
+        
         <div class="form-actions">
           <button type="submit" class="btn btn-success">Salvar</button>
         </div>
       </form>
     </div>
   </div>
+
 
   <script>
     function abrirEditarManutencao() {

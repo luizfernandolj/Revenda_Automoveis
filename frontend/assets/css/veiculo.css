@@ -233,7 +233,7 @@ body {
 /* Manutenções - lado direito */
 .maint-section {
   flex: 1.5;
-  background: #34344a;
+  background: #29293a;
   border-radius: 16px;
   padding: 36px 36px 36px 36px;
   min-width: 440px;
@@ -351,7 +351,7 @@ body {
   left: 0;
   top: 0;
   width: 100vw;
-  height: 100vh;
+  height: 50vh;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.85);
 }
