@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Tipos</title>
+  <link rel="stylesheet" href="../assets/css/TiposVeiculo.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Logo</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="veiculos.html" >Veículos</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="vendas_v2.html">Vendas</a></li>
+        <li><a href="vendedores_v2.html">Vendedores</a></li>
+        <li><a href="clientes_v2.html">Clientes</a></li>
+        <li><a href="marcas.html">Marcas</a></li>
+        <li><a href="#" class="active">Tipos</a></li>
+        <li><a href="manutencoes.html">Manutenções</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <main class="main-content">
+      <h1>Tipos</h1>'
+        <section class="maintenance-table-section">
+            <table class="maintenance-table">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Tipo</th>
+                  <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>SUV</td>
+                  <td>
+                    <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                    <a class="btn-details" onclick="editTipo()" href="#">Editar</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Sedan</td>
+                  <td>
+                    <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                    <a class="btn-details" onclick="editTipo()" href="#">Editar</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Hatch</td>
+                  <td>
+                    <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                    <a class="btn-details" onclick="editTipo()" href="#">Editar</a>
+                  </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Sidebar fixa à direita -->
+    <aside class="sidebar">
+      <h2>Filtrar</h2>
+      <form class="filter-form">
+        <label>Tipo
+          <input type="text" placeholder="Nome do Tipo" name="cliente">
+        </label>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+      </form>
+      <hr>
+      <button id="openAddModal" class="btn btn-success">+ Novo Tipo de Veículo</button>
+    </aside>
+  </div>
+
+
+  <!-- Modal de Adicionar Ordem de Serviço -->
+  <div class="modal-bg" id="addModalBg" style="display: none;">
+    <div class="modal wide-modal">
+      <div class="modal-header">
+        <h2>Novo Tipo de Veículo</h2>
+        <button id="closeAddModal" class="modal-close">&times;</button>
+      </div>
+      <form class="add-form grid-form">
+        <div class="form-group">
+          <label>Nome do Tipo de Veículo</label>
+          <input type="text" name="Tipo" id="addTipo" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success" id="add-btn">Adicionar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+  <div class="modal-bg" id="editModalBg" style="display: none;">
+    <div class="modal wide-modal">
+      <div class="modal-header">
+        <h2>Novo Tipo de Veículo</h2>
+        <button id="closeAddModal" class="modal-close">&times;</button>
+      </div>
+      <form class="add-form grid-form">
+        <div class="form-group">
+          <label>Nome do Tipo de Veículo</label>
+          <input type="text" name="Tipo" id="addTipo" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success" id="add-btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  // Abrir e fechar o modal
+  document.getElementById('openAddModal').addEventListener('click', function() {
+    document.getElementById('addModalBg').style.display = 'flex';
+  });
+  document.getElementById('closeAddModal').addEventListener('click', function() {
+    document.getElementById('addModalBg').style.display = 'none';
+  });
+
+  function editTipo() {
+    document.getElementById('editModalBg').style.display = 'flex';
+  }
+
+  document.getElementById('editModalBg').querySelector('.modal-close').addEventListener('click', function() {
+    document.getElementById('editModalBg').style.display = 'none';
+  });
+
+  document.getElementById('editModalBg').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
+
+  document.getElementById('addModalBg').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.style.display = 'none';
+    }
+  });
+  </script>
+
+
+
+  </body>
+</html>
