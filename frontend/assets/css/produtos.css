@@ -30,12 +30,11 @@
     padding: 24px 40px 16px 40px;
   }
 
-  .logo {
-    font-size: 2rem;
-    color: #fff;
-    font-weight: 600;
-    letter-spacing: 1px;
+
+  .navbar-logo img{
+    height: 50px;
   }
+
   .nav-links {
     display: flex;
     gap: 32px;

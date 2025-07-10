@@ -38,6 +38,10 @@ body {
   letter-spacing: 1px;
 }
 
+.navbar-logo img{
+  height: 50px;
+}
+
 .nav-links {
   display: flex;
   gap: 32px;

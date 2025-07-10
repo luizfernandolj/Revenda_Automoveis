@@ -28,6 +28,10 @@ body {
   margin-right: 40px;
 }
 
+.navbar-logo img{
+  height: 50px;
+}
+
 .navbar-menu {
   display: flex;
   flex: 1;
