@@ -32,12 +32,8 @@ body {
 }
 
 .logo {
-  font-size: 2rem;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: 1px;
+    height: 50px;
 }
-
 .nav-links {
   display: flex;
   gap: 32px;

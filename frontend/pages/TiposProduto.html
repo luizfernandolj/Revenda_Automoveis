@@ -2,8 +2,8 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Marcas</title>
-  <link rel="stylesheet" href="../assets/css/marcas.css">
+  <title>TiposProduto</title>
+  <link rel="stylesheet" href="../assets/css/TiposProduto.css">
 </head>
 <body>
   <nav class="navbar">
@@ -19,9 +19,9 @@
         <ul class="dropdown-menu">
           <li><a href="veiculos.html">Veículos</a></li>
           <li><a href="produtos.html">Produtos</a></li>
-          <li><a href="#" class="active">Marcas</a></li>
+          <li><a href="marcas.html">Marcas</a></li>
           <li><a href="TiposVeiculo.html">Tipos de Veículos</a></li>
-          <li><a href="TiposProduto.html">Tipos de Produtos</a></li>
+          <li><a href="#" class="active">Tipos de Produtos</a></li>
           <li><a href="cores.html">Cores</a></li>
           <li><a href="Fornecedores.html">Fornecedores</a></li>
         </ul>
@@ -46,32 +46,48 @@
 
   <div class="container">
     <main class="main-content">
-      <h1>Marcas</h1>'
+      <h1>Tipos de Produtos</h1>'
         <section class="maintenance-table-section">
             <table class="maintenance-table">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Marca</th>
-                    <th>Ações</th>
+                  <th>Id</th>
+                  <th>Tipo de Produto</th>
+                  <th>Ações</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>1</td>
-                    <td>Fiat</td>
-                    <td>
-                    <button class="btn-remove" title="Remover manutenção">&#128465;</button>
-                    <a class="btn-details" onclick="editMarca()" href="#">Editar</a>
-                    </td>
+                  <td>1</td>
+                  <td>Pneus</td>
+                  <td>
+                  <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                  <a class="btn-details" onclick="editTipo()" href="#">Editar</a>
+                  </td>
                 </tr>
                 <tr>
-                    <td>2</td>
-                    <td>Volkswagen</td>
-                    <td>
-                    <button class="btn-remove" title="Remover manutenção">&#128465;</button>
-                    <a class="btn-details" onclick="editMarca()" href="#">Editar</a>
-                    </td>
+                  <td>2</td>
+                  <td>Filtros de Óleo</td>
+                  <td>
+                  <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                  <a class="btn-details" onclick="editTipo()" href="#">Editar</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Pastilhas de Freio</td>
+                  <td>
+                  <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                  <a class="btn-details" onclick="editTipo()" href="#">Editar</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Baterias</td>
+                  <td>
+                  <button class="btn-remove" title="Remover manutenção">&#128465;</button>
+                  <a class="btn-details" onclick="editTipo()" href="#">Editar</a>
+                  </td>
                 </tr>
                 </tbody>
             </table>
@@ -82,13 +98,13 @@
     <aside class="sidebar">
       <h2>Filtrar</h2>
       <form class="filter-form">
-        <label>Marca
-          <input type="text" placeholder="Nome da Marca" name="cliente">
+        <label>Tipo de Produto
+          <input type="text" placeholder="Nome do Tipo" name="cliente">
         </label>
         <button type="submit" class="btn btn-primary">Filtrar</button>
       </form>
       <hr>
-      <button id="openAddModal" class="btn btn-success">+ Nova Marca</button>
+      <button id="openAddModal" class="btn btn-success">+ Novo Tipo de Veículo</button>
     </aside>
   </div>
 
@@ -97,13 +113,13 @@
   <div class="modal-bg" id="addModalBg" style="display: none;">
     <div class="modal wide-modal">
       <div class="modal-header">
-        <h2>Nova Marca</h2>
+        <h2>Novo Tipo de Produto</h2>
         <button id="closeAddModal" class="modal-close">&times;</button>
       </div>
       <form class="add-form grid-form">
         <div class="form-group">
-          <label>Nome da Marca</label>
-          <input type="text" name="marca" id="addMarca" required>
+          <label>Nome do Tipo de Produto</label>
+          <input type="text" name="Tipo" id="addTipo" required>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-success" id="add-btn">Adicionar</button>
@@ -117,13 +133,13 @@
   <div class="modal-bg" id="editModalBg" style="display: none;">
     <div class="modal wide-modal">
       <div class="modal-header">
-        <h2>Nova Marca</h2>
+        <h2>Novo Tipo de Produto</h2>
         <button id="closeAddModal" class="modal-close">&times;</button>
       </div>
       <form class="add-form grid-form">
         <div class="form-group">
-          <label>Nome da Marca</label>
-          <input type="text" name="marca" id="addMarca" required>
+          <label>Nome do Tipo de Produto</label>
+          <input type="text" name="Tipo" id="addTipo" required>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-success" id="add-btn">Salvar</button>
@@ -141,7 +157,7 @@
     document.getElementById('addModalBg').style.display = 'none';
   });
 
-  function editMarca() {
+  function editTipo() {
     document.getElementById('editModalBg').style.display = 'flex';
   }
 

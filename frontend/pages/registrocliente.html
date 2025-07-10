@@ -7,17 +7,43 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="navbar-logo">Logo</div>
-    <ul class="navbar-menu">
-      <li><a href="veiculos.html">Veículos</a></li>
-      <li><a href="produtos.html">Produtos</a></li>
-      <li><a href="vendas_v2.html">Vendas</a></li>
-      <li><a href="vendedores_v2.html">Vendedores</a></li>
-      <li><a href="clientes_v2.html">Clientes</a></li>
-      <li><a href="manutencoes.html">Manutenções</a></li>
-      <li><a href="#" class="active">Perfil</a></li>
+    <img src="../assets/images/logo.png" alt="Logo" class="logo">
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <ul class="nav-links">
+      <li class="dropdown">
+        <a href="#">Cadastros</a>
+        <ul class="dropdown-menu">
+          <li><a href="veiculos.html">Veículos</a></li>
+          <li><a href="produtos.html">Produtos</a></li>
+          <li><a href="marcas.html">Marcas</a></li>
+          <li><a href="TiposVeiculo.html">Tipos de Veículos</a></li>
+          <li><a href="#" class="active">Tipos de Produtos</a></li>
+          <li><a href="cores.html">Cores</a></li>
+          <li><a href="Fornecedores.html">Fornecedores</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Operações</a>
+        <ul class="dropdown-menu">
+          <li><a href="vendas_v2.html">Vendas</a></li>
+          <li><a href="manutencoes.html">Manutenções</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#">Pessoas</a>
+        <ul class="dropdown-menu">
+          <li><a href="vendedores_v2.html">Vendedores</a></li>
+          <li><a href="clientes_v2.html">Clientes</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Perfil</a></li>
     </ul>
   </nav>
+  
   <main>
     <div class="login-container">
       <form class="login-box">
@@ -31,5 +57,27 @@
       </form>
     </div>
   </main>
+
+  <script>
+    // Toggle do menu hamburguer
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Dropdowns por clique no mobile
+    const dropdowns = document.querySelectorAll('.dropdown > a');
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('click', (e) => {
+        if(window.innerWidth <= 900) {
+          e.preventDefault();
+          const parent = dropdown.parentElement;
+          parent.classList.toggle('active');
+        }
+      });
+    });
+</script>
 </body>
 </html>
