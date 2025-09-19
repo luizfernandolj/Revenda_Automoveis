@@ -52,7 +52,7 @@ mvn clean package
 3. Após o comando, o arquivo WAR será criado na pasta `target` com nome algo como `backend.war`.
 4. Renomeie o arquivo `.war` para `ROOT.war` para que seja o aplicativo padrão no Tomcat:
 ```bash
-mv target/backend.war ROOT.war
+mv target/revenda-veiculos-1.0-SNAPSHOT.war ROOT.war
 ```
 
 

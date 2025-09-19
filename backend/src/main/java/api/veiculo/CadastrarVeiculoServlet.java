@@ -1,15 +1,17 @@
 package api.veiculo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Veiculo;
-import service.VeiculoService;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import model.Veiculo;
+import service.VeiculoService;
 
 @WebServlet("/veiculo/cadastrar")
 public class CadastrarVeiculoServlet extends HttpServlet {
@@ -20,6 +22,9 @@ public class CadastrarVeiculoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
         try {
             Veiculo veiculoForm = objectMapper.readValue(request.getReader(), Veiculo.class);
@@ -33,5 +38,13 @@ public class CadastrarVeiculoServlet extends HttpServlet {
             response.setStatus(500);
             response.getWriter().println(errorJson);
         }
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }
