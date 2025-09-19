@@ -14,16 +14,11 @@ function Veiculos() {
   const [error, setError] = useState(null);
   const [filterText, setFilterText] = useState('');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [minPreco, setMinPreco] = useState('');
-  const [maxPreco, setMaxPreco] = useState('');
-  const [minQuilometragem, setMinQuilometragem] = useState('');
-  const [maxQuilometragem, setMaxQuilometragem] = useState('');
   const [filterMarca, setFilterMarca] = useState('');
   const [filterCor, setFilterCor] = useState('');
   const [filterDisponivel, setFilterDisponivel] = useState(null); // null: ambos, true: só disponíveis, false: só indisponíveis
   const [precoRange, setPrecoRange] = useState({ min: 0, max: 300000 });
   const [kmRange, setKmRange] = useState({ min: 0, max: 300000 });
-
 
   const [newVeiculo, setNewVeiculo] = useState({
     preco: '',
@@ -76,32 +71,32 @@ function Veiculos() {
     fetchAll();
   }, []);
 
+  // Log dos filtros só quando algum filtro muda
   const filteredVeiculos = veiculos.filter(v => {
-    const modelo = modelos.find(m => m.id === v.modelo_id);
+    const modelo = modelos.find(m => m.id === v.modelo.id);
     const modeloNome = modelo ? modelo.nome : '';
 
-    let matchText =
+    const matchText =
       String(v.preco).includes(filterText) ||
       modeloNome.toLowerCase().includes(filterText.toLowerCase());
 
-    let matchPreco =
+    const matchPreco =
       Number(v.preco) >= precoRange.min && Number(v.preco) <= precoRange.max;
 
-    let matchQuilometragem =
+    const matchQuilometragem =
       Number(v.quilometragem) >= kmRange.min && Number(v.quilometragem) <= kmRange.max;
 
-    let matchMarca =
-        filterMarca === '' || v.modelo.marca.id === filterMarca;
+    const matchMarca =
+      filterMarca === '' || v.modelo.marca.id === Number(filterMarca);
 
-    let matchCor =
-        filterCor === '' || v.cor.id === filterCor;
+    const matchCor =
+      filterCor === '' || v.cor.id === Number(filterCor);
 
-    let matchDisponivel =
-        filterDisponivel === null || v.disponivel === filterDisponivel;
+    const matchDisponivel =
+      filterDisponivel === null || v.disponivel === filterDisponivel;
 
     return matchText && matchPreco && matchQuilometragem && matchMarca && matchCor && matchDisponivel;
   });
-
 
   const openAddModal = () => {
     setIsAddModalOpen(true);
@@ -128,7 +123,6 @@ function Veiculos() {
     if (type === 'file') {
       setNewVeiculo(prev => ({ ...prev, [name]: files[0]?.name || '' }));
     } else if ((name === 'preco' || name === 'quilometragem') && value !== '') {
-      // Garante valor >= 0
       const num = Number(value);
       if (num < 0) return;
       setNewVeiculo(prev => ({ ...prev, [name]: value }));
@@ -139,47 +133,46 @@ function Veiculos() {
     }
   };
 
-    const handleAddSubmit = async (e) => {
+  const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-        // Construir os objetos aninhados para envio conforme exemplo do modelo
-        const selectedMarca = marcas.find(m => m.id === newVeiculo.marca_id) || { id: newVeiculo.marca_id, nome: '' };
-        const selectedModelo = modelos.find(m => m.id === newVeiculo.modelo_id) || { id: newVeiculo.modelo_id, nome: '', marca: selectedMarca };
-        const selectedTipo = tipos.find(t => t.id === newVeiculo.tipo_id) || { id: newVeiculo.tipo_id, nome: '' };
+      const selectedMarca = marcas.find(m => m.id === newVeiculo.marca_id) || { id: newVeiculo.marca_id, nome: '' };
+      const selectedModelo = modelos.find(m => m.id === newVeiculo.modelo_id) || { id: newVeiculo.modelo_id, nome: '', marca: selectedMarca };
+      const selectedTipo = tipos.find(t => t.id === newVeiculo.tipo_id) || { id: newVeiculo.tipo_id, nome: '' };
 
-        const bodyToSend = {
+      const bodyToSend = {
         preco: newVeiculo.preco,
         quilometragem: newVeiculo.quilometragem,
         disponivel: newVeiculo.disponivel,
         cor: { id: newVeiculo.cor_id },
         modelo: {
-            id: selectedModelo.id,
-            nome: selectedModelo.nome,
-            marca: {
+          id: selectedModelo.id,
+          nome: selectedModelo.nome,
+          marca: {
             id: selectedMarca.id,
             nome: selectedMarca.nome,
-            },
-            tipoVeiculo: {
+          },
+          tipoVeiculo: {
             id: selectedTipo.id,
             nome: selectedTipo.nome,
-            }
+          }
         },
-        };
+      };
 
-        const res = await fetch('http://localhost:8080/veiculo/cadastrar', {
+      const res = await fetch('http://localhost:8080/veiculo/cadastrar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bodyToSend),
-        });
+      });
 
-        if (!res.ok) throw new Error('Erro ao cadastrar veículo');
-        const created = await res.json();
-        setVeiculos(prev => [...prev, created]);
-        closeAddModal();
+      if (!res.ok) throw new Error('Erro ao cadastrar veículo');
+      const created = await res.json();
+      setVeiculos(prev => [...prev, created]);
+      closeAddModal();
     } catch (err) {
-        alert(err.message);
+      alert(err.message);
     }
-    };
+  };
 
   const handleRemove = async (id) => {
     if (!window.confirm('Confirmar remoção?')) return;
@@ -195,35 +188,29 @@ function Veiculos() {
   return (
     <>
       <Navbar />
-    <div className="main-content flex-layout">
+      <div className="main-content flex-layout">
         {loading && <p>Carregando...</p>}
-        {error && <p style={{color:'red'}}>{error}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <section className="cards-section">
           {filteredVeiculos.length === 0 ? (
             <p>Nenhum veículo encontrado.</p>
           ) : (
-            filteredVeiculos.map(v => {
-              const modelo = modelos.find(m => m.id === v.modelo_id);
-              const cor = cores.find(c => c.id === v.cor_id);
-              const tipo = tipos.find(t => t.id === v.tipo_id);
-              const marca = marcas.find(m => m.id === v.marca_id);
-              return (
-                <div key={v.id} className="vehicle-card">
-                  <button className="remove-card-btn" onClick={() => handleRemove(v.id)}>&times;</button>
-                  <img src={fiatuno} alt="Fiat-Uno" className="vehicle-image-preview" />
-                  <div className="card-details">
-                    <div>ID: {v.id}</div>
-                    <div>Cor: {v.cor.nome}</div>
-                    <div>Modelo: {v.modelo.nome}</div>
-                    <div>Marca: {v.modelo.marca.nome}</div>
-                    <div>Tipo: {v.modelo.tipoVeiculo.nome}</div>
-                    <div>Quilometragem: {v.quilometragem}</div>
-                    <div>Status: {v.disponivel ? 'Disponível' : 'Indisponível'}</div>
-                    <div>Preço: R$ {Number(v.preco).toLocaleString('pt-BR')}</div>
-                  </div>
+            filteredVeiculos.map(v => (
+              <div key={v.id} className="vehicle-card">
+                <button className="remove-card-btn" onClick={() => handleRemove(v.id)}>&times;</button>
+                <img src={fiatuno} alt="Fiat-Uno" className="vehicle-image-preview" />
+                <div className="card-details">
+                  <div>ID: {v.id}</div>
+                  <div>Cor: {v.cor.nome}</div>
+                  <div>Modelo: {v.modelo.nome}</div>
+                  <div>Marca: {v.modelo.marca.nome}</div>
+                  <div>Tipo: {v.modelo.tipoVeiculo.nome}</div>
+                  <div>Quilometragem: {v.quilometragem}</div>
+                  <div>Status: {v.disponivel ? 'Disponível' : 'Indisponível'}</div>
+                  <div>Preço: R$ {Number(v.preco).toLocaleString('pt-BR')}</div>
                 </div>
-              );
-            })
+              </div>
+            ))
           )}
         </section>
 
