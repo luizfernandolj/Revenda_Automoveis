@@ -1,0 +1,10 @@
+
+	java:S112,"FDefine and throw a dedicated exception instead of using a generic one.(ğíÎ–ùÿÿÿÿ8¼™ß3J$e4dd2a9d-48f0-438c-a578-50350044256d
+š
+java:S2737"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8Ì®ß3J$a347214a-2e08-4313-9a13-9cd2455c4632
+š
+java:S2737/"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8Î®ß3J$02e70902-7eb5-4c18-9092-23881614d12f
+u
+java:S1128"2Remove this unused import 'java.sql.SQLException'.(ÛïÆŸ8óêÒä3J$c6f86a3f-881d-4740-b7b0-47e1b6426666
+s
+java:S1128	"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8óêÒä3J$aecb2fbb-27e7-4ec6-bd1a-50b3c431a663

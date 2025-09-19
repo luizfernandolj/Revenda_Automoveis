@@ -1,0 +1,11 @@
+
+¨
+java:S1989%"eHandle the following exception that could be thrown by "writeValueAsString": JsonProcessingException.(èÜÛÒ8§ý‚åŽ3J$7ed2202c-139c-43cf-a2ac-e5f7f755c796
+˜
+java:S1989'"PHandle the following exception that could be thrown by "getWriter": IOException.(æ¨£¥ùÿÿÿÿ8§ý‚åŽ3J$5a75b273-f098-46d4-ac96-cf10c9ef2e34
+f
+java:S1128"Remove this duplicated import.(Ê‚Ô¯ÿÿÿÿÿ8Â•‡åŽ3J$4dcaea9f-0717-48f4-8028-d65fa43fee99
+a
+java:S1128"Remove this duplicated import.(Ž«¹‰8Â•‡åŽ3J$b69e496a-8946-45c6-bb4f-b85428ec4780
+~
+java:S1128	";Remove this unused import 'javax.servlet.ServletException'.(Š‰™Œ8Â•‡åŽ3J$5cc48c75-9f2c-42f9-b8f9-410fc1645f67
