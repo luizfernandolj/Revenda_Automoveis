@@ -1,0 +1,35 @@
+CREATE TABLE cor (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE marca (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE tipo_veiculo (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE modelo (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    marca_id BIGINT NOT NULL,
+    tipo_veiculo_id BIGINT NOT NULL,
+    CONSTRAINT fk_modelo_marca FOREIGN KEY (marca_id) REFERENCES marca (id),
+    CONSTRAINT fk_modelo_tipo_veiculo FOREIGN KEY (tipo_veiculo_id) REFERENCES tipo_veiculo (id)
+);
+
+
+CREATE TABLE veiculo (
+    id BIGSERIAL PRIMARY KEY,
+    preco NUMERIC(15,2) NOT NULL,
+    quilometragem BIGINT NOT NULL,
+    disponivel BOOLEAN NOT NULL,
+    cor_id BIGINT NOT NULL,
+    modelo_id BIGINT NOT NULL,
+    CONSTRAINT fk_veiculo_cor FOREIGN KEY (cor_id) REFERENCES cor (id),
+    CONSTRAINT fk_veiculo_modelo FOREIGN KEY (modelo_id) REFERENCES modelo (id)
+);

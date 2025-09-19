@@ -1,0 +1,39 @@
+-- Inserir cores
+INSERT INTO cor (nome) VALUES
+('Vermelho'),
+('Azul'),
+('Preto'),
+('Branco'),
+('Prata');
+
+-- Inserir marcas
+INSERT INTO marca (nome) VALUES
+('Fiat'),
+('Volkswagen'),
+('Chevrolet'),
+('Ford'),
+('Hyundai');
+
+-- Inserir tipos de veículo
+INSERT INTO tipo_veiculo (nome) VALUES
+('Hatchback'),
+('Sedan'),
+('SUV'),
+('Caminhonete'),
+('Esportivo');
+
+-- Inserir modelos (exemplo com referência às marcas e tipos)
+INSERT INTO modelo (nome, marca_id, tipo_veiculo_id) VALUES
+('Uno', (SELECT id FROM marca WHERE nome='Fiat'), (SELECT id FROM tipo_veiculo WHERE nome='Hatchback')),
+('Gol', (SELECT id FROM marca WHERE nome='Volkswagen'), (SELECT id FROM tipo_veiculo WHERE nome='Hatchback')),
+('Cruze', (SELECT id FROM marca WHERE nome='Chevrolet'), (SELECT id FROM tipo_veiculo WHERE nome='Sedan')),
+('EcoSport', (SELECT id FROM marca WHERE nome='Ford'), (SELECT id FROM tipo_veiculo WHERE nome='SUV')),
+('HB20', (SELECT id FROM marca WHERE nome='Hyundai'), (SELECT id FROM tipo_veiculo WHERE nome='Hatchback'));
+
+-- Inserir veículos (exemplo com referencias adequadas)
+INSERT INTO veiculo (preco, quilometragem, disponivel, cor_id, modelo_id) VALUES
+(35000.00, 50000, true, (SELECT id FROM cor WHERE nome='Vermelho'), (SELECT id FROM modelo WHERE nome='Uno')),
+(45000.00, 30000, true, (SELECT id FROM cor WHERE nome='Azul'), (SELECT id FROM modelo WHERE nome='Gol')),
+(60000.00, 60000, false, (SELECT id FROM cor WHERE nome='Preto'), (SELECT id FROM modelo WHERE nome='Cruze')),
+(80000.00, 20000, true, (SELECT id FROM cor WHERE nome='Branco'), (SELECT id FROM modelo WHERE nome='EcoSport')),
+(42000.00, 40000, false, (SELECT id FROM cor WHERE nome='Prata'), (SELECT id FROM modelo WHERE nome='HB20'));
