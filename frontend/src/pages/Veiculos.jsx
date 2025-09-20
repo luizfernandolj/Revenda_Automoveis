@@ -151,12 +151,12 @@ function Veiculos() {
           marca: {
             id: selectedMarca.id,
             nome: selectedMarca.nome,
-          },
-          tipoVeiculo: {
-            id: selectedTipo.id,
-            nome: selectedTipo.nome,
           }
         },
+        tipoVeiculo: {
+          id: selectedTipo.id,
+          nome: selectedTipo.nome,
+        }
       };
 
       const res = await fetch('http://localhost:8080/veiculo/cadastrar', {
@@ -204,7 +204,7 @@ function Veiculos() {
                   <div>Cor: {v.cor.nome}</div>
                   <div>Modelo: {v.modelo.nome}</div>
                   <div>Marca: {v.modelo.marca.nome}</div>
-                  <div>Tipo: {v.modelo.tipoVeiculo.nome}</div>
+                  <div>Tipo: {v.tipoVeiculo.nome}</div>
                   <div>Quilometragem: {v.quilometragem}</div>
                   <div>Status: {v.disponivel ? 'Disponível' : 'Indisponível'}</div>
                   <div>Preço: R$ {Number(v.preco).toLocaleString('pt-BR')}</div>

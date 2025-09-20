@@ -5,7 +5,7 @@ import '../assets/css/modelos.css';
 function Modelos() {
   const [modelos, setModelos] = useState([]);
   const [marcas, setMarcas] = useState([]);
-  const [tiposVeiculo, setTiposVeiculo] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterText, setFilterText] = useState('');
@@ -15,21 +15,15 @@ function Modelos() {
   const [hamburgerActive, setHamburgerActive] = useState(false);
   const [newModeloName, setNewModeloName] = useState('');
   const [selectedMarcaId, setSelectedMarcaId] = useState('');
-  const [selectedTipoId, setSelectedTipoId] = useState('');
   const [editModeloName, setEditModeloName] = useState('');
   const [editMarcaId, setEditMarcaId] = useState('');
-  const [editTipoId, setEditTipoId] = useState('');
 
   useEffect(() => {
     fetchModelos();
     fetch('http://localhost:8080/marca')
       .then(res => res.ok ? res.json() : [])
       .then(data => setMarcas(data))
-      .catch(() => setMarcas([]));
-    fetch('http://localhost:8080/tipo-veiculo')
-      .then(res => res.ok ? res.json() : [])
-      .then(data => setTiposVeiculo(data))
-      .catch(() => setTiposVeiculo([]));
+      .catch(() => setMarcas([]));    
   }, []);
 
   const fetchModelos = () => {
@@ -94,8 +88,7 @@ function Modelos() {
   // Modais abrir/fechar
   const openAddModal = () => {
     setNewModeloName('');
-    setSelectedMarcaId('');
-    setSelectedTipoId('');
+    setSelectedMarcaId('');    
     setIsAddModalOpen(true);
   };
   const closeAddModal = () => {
@@ -104,8 +97,7 @@ function Modelos() {
   const openEditModal = (modelo) => {
     setEditingModelo(modelo);
     setEditModeloName(modelo.nome);
-    setEditMarcaId(modelo.marcaId || '');
-    setEditTipoId(modelo.tipoVeiculoId || '');
+    setEditMarcaId(modelo.marcaId || '');    
     setIsEditModalOpen(true);
   };
   const closeEditModal = () => {
@@ -115,17 +107,15 @@ function Modelos() {
 
   // Adicionar modelo
   const handleAddSubmit = (e) => {
-    const selectedMarca = marcas.find(m => m.id === Number(selectedMarcaId));
-    const selectedTipo = tiposVeiculo.find(t => t.id === Number(selectedTipoId));
+    const selectedMarca = marcas.find(m => m.id === Number(selectedMarcaId));    
     e.preventDefault();
-    if (!newModeloName.trim() || !selectedMarca || !selectedTipo) return;
+    if (!newModeloName.trim() || !selectedMarca) return;
     fetch('http://localhost:8080/modelo/cadastrar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         nome: newModeloName,
-        marca: selectedMarca,
-        tipoVeiculo: selectedTipo,
+        marca: selectedMarca,        
       }),
     })
       .then(res => {
@@ -142,7 +132,7 @@ function Modelos() {
   // Editar modelo
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    if (!editModeloName.trim() || !editingModelo || !editMarcaId || !editTipoId) return;
+    if (!editModeloName.trim() || !editingModelo || !editMarcaId) return;
     fetch(`http://localhost:8080/modelo/${editingModelo.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -151,11 +141,7 @@ function Modelos() {
         marca: {
             id: selectedMarcaId.id,
             nome: selectedMarcaId.nome
-        },
-        tipoVeiculo: {
-            id: selectedTipoId.id,
-            nome: selectedTipoId.nome
-        },
+        },        
       }),
     })
       .then(res => {
@@ -196,20 +182,18 @@ function Modelos() {
                 <tr>
                   <th>Id</th>
                   <th>Modelo</th>
-                  <th>Marca</th>
-                  <th>Tipo Veículo</th>
+                  <th>Marca</th>                  
                   <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
                 {modelos.length > 0 ? (
-                  modelos.map(({ id, nome, marca, tipoVeiculo }) => {
+                  modelos.map(({ id, nome, marca }) => {
                     return (
                       <tr key={id}>
                         <td>{id}</td>
                         <td>{nome}</td>
-                        <td>{marca.nome}</td>
-                        <td>{tipoVeiculo.nome}</td>
+                        <td>{marca.nome}</td>                        
                         <td>
                           <button
                             className="btn-remove"
@@ -223,7 +207,7 @@ function Modelos() {
                             className="btn-details"
                             onClick={e => {
                               e.preventDefault();
-                              openEditModal({ id, nome, marca, tipoVeiculo });
+                              openEditModal({ id, nome, marca });
                             }}
                           >
                             Editar
@@ -311,23 +295,7 @@ function Modelos() {
                   ))}
                 </select>
               </div>
-              <div className="form-group">
-                <label htmlFor="addTipoVeiculo">Tipo Veículo</label>
-                <select
-                  name="tipoVeiculo"
-                  id="addTipoVeiculo"
-                  required
-                  value={selectedTipoId}
-                  onChange={e => setSelectedTipoId(e.target.value)}
-                >
-                  <option value="">Selecione o tipo de veículo</option>
-                  {tiposVeiculo.map(tipo => (
-                    <option key={tipo.id} value={tipo.id}>
-                      {tipo.nome}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              
               <div className="form-actions">
                 <button type="submit" className="btn btn-success" id="add-btn">
                   Adicionar
@@ -381,23 +349,7 @@ function Modelos() {
                   ))}
                 </select>
               </div>
-              <div className="form-group">
-                <label htmlFor="editTipoVeiculo">Tipo Veículo</label>
-                <select
-                  name="tipoVeiculo"
-                  id="editTipoVeiculo"
-                  required
-                  value={editTipoId}
-                  onChange={e => setEditTipoId(e.target.value)}
-                >
-                  <option value="">Selecione o tipo de veículo</option>
-                  {tiposVeiculo.map(tipo => (
-                    <option key={tipo.id} value={tipo.id}>
-                      {tipo.nome}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              
               <div className="form-actions">
                 <button type="submit" className="btn btn-success" id="save-btn">
                   Salvar
