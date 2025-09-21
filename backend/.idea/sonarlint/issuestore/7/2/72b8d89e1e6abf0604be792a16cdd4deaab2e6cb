@@ -1,0 +1,10 @@
+
+~
+java:S4973D"<Strings and Boxed types should be compared using "equals()".(ÏË’g8Á‡¯Á–3J$7066330c-bf15-45ff-904c-caca2bfe55cb
+ˆ	java:S112*"FDefine and throw a dedicated exception instead of using a generic one.(¡œĞÛ8Àÿ’ß3J$5bf4ffa0-0c21-48d5-b939-84b7abde41e2
+‡	java:S112D"FDefine and throw a dedicated exception instead of using a generic one.(ÏË’g8Â‡¯Á–3J$d817a788-f935-490a-b1f6-fbfaee656116
+ˆ	java:S112C"FDefine and throw a dedicated exception instead of using a generic one.(º†ïü8Ò ¯Á–3J$f8232c0e-5c00-4186-9b35-d7a3775375e6
+š
+java:S2737"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8Íª“ß3J$92945f82-d2e0-48a5-a406-c995c8d86561
+š
+java:S2737-"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8Ğª“ß3J$d6cd2091-fc71-4010-9569-54d40c33880d

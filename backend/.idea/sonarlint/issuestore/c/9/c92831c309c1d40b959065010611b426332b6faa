@@ -1,0 +1,12 @@
+
+
+java:S4973E"<Strings and Boxed types should be compared using "equals()".(À‰ê8ÏÃ°Á–3J$060ed693-c2f3-44ab-96c4-8d72f200c009
+ˆ	java:S112+"FDefine and throw a dedicated exception instead of using a generic one.(ğŞ¸õ8Ïƒß3J$03b291bc-52bc-4b75-871c-bbc5971296a5
+ˆ	java:S112E"FDefine and throw a dedicated exception instead of using a generic one.(À‰ê8ÏÃ°Á–3J$a9d5c693-37d9-454c-a721-76e696e11cbc
+‡	java:S112D"FDefine and throw a dedicated exception instead of using a generic one.(÷¶¥8ÏÃ°Á–3J$a0a6bba6-c35f-4053-bd2c-c1c7f2bdc75c
+š
+java:S2737"WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8Òƒß3J$ace1b951-86a6-4096-8840-5a958db7dbb5
+š
+java:S2737."WAdd logic to this catch clause or eliminate it and rethrow the exception automatically.(ö™û8Óƒß3J$a29b796c-d9a2-4826-9414-c98a28425787
+p
+java:S1128"(Remove this unused import 'model.Marca'.(Ê‚Ô¯ÿÿÿÿÿ8ûØ°Á–3J$309b8100-aa91-485a-a826-e56732e01fd0
