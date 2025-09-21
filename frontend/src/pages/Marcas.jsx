@@ -133,7 +133,7 @@ function Marcas() {
     if (!editMarcaName.trim() || !editingMarca) return;
 
     fetch(`http://localhost:8080/marca/${editingMarca.id}`, {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome: editMarcaName }),
     })
