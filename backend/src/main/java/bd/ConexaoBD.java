@@ -10,7 +10,7 @@ public class ConexaoBD {
     public Connection getConexaoBD() throws Exception {
         String url = "jdbc:mysql://localhost:3306/revenda_veiculos";
         String usuario = "root";
-        String senha = "28022005lL!";
+        String senha = "root";
         String driver = "com.mysql.cj.jdbc.Driver";
 
         if (url == null || usuario == null || senha == null) {
