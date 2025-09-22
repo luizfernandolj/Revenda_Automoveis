@@ -1,13 +1,17 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Cor;
 import model.Modelo;
 import model.TipoVeiculo;
 import model.Veiculo;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VeiculoDAO {
     private final Connection conexao;
@@ -46,7 +50,7 @@ public class VeiculoDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new Exception("Erro ao obter cor com o id " + id + ": " + e.getMessage());
+            throw new Exception("Erro ao obter veiculo com o id " + id + ": " + e.getMessage());
         }
         return veiculo;
     }

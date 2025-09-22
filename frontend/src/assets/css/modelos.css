@@ -35,7 +35,7 @@ h1 {
 .maintenance-table {
   width: 100%;
   border-collapse: collapse;
-  background: #2c2c3e;
+  background: #585885;
   color: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -52,7 +52,7 @@ h1 {
 
 
 .maintenance-table th {
-  background: #232332;
+  background: #0e0e27;
   color: #7cc0f7;
   font-weight: 600;
   border-bottom: 2px solid #3887ff;

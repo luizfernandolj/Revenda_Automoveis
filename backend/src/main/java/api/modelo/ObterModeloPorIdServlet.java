@@ -1,15 +1,17 @@
 package api.modelo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Modelo;
-import service.ModeloService;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import model.Modelo;
+import service.ModeloService;
 
 @WebServlet("/modelo/id")
 public class ObterModeloPorIdServlet extends HttpServlet {

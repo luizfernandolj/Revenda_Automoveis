@@ -1,13 +1,17 @@
 package bd;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ConexaoBD {
     public Connection getConexaoBD() throws Exception {
-        String url = System.getenv("DB_URL");
-        String usuario = System.getenv("DB_USER");
-        String senha = System.getenv("DB_PASSWORD");
-        String driver = "org.postgresql.Driver";
+        String url = "jdbc:mysql://localhost:3306/revenda_veiculos";
+        String usuario = "root";
+        String senha = "28022005lL!";
+        String driver = "com.mysql.cj.jdbc.Driver";
 
         if (url == null || usuario == null || senha == null) {
             throw new Exception("Variáveis de ambiente para conexão com o banco de dados não estão definidas.");

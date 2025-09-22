@@ -1,15 +1,17 @@
 package api.tipoveiculo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.TipoVeiculo;
-import service.TipoVeiculoService;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import model.TipoVeiculo;
+import service.TipoVeiculoService;
 
 @WebServlet("/tipo-veiculo/cadastrar")
 public class CadastrarTipoVeiculoServlet extends HttpServlet {
@@ -20,7 +22,6 @@ public class CadastrarTipoVeiculoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         try {
             TipoVeiculo tipoVeiculoForm = objectMapper.readValue(request.getReader(), TipoVeiculo.class);
             TipoVeiculo tipoVeiculoCadastrada = tipoVeiculoService.cadastraTipoVeiculo(tipoVeiculoForm);

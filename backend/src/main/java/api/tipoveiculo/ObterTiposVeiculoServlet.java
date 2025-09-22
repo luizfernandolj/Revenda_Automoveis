@@ -1,16 +1,17 @@
 package api.tipoveiculo;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.TipoVeiculo;
-import service.TipoVeiculoService;
+import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import model.TipoVeiculo;
+import service.TipoVeiculoService;
 
 @WebServlet("/tipo-veiculo")
 public class ObterTiposVeiculoServlet extends HttpServlet {

@@ -17,8 +17,8 @@ function Veiculos() {
   const [filterMarca, setFilterMarca] = useState('');
   const [filterCor, setFilterCor] = useState('');
   const [filterDisponivel, setFilterDisponivel] = useState(null); // null: ambos, true: só disponíveis, false: só indisponíveis
-  const [precoRange, setPrecoRange] = useState({ min: 0, max: 300000 });
-  const [kmRange, setKmRange] = useState({ min: 0, max: 300000 });
+  const [precoRange, setPrecoRange] = useState({ min: 0, max: 1000000 });
+  const [kmRange, setKmRange] = useState({ min: 0, max: 1000000 });
 
   const [newVeiculo, setNewVeiculo] = useState({
     preco: '',
@@ -27,8 +27,7 @@ function Veiculos() {
     cor_id: '',
     modelo_id: '',
     tipo_id: '',
-    marca_id: '',
-    imagem: ''
+    ano: '',
   });
 
   useEffect(() => {
@@ -40,8 +39,9 @@ function Veiculos() {
           fetch('http://localhost:8080/cor'),
           fetch('http://localhost:8080/modelo'),
           fetch('http://localhost:8080/tipo-veiculo'),
-          fetch('http://localhost:8080/marca'),
+          fetch('http://localhost:8080/marca')
         ]);
+
         if (!resVeiculos.ok) throw new Error('Erro ao buscar veículos');
         if (!resCores.ok) throw new Error('Erro ao buscar cores');
         if (!resModelos.ok) throw new Error('Erro ao buscar modelos');
@@ -75,7 +75,6 @@ function Veiculos() {
   const filteredVeiculos = veiculos.filter(v => {
     const modelo = modelos.find(m => m.id === v.modelo.id);
     const modeloNome = modelo ? modelo.nome : '';
-
     const matchText =
       String(v.preco).includes(filterText) ||
       modeloNome.toLowerCase().includes(filterText.toLowerCase());
@@ -113,8 +112,7 @@ function Veiculos() {
       cor_id: '',
       modelo_id: '',
       tipo_id: '',
-      marca_id: '',
-      imagem: ''
+      ano: '',
     });
   };
 
@@ -136,15 +134,31 @@ function Veiculos() {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      const selectedMarca = marcas.find(m => m.id === newVeiculo.marca_id) || { id: newVeiculo.marca_id, nome: '' };
-      const selectedModelo = modelos.find(m => m.id === newVeiculo.modelo_id) || { id: newVeiculo.modelo_id, nome: '', marca: selectedMarca };
-      const selectedTipo = tipos.find(t => t.id === newVeiculo.tipo_id) || { id: newVeiculo.tipo_id, nome: '' };
+
+      const resModelo = await fetch(`http://localhost:8080/modelo/id?id=${newVeiculo.modelo_id}`);
+      if (!resModelo.ok) throw new Error('Erro ao buscar modelo');
+      const selectedModelo = await resModelo.json();
+
+      const selectedMarca = selectedModelo.marca
+
+      const resTipo = await fetch(`http://localhost:8080/tipo-veiculo/id?id=${newVeiculo.tipo_id}`);
+      if (!resTipo.ok) throw new Error('Erro ao buscar tipo de veículo');
+      const selectedTipo = await resTipo.json();
+
+      const resCor = await fetch(`http://localhost:8080/cor/id?id=${newVeiculo.cor_id}`);
+      if (!resCor.ok) throw new Error('Erro ao buscar cor');
+      const selectedCor = await resCor.json();
+
+
 
       const bodyToSend = {
         preco: newVeiculo.preco,
         quilometragem: newVeiculo.quilometragem,
         disponivel: newVeiculo.disponivel,
-        cor: { id: newVeiculo.cor_id },
+        cor: { 
+          id: selectedCor.id,
+          nome: selectedCor.nome
+        },
         modelo: {
           id: selectedModelo.id,
           nome: selectedModelo.nome,
@@ -153,6 +167,7 @@ function Veiculos() {
             nome: selectedMarca.nome,
           }
         },
+        ano: newVeiculo.ano,
         tipoVeiculo: {
           id: selectedTipo.id,
           nome: selectedTipo.nome,
@@ -198,7 +213,6 @@ function Veiculos() {
             filteredVeiculos.map(v => (
               <div key={v.id} className="vehicle-card">
                 <button className="remove-card-btn" onClick={() => handleRemove(v.id)}>&times;</button>
-                <img src={fiatuno} alt="Fiat-Uno" className="vehicle-image-preview" />
                 <div className="card-details">
                   <div>ID: {v.id}</div>
                   <div>Cor: {v.cor.nome}</div>
@@ -206,6 +220,7 @@ function Veiculos() {
                   <div>Marca: {v.modelo.marca.nome}</div>
                   <div>Tipo: {v.tipoVeiculo.nome}</div>
                   <div>Quilometragem: {v.quilometragem}</div>
+                  <div>Ano: {v.ano}</div>
                   <div>Status: {v.disponivel ? 'Disponível' : 'Indisponível'}</div>
                   <div>Preço: R$ {Number(v.preco).toLocaleString('pt-BR')}</div>
                 </div>
@@ -226,7 +241,7 @@ function Veiculos() {
             <label>Preço (R$):</label>
             <MultiRangeSlider
               min={0}
-              max={300000}
+              max={1000000}
               step={1000}
               minValue={precoRange.min}
               maxValue={precoRange.max}
@@ -240,7 +255,7 @@ function Veiculos() {
             <label>Quilometragem (km):</label>
             <MultiRangeSlider
               min={0}
-              max={300000}
+              max={1000000}
               step={500}
               minValue={kmRange.min}
               maxValue={kmRange.max}
@@ -296,16 +311,6 @@ function Veiculos() {
             <button className="close-modal" onClick={closeAddModal}>&times;</button>
             <h2>Adicionar Veículo</h2>
             <form onSubmit={handleAddSubmit} className="vehicle-form">
-              <div className="image-upload-group">
-                <label htmlFor="imagem">Imagem do Veículo (opcional)</label>
-                <input
-                  type="file"
-                  id="imagem"
-                  name="imagem"
-                  onChange={handleInputChange}
-                />
-              </div>
-
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="preco">Preço</label>
@@ -389,21 +394,27 @@ function Veiculos() {
                     ))}
                   </select>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="marca_id">Marca</label>
-                  <select
-                    id="marca_id"
-                    name="marca_id"
-                    value={newVeiculo.marca_id}
-                    onChange={handleInputChange}
-                    required
-                  >
-                    <option value="">Selecione uma marca</option>
-                    {marcas.map(marca => (
-                      <option key={marca.id} value={marca.id}>{marca.nome}</option>
-                    ))}
-                  </select>
-                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="ano">Ano</label>
+                <select
+                  id="ano"
+                  name="ano"
+                  value={newVeiculo.ano}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Selecione um ano</option>
+                  {Array.from({ length: 30 }, (_, i) => {
+                    const year = new Date().getFullYear() - i;
+                    return (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
 
               <button type="submit" className="submit-btn">Cadastrar</button>

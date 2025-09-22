@@ -226,7 +226,7 @@ function Marcas() {
               Marca
               <input
                 type="text"
-                placeholder="Nome da Marca"
+                placeholder="ID da Marca"
                 name="marca"
                 value={filterText}
                 onChange={e => setFilterText(e.target.value)}
