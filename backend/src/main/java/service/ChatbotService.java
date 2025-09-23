@@ -29,8 +29,8 @@ public class ChatbotService {
     private final ObjectMapper objectMapper;
 
     public ChatbotService() {
-        geminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-        geminiApiKey = "AIzaSyAaScJURSqg6E7Q-D8VOG9a0wZTatXmmSU";
+        geminiApiUrl = System.getenv("GEMINI_API_URL");
+        geminiApiKey = System.getenv("GEMINI_API_KEY");
 
         instrucaoInicial = """
             Você é um assistente virtual para um sistema de gerenciamento de uma revenda de automóveis.
