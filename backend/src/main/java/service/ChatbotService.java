@@ -37,11 +37,16 @@ public class ChatbotService {
             Sua especialidade é ajudar a gerenciar o inventário de veículos, incluindo suas marcas, modelos, cores e tipos. Responda apenas a perguntas relacionadas a essas operações e sempre em português.
             
             As ações que você pode executar são:
-            - Para Marcas: criar uma nova marca, listar todas as marcas.
-            - Para Modelos: criar um novo modelo, listar todos os modelos.
-            - Para Cores: criar uma nova cor, listar todas as cores.
-            - Para Tipos de Veículo: criar um novo tipo, listar todos os tipos.
-            - Para Veículos: criar um novo veículo, listar todos os veículos em estoque.
+            - Para Marcas: criar uma nova marca, listar todas as marcas, buscar por id.
+            - Para Modelos: criar um novo modelo, listar todos os modelos, buscar por id.
+            - Para Cores: criar uma nova cor, listar todas as cores, buscar por id.
+            - Para Tipos de Veículo: criar um novo tipo, listar todos os tipos, buscar por id.
+            - Para Veículos: criar um novo veículo, listar todos os veículos em estoque, buscar por id.
+
+            Exemplos:
+                - "Busque o veículo com id 1" -> executar BUSCAR_VEICULO com {"idVeiculo": 1}
+                - "Quais veículos existem?" -> executar LISTAR_VEICULOS
+                - "Adicione a marca Fiat" -> executar CRIAR_MARCA com {"nomeMarca": "Fiat"}
             
             Quando lhe pedirem algo fora deste escopo, peça desculpas e explique que sua função se limita a gerenciar o inventário de veículos.
             """;
@@ -170,6 +175,66 @@ public class ChatbotService {
                 )
         );
 
+
+        Map<String, Object> buscarVeiculo = Map.of(
+            "name", Intencao.BUSCAR_VEICULO.toString(),
+            "description", "Busca um veículo pelo seu ID no sistema.",
+            "parameters", Map.of(
+                "type", "object",
+                "properties", Map.of(
+                    "idVeiculo", Map.of(
+                        "type", "integer",
+                        "description", "ID do veículo a ser buscado"
+                    )
+                ),
+                "required", List.of("idVeiculo")
+            )
+        );
+
+
+        Map<String, Object> buscarMarca = Map.of(
+            "name", Intencao.BUSCAR_MARCA.toString(),
+            "description", "Busca uma marca pelo seu ID no sistema.",
+            "parameters", Map.of(
+                "type", "object",
+                "properties", Map.of("idMarca", Map.of("type", "integer", "description", "ID da marca a ser buscada")),
+                "required", List.of("idMarca")
+            )
+        );
+
+        Map<String, Object> buscarModelo = Map.of(
+            "name", Intencao.BUSCAR_MODELO.toString(),
+            "description", "Busca um modelo pelo seu ID no sistema.",
+            "parameters", Map.of(
+                "type", "object",
+                "properties", Map.of("idModelo", Map.of("type", "integer", "description", "ID do modelo a ser buscado")),
+                "required", List.of("idModelo")
+            )
+        );
+
+        Map<String, Object> buscarTipoVeiculo = Map.of(
+            "name", Intencao.BUSCAR_TIPO_VEICULO.toString(),
+            "description", "Busca um tipo de veículo pelo seu ID no sistema.",
+            "parameters", Map.of(
+                "type", "object",
+                "properties", Map.of("idTipoVeiculo", Map.of("type", "integer", "description", "ID do tipo de veículo a ser buscado")),
+                "required", List.of("idTipoVeiculo")
+            )
+        );
+
+        Map<String, Object> buscarCor = Map.of(
+            "name", Intencao.BUSCAR_COR.toString(),
+            "description", "Busca uma cor pelo seu ID no sistema.",
+            "parameters", Map.of(
+                "type", "object",
+                "properties", Map.of("idCor", Map.of("type", "integer", "description", "ID da cor a ser buscada")),
+                "required", List.of("idCor")
+            )
+        );
+
+
+
+
         return Map.of(
                 "contents", List.of(
                         Map.of(
@@ -190,7 +255,12 @@ public class ChatbotService {
                                 listarCores,
                                 criarCor,
                                 listarVeiculos,
-                                criarVeiculo
+                                criarVeiculo,
+                                buscarVeiculo,
+                                buscarMarca,
+                                buscarModelo,
+                                buscarTipoVeiculo,
+                                buscarCor
                         )
                 )
         );
@@ -250,6 +320,11 @@ public class ChatbotService {
             case CRIAR_COR -> criarRespostaParaCriarCor(argumentos);
             case LISTAR_VEICULOS -> criarRespostaParaListarVeiculos();
             case CRIAR_VEICULO -> criarRespostaParaCriarVeiculo(argumentos);
+            case BUSCAR_VEICULO -> criarRespostaParaBuscarVeiculo(argumentos);
+            case BUSCAR_MARCA -> criarRespostaParaBuscarMarca(argumentos);
+            case BUSCAR_MODELO -> criarRespostaParaBuscarModelo(argumentos);
+            case BUSCAR_TIPO_VEICULO -> criarRespostaParaBuscarTipoVeiculo(argumentos);
+            case BUSCAR_COR -> criarRespostaParaBuscarCor(argumentos);
             default -> respostaPadrao;
         };
     }
@@ -309,4 +384,32 @@ public class ChatbotService {
         Long ano = argumentos.path("ano").asLong();
         return new RespostaIA<>(Intencao.CRIAR_VEICULO, new Veiculo(null, preco, quilometragem, disponivel, ano, new Cor(idCor, null), new Modelo(idModelo, null, null), new TipoVeiculo(idTipoVeiculo, null)), null);
     }
-}
+
+
+    private RespostaIA<Veiculo> criarRespostaParaBuscarVeiculo(JsonNode argumentos) {
+        Long idVeiculo = argumentos.path("idVeiculo").asLong();
+        // Retorna um objeto Veiculo apenas com o id (a busca real ficaria no serviço de backend)
+        return new RespostaIA<>(Intencao.BUSCAR_VEICULO, new Veiculo(idVeiculo, null, null, false, null, null, null, null), null);
+    }
+
+
+    private RespostaIA<Marca> criarRespostaParaBuscarMarca(JsonNode argumentos) {
+    Long idMarca = argumentos.path("idMarca").asLong();
+    return new RespostaIA<>(Intencao.BUSCAR_MARCA, new Marca(idMarca, null), null);
+    }
+
+    private RespostaIA<Modelo> criarRespostaParaBuscarModelo(JsonNode argumentos) {
+        Long idModelo = argumentos.path("idModelo").asLong();
+        return new RespostaIA<>(Intencao.BUSCAR_MODELO, new Modelo(idModelo, null, null), null);
+    }
+
+    private RespostaIA<TipoVeiculo> criarRespostaParaBuscarTipoVeiculo(JsonNode argumentos) {
+        Long idTipoVeiculo = argumentos.path("idTipoVeiculo").asLong();
+        return new RespostaIA<>(Intencao.BUSCAR_TIPO_VEICULO, new TipoVeiculo(idTipoVeiculo, null), null);
+    }
+
+    private RespostaIA<Cor> criarRespostaParaBuscarCor(JsonNode argumentos) {
+        Long idCor = argumentos.path("idCor").asLong();
+        return new RespostaIA<>(Intencao.BUSCAR_COR, new Cor(idCor, null), null);
+    }
+}   

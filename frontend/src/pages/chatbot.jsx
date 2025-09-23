@@ -27,6 +27,8 @@ function Chatbot() {
 
       let respostaText = "";
 
+      console.log("Resposta do backend:", data);
+
       switch (data.intencao) {
         case "LISTAR_MARCAS": {
           const marcasRes = await fetch("http://localhost:8080/marca");
@@ -90,17 +92,87 @@ function Chatbot() {
           respostaText = "Cor cadastrada com sucesso!";
           break;
         }
-        case "LISTAR_VEICULOS": {
-          const veiculosRes = await fetch("http://localhost:8080/veiculo");
-          const veiculos = await veiculosRes.json();
-          respostaText = veiculos
-            .map(
-              v =>
-                `${v.id} - ${v.modelo?.marca.nome ?? ""} - ${v.modelo?.nome ?? ""} - ${v.cor?.nome ?? ""} - ${v.tipoVeiculo?.nome ?? ""}`
-            )
-            .join("\n");
+        case "BUSCAR_VEICULO": {
+          const veiculoId = data.dados?.id; // ou data.dados?.id, depende do que backend chatbot envia
+          if (!veiculoId) {
+            respostaText = "ID do veículo não informado.";
+            break;
+          }
+          const veiculosRes = await fetch(`http://localhost:8080/veiculo/id?id=${veiculoId}`);
+          if (!veiculosRes.ok) {
+            respostaText = `Veículo com ID ${veiculoId} não encontrado.`;
+            break;
+          }
+          const veiculo = await veiculosRes.json();
+          respostaText = `${veiculo.id} - ${veiculo.modelo?.marca?.nome ?? ""} - ${veiculo.modelo?.nome ?? ""} - ${veiculo.cor?.nome ?? ""} - ${veiculo.tipoVeiculo?.nome ?? ""}`;
           break;
         }
+
+        case "BUSCAR_MARCA": {
+          const marcaId = data.dados?.id;
+          if (!marcaId) {
+            respostaText = "ID da marca não informado.";
+            break;
+          }
+          const marcaRes = await fetch(`http://localhost:8080/marca/id?id=${marcaId}`);
+          if (!marcaRes.ok) {
+            respostaText = `Marca com ID ${marcaId} não encontrada.`;
+            break;
+          }
+          const marca = await marcaRes.json();
+          respostaText = `${marca.id} - ${marca.nome}`;
+          break;
+        }
+
+        case "BUSCAR_MODELO": {
+          const modeloId = data.dados?.id;
+          if (!modeloId) {
+            respostaText = "ID do modelo não informado.";
+            break;
+          }
+          const modeloRes = await fetch(`http://localhost:8080/modelo/id?id=${modeloId}`);
+          if (!modeloRes.ok) {
+            respostaText = `Modelo com ID ${modeloId} não encontrado.`;
+            break;
+          }
+          const modelo = await modeloRes.json();
+          respostaText = `${modelo.id} - ${modelo.nome} - ${modelo.marca?.nome ?? ""}`;
+          break;
+        }
+
+        case "BUSCAR_TIPO_VEICULO": {
+          const tipoId = data.dados?.id;
+          if (!tipoId) {
+            respostaText = "ID do tipo de veículo não informado.";
+            break;
+          }
+          const tipoRes = await fetch(`http://localhost:8080/tipo-veiculo/id?id=${tipoId}`);
+          if (!tipoRes.ok) {
+            respostaText = `Tipo de veículo com ID ${tipoId} não encontrado.`;
+            break;
+          }
+          const tipo = await tipoRes.json();
+          respostaText = `${tipo.id} - ${tipo.nome}`;
+          break;
+        }
+
+        case "BUSCAR_COR": {
+          const corId = data.dados?.id;
+          if (!corId) {
+            respostaText = "ID da cor não informada.";
+            break;
+          }
+          const corRes = await fetch(`http://localhost:8080/cor/id?id=${corId}`);
+          if (!corRes.ok) {
+            respostaText = `Cor com ID ${corId} não encontrada.`;
+            break;
+          }
+          const cor = await corRes.json();
+          respostaText = `${cor.id} - ${cor.nome}`;
+          break;
+        }
+
+      
         case "CRIAR_VEICULO": {
           await fetch("http://localhost:8080/veiculo/cadastrar", {
             method: "POST",
