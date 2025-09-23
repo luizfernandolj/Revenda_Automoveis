@@ -92,6 +92,12 @@ function Chatbot() {
           respostaText = "Cor cadastrada com sucesso!";
           break;
         }
+        case "LISTAR_VEICULOS": {
+          const veiculosRes = await fetch("http://localhost:8080/veiculo");
+          const veiculos = await veiculosRes.json();
+          respostaText = veiculos.map(veiculo => `${veiculo.id} - ${veiculo.modelo?.marca?.nome ?? ""} - ${veiculo.modelo?.nome ?? ""} - ${veiculo.cor?.nome ?? ""} - ${veiculo.tipoVeiculo?.nome ?? ""} - ${veiculo.quilometragem ?? ""} km - ${veiculo.preco ?? ""} R$ - ${veiculo.disponivel ? "" : "não"} está disponivel`).join("\n");
+          break;
+        }
         case "BUSCAR_VEICULO": {
           const veiculoId = data.dados?.id; // ou data.dados?.id, depende do que backend chatbot envia
           if (!veiculoId) {
@@ -104,7 +110,7 @@ function Chatbot() {
             break;
           }
           const veiculo = await veiculosRes.json();
-          respostaText = `${veiculo.id} - ${veiculo.modelo?.marca?.nome ?? ""} - ${veiculo.modelo?.nome ?? ""} - ${veiculo.cor?.nome ?? ""} - ${veiculo.tipoVeiculo?.nome ?? ""}`;
+          respostaText = `${veiculo.id} - ${veiculo.modelo?.marca?.nome ?? ""} - ${veiculo.modelo?.nome ?? ""} - ${veiculo.cor?.nome ?? ""} - ${veiculo.tipoVeiculo?.nome ?? ""} - ${veiculo.quilometragem ?? ""} km - ${veiculo.preco ?? ""} R$ - ${veiculo.disponivel ? "" : "não"} está disponivel`;
           break;
         }
 
