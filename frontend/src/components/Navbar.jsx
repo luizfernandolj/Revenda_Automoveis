@@ -29,6 +29,7 @@ return (
             <div></div>
         </div>
         <ul className={`nav-links ${navActive ? 'active' : ''}`}>
+          <li><Link to="/chatbot">Chatbot</Link></li>
             <li className={`dropdown ${dropdownStates[0] ? 'active' : ''}`}>
                 <a href="#!" onClick={() => toggleDropdown(0)}>Cadastros</a>
                 <ul className="dropdown-menu">

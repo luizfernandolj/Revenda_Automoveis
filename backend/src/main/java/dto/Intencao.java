@@ -16,6 +16,7 @@ public enum Intencao {
     // Ações para Cor
     CRIAR_COR,
     LISTAR_CORES,
+    BUSCAR_COR,
 
     // Ações para Veículo
     CRIAR_VEICULO,

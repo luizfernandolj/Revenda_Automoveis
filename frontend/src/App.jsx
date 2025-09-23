@@ -5,6 +5,7 @@ import Marcas from './pages/Marcas';
 import Modelo from './pages/Modelo';
 import TipoVeiculo from './pages/TipoVeiculo';
 import Veiculos from './pages/Veiculos';
+import Chatbot from './pages/chatbot';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/modelo" element={<Modelo />} />
         <Route path="/tipo-veiculo" element={<TipoVeiculo />} />
         <Route path="/veiculo" element={<Veiculos />} />
+        <Route path="/chatbot" element={<Chatbot />} />
       </Routes>
     </Router>
   );

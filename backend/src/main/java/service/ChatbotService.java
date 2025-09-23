@@ -1,11 +1,5 @@
 package service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.Intencao;
-import dto.RespostaIA;
-import model.*;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,6 +7,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import dto.Intencao;
+import dto.RespostaIA;
+import model.Cor;
+import model.Marca;
+import model.Modelo;
+import model.TipoVeiculo;
+import model.Veiculo;
 
 public class ChatbotService {
     private final String geminiApiUrl;
@@ -24,8 +29,8 @@ public class ChatbotService {
     private final ObjectMapper objectMapper;
 
     public ChatbotService() {
-        geminiApiUrl = System.getenv("GEMINI_API_URL");
-        geminiApiKey = System.getenv("GEMINI_API_KEY");
+        geminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+        geminiApiKey = "AIzaSyAaScJURSqg6E7Q-D8VOG9a0wZTatXmmSU";
 
         instrucaoInicial = """
             Você é um assistente virtual para um sistema de gerenciamento de uma revenda de automóveis.
